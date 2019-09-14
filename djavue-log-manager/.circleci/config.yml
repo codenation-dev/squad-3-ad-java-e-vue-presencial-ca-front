@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    filters:
+        branchs:
+          only: master
+    docker:
+      - image: circleci/node:10.16.3
+    steps:
+      - checkout
+      - run:
+          name: install-dependencies
+          command: npm install
+      - run:
+          name: lint
+          command: npm run lint -- --mode production
+      - run:
+          name: build
+          command: npm run build
+      - run:
+          name: deploy
+          command: ./node_modules/.bin/firebase deploy --token=$firebase_deploy_token --project=$firebase_project

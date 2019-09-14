@@ -2,6 +2,10 @@ import axios from "axios";
 // import { domain } from "env";
 const domain = "";
 
+/* exemplo api:
+https://central-erros-codenation3.herokuapp.com/users
+*/
+
 export default {
   namespaced: true,
   state: {

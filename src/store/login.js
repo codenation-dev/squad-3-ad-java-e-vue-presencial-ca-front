@@ -1,10 +1,5 @@
 import axios from "axios";
-// import { domain } from "env";
-const domain = "";
-
-/* exemplo api:
-https://central-erros-codenation3.herokuapp.com/users
-*/
+import { domain } from "env";
 
 export default {
   namespaced: true,
@@ -14,14 +9,15 @@ export default {
   actions: {
     async login({ commit }, form) {
       const headers = {
-        Authorization: "Basic dWFhY2xpZW50OnVhYXNlY3JldA=="
+        Authorization: "Basic YWRtaW46YWRtaW4="
       };
 
       const { data } = await axios.post(
-        `${domain}/oauth/token`,
+        `${domain}/oauth/token?grant_type=password` + "&username=" + form.username + "&password=" + form.password,
         { ...form, grant_type: "password" },
         { headers }
       );
+
       commit("save_token", data);
     },
     async signup(context, form) {

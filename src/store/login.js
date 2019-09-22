@@ -12,7 +12,6 @@ export default {
         Authorization: "Basic YWRtaW46YWRtaW4="
       };
 
-      debugger;
       const { data } = await axios.post(
         `${domain}/oauth/token?grant_type=password` + "&username=" + form.username + "&password=" + form.password,
         { ...form, grant_type: "password" },

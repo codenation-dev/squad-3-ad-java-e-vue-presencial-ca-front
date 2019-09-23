@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <nav-bar v-show="toolbar" />
     <transition name="fade">
       <router-view v-if="show"></router-view>
     </transition>
@@ -7,6 +8,10 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
+import NavBar from "@/components/Orgs/NavBar.vue";
+
 export default {
   name: "app",
   data() {
@@ -16,6 +21,12 @@ export default {
   },
   mounted() {
     this.show = true;
+  },
+  computed: {
+    ...mapGetters("workspace", ["toolbar"])
+  },
+  components: {
+    NavBar
   }
 };
 </script>

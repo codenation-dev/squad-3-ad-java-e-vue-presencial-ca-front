@@ -35,10 +35,5 @@ export default {
       state.oauth = oauth;
     }
   },
-  getters: {
-    user(state) {
-      const [, body] = state.oauth.access_token.split(".");
-      return JSON.parse(atob(body));
-    }
-  }
+  getters: {}
 };

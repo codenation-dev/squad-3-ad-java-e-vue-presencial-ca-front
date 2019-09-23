@@ -1,8 +1,5 @@
 <template>
-  <card-vue
-    title="Login"
-    subtitle="Insira seu usuário e senha para acessar o sistema"
-  >
+  <card-vue title="Login" subtitle="Insira seu usuário e senha para acessar o sistema">
     <form class="form-group">
       <input-form-vue
         id="username"
@@ -19,20 +16,10 @@
         icon="key"
       />
       <div class="d-flex justify-content-around">
-        <checkbox-vue
-          id="keepConnected"
-          @onChange="setKeepConnected"
-          label="Manter conectado"
-        ></checkbox-vue>
-        <router-link :to="{ name: 'forgotPassword' }"
-          >Esqueceu sua senha?</router-link
-        >
+        <checkbox-vue id="keepConnected" @onChange="setKeepConnected" label="Manter conectado"></checkbox-vue>
+        <router-link :to="{ name: 'forgotPassword' }">Esqueceu sua senha?</router-link>
       </div>
-      <button-vue
-        :disabled="$v.form.$invalid"
-        @click="submit(form)"
-        text="Login"
-      />
+      <button-vue :disabled="$v.form.$invalid" @click="submit(form)" text="Login" />
       <p style="padding-top: 15px;">
         Não tem cadastro?
         <router-link :to="{ name: 'signup' }">Cadastre-se agora</router-link>
@@ -80,6 +67,7 @@ export default {
       try {
         await this.login(form);
         this.$router.push({ name: "workspace" });
+        this.$parent.showToolbar();
       } catch ({ response }) {
         this.error = response.data.message || response.data.errors;
       }

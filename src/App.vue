@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <nav-bar v-show="toolbar" />
     <transition name="fade">
       <router-view v-if="show"></router-view>
     </transition>
@@ -7,15 +8,29 @@
 </template>
 
 <script>
+import NavBar from "@/components/Orgs/NavBar.vue";
+
 export default {
   name: "app",
   data() {
     return {
-      show: false
+      show: false,
+      toolbar: false
     };
   },
   mounted() {
     this.show = true;
+  },
+  methods: {
+    showToolbar() {
+      this.toolbar = true;
+    },
+    hideToolbar() {
+      this.toolbar = false;
+    }
+  },
+  components: {
+    NavBar
   }
 };
 </script>

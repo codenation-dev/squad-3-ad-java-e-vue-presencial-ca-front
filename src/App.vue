@@ -23,20 +23,6 @@ export default {
 <style lang="scss">
 @import "@/theme/bootstrap.scss";
 
-body {
-  background: #8e0e00; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #1f1c18,
-    #8e0e00
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #1f1c18,
-    #8e0e00
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
 .fade-enter-active {
   transition: opacity 0.3s ease;
 }

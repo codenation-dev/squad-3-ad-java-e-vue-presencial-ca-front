@@ -1,3 +1,6 @@
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import Vue from "vue";
 import Vuelidate from "vuelidate";
 import VueRouter from "vue-router";

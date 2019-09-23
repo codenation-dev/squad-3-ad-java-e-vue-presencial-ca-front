@@ -11,12 +11,15 @@ export default {
       const headers = {
         Authorization: "Basic YWRtaW46YWRtaW4="
       };
+      const getTokenURL = `${domain}/oauth/token`;
+      const body = null;
+      const params = {
+        grant_type: "password",
+        username: form.username,
+        password: form.password
+      };
 
-      const { data } = await axios.post(
-        `${domain}/oauth/token?grant_type=password` + "&username=" + form.username + "&password=" + form.password,
-        { ...form, grant_type: "password" },
-        { headers }
-      );
+      const { data } = await axios.post(getTokenURL, body, { headers, params });
 
       commit("save_token", data);
     },

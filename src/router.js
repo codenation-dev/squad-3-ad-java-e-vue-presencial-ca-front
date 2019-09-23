@@ -58,6 +58,15 @@ export default new Router({
       name: "users",
       path: "/users",
       component: Users
+      /*
+      children: [
+        {
+          name: "user-edit",
+          path: "/edit/:id",
+          props: true,
+          component: User
+        }
+      ]*/
     }
   ]
 });

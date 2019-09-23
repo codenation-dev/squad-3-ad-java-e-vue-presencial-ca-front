@@ -8,26 +8,22 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import NavBar from "@/components/Orgs/NavBar.vue";
 
 export default {
   name: "app",
   data() {
     return {
-      show: false,
-      toolbar: false
+      show: false
     };
   },
   mounted() {
     this.show = true;
   },
-  methods: {
-    showToolbar() {
-      this.toolbar = true;
-    },
-    hideToolbar() {
-      this.toolbar = false;
-    }
+  computed: {
+    ...mapGetters("workspace", ["toolbar"])
   },
   components: {
     NavBar

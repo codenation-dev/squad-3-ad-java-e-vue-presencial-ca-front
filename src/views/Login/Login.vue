@@ -63,11 +63,12 @@ export default {
   },
   methods: {
     ...mapActions("login", ["login"]),
+    ...mapActions("workspace", ["showToolbar"]),
     async submit(form) {
       try {
         await this.login(form);
         this.$router.push({ name: "workspace" });
-        this.$parent.showToolbar();
+        this.showToolbar();
       } catch ({ response }) {
         this.error = response.data.message || response.data.errors;
       }

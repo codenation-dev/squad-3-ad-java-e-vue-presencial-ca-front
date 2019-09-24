@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div>
     Nome:
     <input type="text" data-test="nome" v-model="form.name" />
@@ -6,6 +7,37 @@
       {{ dataTestButton }}
     </button>
   </div>
+=======
+  <form @submit.prevent="submit(form)">
+    <div class="field">
+      <input class="input" v-model="form.title" placeholder="title" />
+    </div>
+    <div class="field">
+      <input class="input" v-model="form.details" placeholder="details" />
+    </div>
+    <div class="field">
+      <select>
+        <option value="0">Fonte do log:</option>
+        <option value="1">Fonte do log 01</option>
+        <option value="2">Fonte do log 02</option>
+        <option value="3">Fonte do log 03</option>
+      </select>
+    </div>
+    <div class="field">
+      <select>
+        <option value="0">Log level:</option>
+        <option value="1">INFO</option>
+        <option value="2">TRACE</option>
+        <option value="3">DEBUG</option>
+        <option value="4">WARNING</option>
+        <option value="5">ERROR</option>
+        <option value="6">FATAL</option>
+      </select>
+    </div>
+
+    <button class="button">Cadastrar</button>
+  </form>
+>>>>>>> Codenation. Projeto final: Mock dos formulários das entidades.
 </template>
 
 <script>
@@ -18,7 +50,9 @@ export default {
     return {
       form: {
         id: "idlog01",
-        name: "nmlog01"
+        title: "titlelog01",
+        details: "",
+        date: ""
       }
     };
   },

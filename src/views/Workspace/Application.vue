@@ -1,11 +1,19 @@
 <template>
-  <div>
-    Nome:
-    <input type="text" data-test="nome" v-model="form.name" />
-    <button :data-test="dataTestButton" @click="submit(form, index)">
-      {{ dataTestButton }}
-    </button>
-  </div>
+  <form @submit.prevent="submit(form)">
+    <div class="field">
+      <input class="input" v-model="form.name" placeholder="Nome" />
+    </div>
+    <div class="field">
+      <select>
+        <option value="0">Empresa:</option>
+        <option value="1">Empresa 01</option>
+        <option value="2">Empresa 02</option>
+        <option value="3">Empresa 03</option>
+      </select>
+    </div>
+
+    <button class="button">Cadastrar</button>
+  </form>
 </template>
 
 <script>

@@ -6,9 +6,7 @@
     <div class="field">
       <select>
         <option value="0">Empresa:</option>
-        <option value="1">Empresa 01</option>
-        <option value="2">Empresa 02</option>
-        <option value="3">Empresa 03</option>
+        <option v-for="company in companies" :key="company.id" :value="company.id">{{company.name}}</option>
       </select>
     </div>
 
@@ -17,6 +15,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
 import { domain } from "env";
 import router from "@/router";
@@ -34,13 +33,13 @@ export default {
     index: Number
   },
   computed: {
-    //...mapGetters(["contacts"]),
+    ...mapGetters("companies", ["companies"]),
     dataTestButton() {
       return parseInt(this.index) > -1 ? "salvar" : "criar";
     }
   },
   methods: {
-    //...mapActions(["createContact", "updateContact"]),
+    ...mapActions("companies", ["loadAllCompanies"]),
     submit(form, index) {
       if (parseInt(this.index) > -1) {
         this.updateContact({ form, index });
@@ -57,7 +56,7 @@ export default {
     }
   },
   created() {
-    //this.load();
+    this.loadAllCompanies();
     if (parseInt(this.index) > -1) {
       let contact = this.contacts[this.index];
 

@@ -9,11 +9,17 @@ export default {
     },
     hideToolbar: context => {
       context.commit("SET_TOOLBAR", false);
+    },
+    logout({ commit }) {
+      commit("DELETE_TOKEN");
     }
   },
   mutations: {
     SET_TOOLBAR(state, value) {
       state.toolbar = value;
+    },
+    DELETE_TOKEN(state) {
+      state.oauth = {};
     }
   },
   getters: {

@@ -16,10 +16,9 @@
     <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">
-            Home
-            <span class="sr-only">(página atual)</span>
-          </a>
+          <router-link class="nav-link" :to="{ name: 'workspace' }">
+            <span>Home</span>
+          </router-link>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -34,16 +33,19 @@
             <span>Cadastro</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <router-link class="dropdown-item" :to="{ name: 'companies' }">
+            <router-link class="dropdown-item" :to="{ name: 'company-list' }">
               <span>Empresa</span>
             </router-link>
-            <router-link class="dropdown-item" :to="{ name: 'users' }">
+            <router-link class="dropdown-item" :to="{ name: 'user-list' }">
               <span>Usuário</span>
             </router-link>
-            <router-link class="dropdown-item" :to="{ name: 'applications' }">
+            <router-link class="dropdown-item" :to="{ name: 'application-list' }">
               <span>Aplicação</span>
             </router-link>
-            <router-link class="dropdown-item" :to="{ name: 'logs' }">
+            <router-link class="dropdown-item" :to="{ name: 'log-source-list' }">
+              <span>Fonte de logs</span>
+            </router-link>
+            <router-link class="dropdown-item" :to="{ name: 'log-list' }">
               <span>Log</span>
             </router-link>
           </div>
@@ -63,8 +65,12 @@
           <span>**username</span>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Perfil</a>
-          <a class="dropdown-item" href="#">Sair</a>
+          <router-link class="dropdown-item" :to="{ name: 'user-edit', params: { id: 'logged'} }">
+            <span>Perfil</span>
+          </router-link>
+          <router-link class="dropdown-item" :to="{ name: 'login' }">
+            <span>Sair</span>
+          </router-link>
         </div>
       </div>
     </div>

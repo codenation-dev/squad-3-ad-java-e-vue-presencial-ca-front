@@ -1,5 +1,8 @@
 <template>
   <div>
+    <RouterLink :to="{name: 'user-create'}">
+      <span>Adicionar usuário</span>
+    </RouterLink>
     <p v-for="user in users" :key="user.id">
       <span>Username: {{user.username}}</span>
       <span>,Name: {{user.name}}</span>

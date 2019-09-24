@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     ...mapActions("login", ["login"]),
-    ...mapActions("workspace", ["showToolbar"]),
+    ...mapActions("workspace", ["showToolbar", "hideToolbar"]),
     async submit(form) {
       try {
         await this.login(form);
@@ -82,6 +82,9 @@ export default {
     setKeepConnected(value) {
       this.form.keepConnected = value;
     }
+  },
+  created() {
+    this.hideToolbar();
   },
   components: {
     CheckboxVue,

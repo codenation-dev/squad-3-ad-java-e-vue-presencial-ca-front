@@ -6,6 +6,7 @@ import ForgotPassword from "@/views/Login/ForgotPassword.vue";
 import Workspace from "@/views/Workspace/Workspace.vue";
 import Applications from "@/views/Workspace/Applications.vue";
 import Companies from "@/views/Workspace/Companies.vue";
+import Companie from "@/views/Workspace/Companie.vue";
 import Logs from "@/views/Workspace/Logs.vue";
 import Users from "@/views/Workspace/Users.vue";
 
@@ -48,6 +49,17 @@ export default new Router({
       name: "companies",
       path: "/companies",
       component: Companies
+    },
+    {
+      name: "company-create",
+      path: "/company-create",
+      component: Companie
+    },
+    {
+      name: "company-edit",
+      path: "/company-edit/:id",
+      props: true,
+      component: Companie
     },
     {
       name: "logs",

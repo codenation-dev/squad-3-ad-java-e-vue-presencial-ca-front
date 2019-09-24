@@ -1,13 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div>
-    Nome:
-    <input type="text" data-test="nome" v-model="form.name" />
-    <button :data-test="dataTestButton" @click="submit(form, index)">
-      {{ dataTestButton }}
-    </button>
-  </div>
-=======
   <form @submit.prevent="submit(form)">
     <div class="field">
       <input class="input" v-model="form.title" placeholder="title" />
@@ -37,7 +28,6 @@
 
     <button class="button">Cadastrar</button>
   </form>
->>>>>>> Codenation. Projeto final: Mock dos formulários das entidades.
 </template>
 
 <script>

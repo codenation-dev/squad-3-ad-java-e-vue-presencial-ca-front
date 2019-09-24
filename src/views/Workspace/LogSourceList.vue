@@ -1,11 +1,14 @@
 <template>
   <div>
-    <RouterLink :to="{name: 'log-source-create'}">
+    <RouterLink :to="{ name: 'log-source-create' }">
       <span>Adicionar fonte de logs</span>
     </RouterLink>
     <p v-for="log in logs" :key="log.id">
-      <span>Id: {{log.id}}</span>
-      <RouterLink :to="{name: 'log-source-edit', params: { id: log.id}}" data-test="editar">
+      <span>Id: {{ log.id }}</span>
+      <RouterLink
+        :to="{ name: 'log-source-edit', params: { id: log.id } }"
+        data-test="editar"
+      >
         <span>Editar</span>
       </RouterLink>
       <button data-test="apagar" @click="deleteContact(log.id)">

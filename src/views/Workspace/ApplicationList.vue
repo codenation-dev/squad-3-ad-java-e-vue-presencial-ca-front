@@ -1,13 +1,13 @@
 <template>
   <div>
-    <RouterLink :to="{name: 'application-create'}">
+    <RouterLink :to="{ name: 'application-create' }">
       <span>Adicionar aplicação</span>
     </RouterLink>
     <p v-for="application in applications" :key="application.id">
-      <span>Id: {{application.id}}</span>
-      <span>Name: {{application.name}}</span>
+      <span>Id: {{ application.id }}</span>
+      <span>Name: {{ application.name }}</span>
       <RouterLink
-        :to="{name: 'application-edit', params: { id: application.id}}"
+        :to="{ name: 'application-edit', params: { id: application.id } }"
         data-test="editar"
       >
         <span>Editar</span>

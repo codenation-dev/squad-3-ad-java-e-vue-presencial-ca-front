@@ -2,7 +2,9 @@
   <div>
     Nome:
     <input type="text" data-test="nome" v-model="form.name" />
-    <button :data-test="dataTestButton" @click="submit(form, index)">{{dataTestButton}}</button>
+    <button :data-test="dataTestButton" @click="submit(form, index)">
+      {{ dataTestButton }}
+    </button>
   </div>
 </template>
 

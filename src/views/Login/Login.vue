@@ -1,6 +1,11 @@
 <template>
-  <card-vue title="Login" subtitle="Insira seu usuário e senha para acessar o sistema">
+  <card-vue
+    title="Login"
+    subtitle="Insira seu usuário e senha para acessar o sistema"
+  >
     <form class="form-group">
+      <alert-vue v-if="error" :text="error" type="alert-danger" />
+
       <input-form-vue
         id="username"
         :onInput="setUsername"
@@ -16,10 +21,20 @@
         icon="key"
       />
       <div class="d-flex justify-content-around">
-        <checkbox-vue id="keepConnected" @onChange="setKeepConnected" label="Manter conectado"></checkbox-vue>
-        <router-link :to="{ name: 'forgotPassword' }">Esqueceu sua senha?</router-link>
+        <checkbox-vue
+          id="keepConnected"
+          @onChange="setKeepConnected"
+          label="Manter conectado"
+        ></checkbox-vue>
+        <router-link :to="{ name: 'forgotPassword' }"
+          >Esqueceu sua senha?</router-link
+        >
       </div>
-      <button-vue :disabled="$v.form.$invalid" @click="submit(form)" text="Login" />
+      <button-vue
+        :disabled="$v.form.$invalid"
+        @click="submit(form)"
+        text="Login"
+      />
       <p style="padding-top: 15px;">
         Não tem cadastro?
         <router-link :to="{ name: 'signup' }">Cadastre-se agora</router-link>
@@ -34,8 +49,9 @@ import { required } from "vuelidate/lib/validators";
 
 import CheckboxVue from "@/components/Atoms/Checkbox.vue";
 import CardVue from "@/components/Orgs/Card.vue";
-import InputFormVue from "../../components/Mols/InputForm.vue";
-import ButtonVue from "../../components/Atoms/Button.vue";
+import InputFormVue from "@/components/Mols/InputForm.vue";
+import ButtonVue from "@/components/Atoms/Button.vue";
+import AlertVue from "@/components/Atoms/Alert.vue";
 
 export default {
   data() {
@@ -66,9 +82,16 @@ export default {
     ...mapActions("workspace", ["showToolbar", "hideToolbar"]),
     async submit(form) {
       try {
-        await this.login(form);
-        this.$router.push({ name: "workspace" });
-        this.showToolbar();
+        const res = await this.login(form);
+
+        this.error = null;
+
+        if (res && res.isAxiosError) {
+          this.error = "Usuário e/ou senha inválido(s)";
+        } else {
+          this.$router.push({ name: "workspace" });
+          this.showToolbar();
+        }
       } catch ({ response }) {
         this.error = response.data.message || response.data.errors;
       }
@@ -90,7 +113,8 @@ export default {
     CheckboxVue,
     CardVue,
     InputFormVue,
-    ButtonVue
+    ButtonVue,
+    AlertVue
   }
 };
 </script>

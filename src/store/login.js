@@ -19,9 +19,15 @@ export default {
         password: form.password
       };
 
-      const { data } = await axios.post(getTokenURL, body, { headers, params });
-
-      commit("save_token", data);
+      try {
+        const { data } = await axios.post(getTokenURL, body, {
+          headers,
+          params
+        });
+        commit("save_token", data);
+      } catch (error) {
+        return error;
+      }
     },
     async signup(context, form) {
       await axios.post(`${domain}/users`, form);

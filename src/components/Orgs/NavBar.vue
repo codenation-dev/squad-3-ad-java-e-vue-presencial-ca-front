@@ -33,16 +33,19 @@
             <span>Cadastro</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <router-link class="dropdown-item" :to="{ name: 'companies' }">
+            <router-link class="dropdown-item" :to="{ name: 'company-list' }">
               <span>Empresa</span>
             </router-link>
-            <router-link class="dropdown-item" :to="{ name: 'users' }">
+            <router-link class="dropdown-item" :to="{ name: 'user-list' }">
               <span>Usuário</span>
             </router-link>
-            <router-link class="dropdown-item" :to="{ name: 'applications' }">
+            <router-link class="dropdown-item" :to="{ name: 'application-list' }">
               <span>Aplicação</span>
             </router-link>
-            <router-link class="dropdown-item" :to="{ name: 'logs' }">
+            <router-link class="dropdown-item" :to="{ name: 'log-source-list' }">
+              <span>Fonte de logs</span>
+            </router-link>
+            <router-link class="dropdown-item" :to="{ name: 'log-list' }">
               <span>Log</span>
             </router-link>
           </div>

@@ -15,8 +15,8 @@ export default {
   data() {
     return {
       form: {
-        id: "idcompany01",
-        name: "idcompany01"
+        id: "idlog01",
+        name: "nmlog01"
       }
     };
   },

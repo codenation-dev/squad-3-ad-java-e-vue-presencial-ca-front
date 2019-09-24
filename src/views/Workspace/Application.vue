@@ -1,14 +1,21 @@
 <template>
-  <div>
-    Nome:
-    <input type="text" data-test="nome" v-model="form.name" />
-    <button :data-test="dataTestButton" @click="submit(form, index)">
-      {{ dataTestButton }}
-    </button>
-  </div>
+  <form @submit.prevent="submit(form)">
+    <div class="field">
+      <input class="input" v-model="form.name" placeholder="Nome" />
+    </div>
+    <div class="field">
+      <select>
+        <option value="0">Empresa:</option>
+        <option v-for="company in companies" :key="company.id" :value="company.id">{{company.name}}</option>
+      </select>
+    </div>
+
+    <button class="button">Cadastrar</button>
+  </form>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
 import { domain } from "env";
 import router from "@/router";
@@ -26,13 +33,13 @@ export default {
     index: Number
   },
   computed: {
-    //...mapGetters(["contacts"]),
+    ...mapGetters("companies", ["companies"]),
     dataTestButton() {
       return parseInt(this.index) > -1 ? "salvar" : "criar";
     }
   },
   methods: {
-    //...mapActions(["createContact", "updateContact"]),
+    ...mapActions("companies", ["loadAllCompanies"]),
     submit(form, index) {
       if (parseInt(this.index) > -1) {
         this.updateContact({ form, index });
@@ -49,7 +56,7 @@ export default {
     }
   },
   created() {
-    //this.load();
+    this.loadAllCompanies();
     if (parseInt(this.index) > -1) {
       let contact = this.contacts[this.index];
 

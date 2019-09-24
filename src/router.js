@@ -124,6 +124,10 @@ export default new Router({
       path: "/user-edit/:id",
       props: true,
       component: User
+    },
+    {
+      path: "/**",
+      redirect: "/login"
     }
   ]
 });

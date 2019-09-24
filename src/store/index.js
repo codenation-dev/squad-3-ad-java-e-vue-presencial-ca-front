@@ -3,6 +3,8 @@ import Vuex from "vuex";
 import VuexPersistence from "vuex-persist";
 import login from "./login";
 import workspace from "./workspace";
+import userTypes from "./userTypes";
+import companies from "./companies";
 
 Vue.use(Vuex);
 
@@ -12,6 +14,8 @@ export default new Vuex.Store({
   ],
   modules: {
     login,
-    workspace
+    workspace,
+    userTypes,
+    companies
   }
 });

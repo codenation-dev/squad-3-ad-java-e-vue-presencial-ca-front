@@ -6,7 +6,9 @@
     <div class="field">
       <select>
         <option value="0">Empresa:</option>
-        <option v-for="company in companies" :key="company.id" :value="company.id">{{company.name}}</option>
+        <option v-for="company in companies" :key="company.id" :value="company.id">
+          <span>{{ company.name }}</span>
+        </option>
       </select>
     </div>
 

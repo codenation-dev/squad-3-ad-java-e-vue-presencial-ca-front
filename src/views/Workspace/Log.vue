@@ -13,7 +13,8 @@
           v-for="logSource in logSources"
           :key="logSource.id"
           :value="logSource.id"
-        >{{logSource.name}}</option>
+          >{{ logSource.name }}</option
+        >
       </select>
     </div>
     <div class="field">
@@ -23,7 +24,8 @@
           v-for="levelLog in levelLogs"
           :key="levelLog.id"
           :value="levelLog.id"
-        >{{levelLog.name}}</option>
+          >{{ levelLog.name }}</option
+        >
       </select>
     </div>
 

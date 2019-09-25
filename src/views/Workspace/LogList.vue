@@ -5,7 +5,10 @@
     </RouterLink>
     <p v-for="log in logs" :key="log.id">
       <span>Id: {{ log.id }}</span>
-      <RouterLink :to="{ name: 'log-edit', params: { id: log.id } }" data-test="editar">
+      <RouterLink
+        :to="{ name: 'log-edit', params: { id: log.id } }"
+        data-test="editar"
+      >
         <span>Editar</span>
       </RouterLink>
       <button data-test="apagar" @click="deleteContact(log.id)">

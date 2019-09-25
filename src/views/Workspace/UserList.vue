@@ -8,7 +8,10 @@
       <span>,Name: {{ user.name }}</span>
       <span>,Email: {{ user.email }}</span>
       <span>,Empresa: {{ user.company }}</span>
-      <RouterLink :to="{ name: 'user-edit', params: { id: user.id } }" data-test="editar">
+      <RouterLink
+        :to="{ name: 'user-edit', params: { id: user.id } }"
+        data-test="editar"
+      >
         <span>Editar</span>
       </RouterLink>
       <button data-test="apagar" @click="deleteContact(user.id)">

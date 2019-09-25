@@ -34,11 +34,11 @@ export default {
     }
   },
   mutations: {
-    CREATE_COMPANY(state, form) {
+    CREATE_COMPANY(/*state, form*/) {
       //chamar api
       alert("CREATE_COMPANY");
     },
-    READ_COMPANY(state, id) {
+    READ_COMPANY(/*state, id*/) {
       //chamar api
       alert("READ_COMPANY");
     },
@@ -49,11 +49,11 @@ export default {
         { id: "3", name: "Empresa 03" }
       ];
     },
-    UPDATE_COMPANY(state, data) {
+    UPDATE_COMPANY(/*state, data*/) {
       //chamar api
       alert("UPDATE_COMPANY");
     },
-    DELETE_COMPANY(state, id) {
+    DELETE_COMPANY(/*state, id*/) {
       //chamar api
       alert("DELETE_COMPANY");
     }

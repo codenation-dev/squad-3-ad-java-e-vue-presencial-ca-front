@@ -2,14 +2,17 @@
   <button
     :class="className"
     :type="type"
-    :disabled="disabled"
+    :disabled="disabled || isLoading"
     v-on:click="handleClick"
   >
-    {{ text }}
+    <loading-vue v-if="isLoading" />
+    <template v-else>{{ text }}</template>
   </button>
 </template>
 
 <script>
+import LoadingVue from "./Loading";
+
 export default {
   props: {
     type: {
@@ -27,6 +30,10 @@ export default {
     text: {
       type: String,
       default: "Botão"
+    },
+    isLoading: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -35,6 +42,18 @@ export default {
 
       me.$emit("click");
     }
+  },
+  components: {
+    LoadingVue
   }
 };
 </script>
+
+<style lang="css">
+.btn {
+  max-height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+</style>

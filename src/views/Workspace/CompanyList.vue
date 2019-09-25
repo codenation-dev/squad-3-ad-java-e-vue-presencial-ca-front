@@ -4,7 +4,7 @@
       <div class="card-header">Empresas</div>
       <div class="card-body">
         <p class="card-text">
-          <RouterLink :to="{ name: 'company-create', params: { id: '' }  }">
+          <RouterLink :to="{ name: 'company-create', params: { id: '' } }">
             <font-awesome-icon icon="plus" />
             <span style="padding-left: 8px;">Adicionar</span>
           </RouterLink>

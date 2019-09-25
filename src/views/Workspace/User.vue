@@ -7,7 +7,9 @@
         v-model="form.name"
         placeholder="Nome"
       />
-      <span class="help is-danger" v-show="$v.form.name.$invalid">Nome é obrigatório</span>
+      <span class="help is-danger" v-show="$v.form.name.$invalid"
+        >Nome é obrigatório</span
+      >
     </div>
     <div class="field">
       <input
@@ -16,7 +18,9 @@
         v-model="form.email"
         placeholder="Email"
       />
-      <span class="help is-danger" v-show="$v.form.email.$invalid">Email inválido</span>
+      <span class="help is-danger" v-show="$v.form.email.$invalid"
+        >Email inválido</span
+      >
     </div>
     <div class="field">
       <input
@@ -27,7 +31,9 @@
         autocomplete="new-password"
         type="password"
       />
-      <span class="help is-danger" v-show="$v.form.password.$invalid">Senha é obrigatório</span>
+      <span class="help is-danger" v-show="$v.form.password.$invalid"
+        >Senha é obrigatório</span
+      >
     </div>
     <div class="field">
       <input
@@ -40,13 +46,20 @@
     <div class="field">
       <select>
         <option value="0">Tipo de usuário:</option>
-        <option v-for="type in userTypes" :key="type.id" :value="type.id">{{type.name}}</option>
+        <option v-for="type in userTypes" :key="type.id" :value="type.id">{{
+          type.name
+        }}</option>
       </select>
     </div>
     <div class="field">
       <select>
         <option value="0">Empresa:</option>
-        <option v-for="company in companies" :key="company.id" :value="company.id">{{company.name}}</option>
+        <option
+          v-for="company in companies"
+          :key="company.id"
+          :value="company.id"
+          >{{ company.name }}</option
+        >
       </select>
     </div>
 

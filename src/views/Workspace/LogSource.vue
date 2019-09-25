@@ -13,7 +13,8 @@
           v-for="application in applications"
           :key="application.id"
           :value="application.id"
-        >{{application.name}}</option>
+          >{{ application.name }}</option
+        >
       </select>
     </div>
     <div class="field">
@@ -23,7 +24,8 @@
           v-for="serverOrigin in serverOrigins"
           :key="serverOrigin.id"
           :value="serverOrigin.id"
-        >{{serverOrigin.name}}</option>
+          >{{ serverOrigin.name }}</option
+        >
       </select>
     </div>
 

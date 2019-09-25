@@ -9,17 +9,21 @@
     <div class="field">
       <select>
         <option value="0">Aplicação:</option>
-        <option value="1">Aplicação 01</option>
-        <option value="2">Aplicação 02</option>
-        <option value="3">Aplicação 03</option>
+        <option
+          v-for="application in applications"
+          :key="application.id"
+          :value="application.id"
+        >{{application.name}}</option>
       </select>
     </div>
     <div class="field">
       <select>
         <option value="0">Ambiente:</option>
-        <option value="1">PRODUCTION</option>
-        <option value="2">HOMOLOGATION</option>
-        <option value="3">DEVELOPMENT</option>
+        <option
+          v-for="serverOrigin in serverOrigins"
+          :key="serverOrigin.id"
+          :value="serverOrigin.id"
+        >{{serverOrigin.name}}</option>
       </select>
     </div>
 
@@ -28,6 +32,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
 import { domain } from "env";
 import router from "@/router";
@@ -46,13 +51,15 @@ export default {
     index: Number
   },
   computed: {
-    //...mapGetters(["contacts"]),
+    ...mapGetters("applications", ["applications"]),
+    ...mapGetters("serverOrigins", ["serverOrigins"]),
     dataTestButton() {
       return parseInt(this.index) > -1 ? "salvar" : "criar";
     }
   },
   methods: {
-    //...mapActions(["createContact", "updateContact"]),
+    ...mapActions("applications", ["loadAllApplications"]),
+    ...mapActions("serverOrigins", ["loadAllServerOrigins"]),
     submit(form, index) {
       if (parseInt(this.index) > -1) {
         this.updateContact({ form, index });
@@ -69,7 +76,8 @@ export default {
     }
   },
   created() {
-    //this.load();
+    this.loadAllApplications();
+    this.loadAllServerOrigins();
     if (parseInt(this.index) > -1) {
       let contact = this.contacts[this.index];
 

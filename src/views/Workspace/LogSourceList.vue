@@ -3,12 +3,15 @@
     <RouterLink :to="{ name: 'log-source-create' }">
       <span>Adicionar fonte de logs</span>
     </RouterLink>
-    <p v-for="log in logsources" :key="log.id">
-      <span>Id: {{ log.id }}</span>
-      <RouterLink :to="{ name: 'log-source-edit', params: { id: log.id } }" data-test="editar">
+    <p v-for="logSource in logSources" :key="logSource.id">
+      <span>Id: {{ logSource.id }}</span>
+      <RouterLink
+        :to="{ name: 'log-source-edit', params: { id: logSource.id } }"
+        data-test="editar"
+      >
         <span>Editar</span>
       </RouterLink>
-      <button data-test="apagar" @click="deleteContact(log.id)">
+      <button data-test="apagar" @click="deleteContact(logSource.id)">
         <span>deletar</span>
       </button>
     </p>
@@ -20,10 +23,10 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters("logsources", ["logsources"])
+    ...mapGetters("logSources", ["logSources"])
   },
   methods: {
-    ...mapActions("logsources", ["loadAllLogSources"])
+    ...mapActions("logSources", ["loadAllLogSources"])
   },
   created() {
     this.loadAllLogSources();

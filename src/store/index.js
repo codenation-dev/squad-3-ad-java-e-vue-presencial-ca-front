@@ -7,8 +7,10 @@ import userTypes from "./userTypes";
 import companies from "./companies";
 import users from "./users";
 import applications from "./applications";
-import logsources from "./logsources";
+import logSources from "./logSources";
 import logs from "./logs";
+import serverOrigins from "./serverOrigins";
+import levelLogs from "./levelLogs";
 
 Vue.use(Vuex);
 
@@ -23,7 +25,9 @@ export default new Vuex.Store({
     companies,
     users,
     applications,
-    logsources,
-    logs
+    logSources,
+    logs,
+    serverOrigins,
+    levelLogs
   }
 });

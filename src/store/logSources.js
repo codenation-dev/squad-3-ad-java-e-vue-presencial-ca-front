@@ -1,7 +1,7 @@
 export default {
   namespaced: true,
   state: {
-    logsources: []
+    logSources: []
   },
   actions: {
     async loadAllLogSources({ commit }) {
@@ -10,7 +10,7 @@ export default {
   },
   mutations: {
     GET_ALL_LOG_SOURCES(state) {
-      state.logsources = [
+      state.logSources = [
         { id: "idlogsource01", name: "nmlogsource01" },
         { id: "idlogsource02", name: "nmlogsource02" },
         { id: "idlogsource03", name: "nmlogsource03" }
@@ -18,8 +18,8 @@ export default {
     }
   },
   getters: {
-    logsources(state) {
-      return state.logsources;
+    logSources(state) {
+      return state.logSources;
     }
   }
 };

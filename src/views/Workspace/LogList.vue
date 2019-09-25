@@ -5,10 +5,7 @@
     </RouterLink>
     <p v-for="log in logs" :key="log.id">
       <span>Id: {{ log.id }}</span>
-      <RouterLink
-        :to="{ name: 'log-edit', params: { id: log.id } }"
-        data-test="editar"
-      >
+      <RouterLink :to="{ name: 'log-edit', params: { id: log.id } }" data-test="editar">
         <span>Editar</span>
       </RouterLink>
       <button data-test="apagar" @click="deleteContact(log.id)">
@@ -19,29 +16,17 @@
 </template>
 
 <script>
-import axios from "axios";
-import { domain } from "env";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  data() {
-    return {
-      logs: [
-        { id: "idlog01", name: "nmlog01" },
-        { id: "idlog02", name: "nmlog02" },
-        { id: "idlog03", name: "nmlog03" }
-      ]
-    };
+  computed: {
+    ...mapGetters("logs", ["logs"])
   },
   methods: {
-    async load() {
-      const getLogsURL = `${domain}/logs`;
-
-      const { data } = await axios.get(getLogsURL);
-      this.logs = data;
-    }
+    ...mapActions("logs", ["loadAllLogs"])
   },
   created() {
-    //this.load();
+    this.loadAllLogs();
   }
 };
 </script>

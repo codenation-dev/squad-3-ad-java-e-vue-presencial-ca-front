@@ -5,6 +5,10 @@ import login from "./login";
 import workspace from "./workspace";
 import userTypes from "./userTypes";
 import companies from "./companies";
+import users from "./users";
+import applications from "./applications";
+import logsources from "./logsources";
+import logs from "./logs";
 
 Vue.use(Vuex);
 
@@ -16,6 +20,10 @@ export default new Vuex.Store({
     login,
     workspace,
     userTypes,
-    companies
+    companies,
+    users,
+    applications,
+    logsources,
+    logs
   }
 });

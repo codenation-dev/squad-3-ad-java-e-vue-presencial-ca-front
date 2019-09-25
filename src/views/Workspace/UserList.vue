@@ -8,10 +8,7 @@
       <span>,Name: {{ user.name }}</span>
       <span>,Email: {{ user.email }}</span>
       <span>,Empresa: {{ user.company }}</span>
-      <RouterLink
-        :to="{ name: 'user-edit', params: { id: user.id } }"
-        data-test="editar"
-      >
+      <RouterLink :to="{ name: 'user-edit', params: { id: user.id } }" data-test="editar">
         <span>Editar</span>
       </RouterLink>
       <button data-test="apagar" @click="deleteContact(user.id)">
@@ -22,25 +19,17 @@
 </template>
 
 <script>
-import axios from "axios";
-import { domain } from "env";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  data() {
-    return {
-      users: []
-    };
+  computed: {
+    ...mapGetters("users", ["users"])
   },
   methods: {
-    async load() {
-      const getUsersURL = `${domain}/users`;
-
-      const { data } = await axios.get(getUsersURL);
-      this.users = data;
-    }
+    ...mapActions("users", ["loadAllUsers"])
   },
   created() {
-    this.load();
+    this.loadAllUsers();
   }
 };
 </script>

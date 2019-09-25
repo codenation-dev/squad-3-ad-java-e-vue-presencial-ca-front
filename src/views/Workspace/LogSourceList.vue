@@ -3,12 +3,9 @@
     <RouterLink :to="{ name: 'log-source-create' }">
       <span>Adicionar fonte de logs</span>
     </RouterLink>
-    <p v-for="log in logs" :key="log.id">
+    <p v-for="log in logsources" :key="log.id">
       <span>Id: {{ log.id }}</span>
-      <RouterLink
-        :to="{ name: 'log-source-edit', params: { id: log.id } }"
-        data-test="editar"
-      >
+      <RouterLink :to="{ name: 'log-source-edit', params: { id: log.id } }" data-test="editar">
         <span>Editar</span>
       </RouterLink>
       <button data-test="apagar" @click="deleteContact(log.id)">
@@ -19,29 +16,17 @@
 </template>
 
 <script>
-import axios from "axios";
-import { domain } from "env";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  data() {
-    return {
-      logs: [
-        { id: "idlogsource01", name: "nmlogsource01" },
-        { id: "idlogsource02", name: "nmlogsource02" },
-        { id: "idlogsource03", name: "nmlogsource03" }
-      ]
-    };
+  computed: {
+    ...mapGetters("logsources", ["logsources"])
   },
   methods: {
-    async load() {
-      const getLogsURL = `${domain}/logs`;
-
-      const { data } = await axios.get(getLogsURL);
-      this.logs = data;
-    }
+    ...mapActions("logsources", ["loadAllLogSources"])
   },
   created() {
-    //this.load();
+    this.loadAllLogSources();
   }
 };
 </script>

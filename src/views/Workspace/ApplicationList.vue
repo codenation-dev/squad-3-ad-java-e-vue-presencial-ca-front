@@ -20,29 +20,17 @@
 </template>
 
 <script>
-import axios from "axios";
-import { domain } from "env";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  data() {
-    return {
-      applications: [
-        { id: "idapplications01", name: "nmapplications01" },
-        { id: "idapplications02", name: "nmapplications02" },
-        { id: "idapplications03", name: "nmapplications03" }
-      ]
-    };
+  computed: {
+    ...mapGetters("applications", ["applications"])
   },
   methods: {
-    async load() {
-      const getApplicationsURL = `${domain}/applications`;
-
-      const { data } = await axios.get(getApplicationsURL);
-      this.applications = data;
-    }
+    ...mapActions("applications", ["loadAllApplications"])
   },
   created() {
-    //this.load();
+    this.loadAllApplications();
   }
 };
 </script>

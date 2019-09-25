@@ -30,6 +30,7 @@
         :disabled="$v.form.$invalid"
         @click="submit(form)"
         text="Cadastrar"
+        :isLoading="isLoading"
       />
       <router-link class="btn btn-link" :to="{ name: 'login' }"
         >Já possui cadastro?</router-link
@@ -55,7 +56,8 @@ export default {
         userCode: "",
         email: "",
         password: ""
-      }
+      }, 
+      isLoading: false
     };
   },
   validations: {
@@ -82,10 +84,14 @@ export default {
   methods: {
     ...mapActions("login", ["signup"]),
     async submit(form) {
+      this.isLoading = !this.isLoading;
+
       try {
         await this.signup(form);
       } catch ({ response }) {
         this.errors = response.data.errors;
+      } finally {
+        this.isLoading = !this.isLoading;
       }
     },
     setName(value) {

@@ -79,14 +79,11 @@ export default {
       }
     }
   },
-  updated() {
-    // if (this.isLoading) this.isLoading = !this.isLoading;
-  },
   methods: {
     ...mapActions("login", ["login"]),
     ...mapActions("workspace", ["showToolbar", "hideToolbar"]),
     async submit(form) {
-      this.isLoading = true;
+      this.isLoading = !this.isLoading;
 
       try {
         const res = await this.login(form);
@@ -101,9 +98,9 @@ export default {
         }
       } catch ({ response }) {
         this.error = response.data.message || response.data.errors;
+      } finally {
+        this.isLoading = !this.isLoading;
       }
-
-      // this.isLoading = false;
     },
     setUsername(value) {
       this.form.username = value;

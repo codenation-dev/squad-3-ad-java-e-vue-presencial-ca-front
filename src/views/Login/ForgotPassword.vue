@@ -6,6 +6,7 @@
         :disabled="$v.form.$invalid"
         text="Recuperar senha"
         @click="submit(form)"
+        :isLoading="isLoading"
       />
       <router-link class="btn btn-link" :to="{ name: 'login' }"
         >Voltar</router-link
@@ -28,7 +29,8 @@ export default {
       errors: [],
       form: {
         email: ""
-      }
+      },
+      isLoading: false
     };
   },
   validations: {
@@ -42,10 +44,14 @@ export default {
   methods: {
     ...mapActions("login", ["signup"]),
     async submit(form) {
+      this.isLoading = !this.isLoading;
+
       try {
         await this.signup(form);
       } catch ({ response }) {
         this.errors = response.data.errors;
+      } finally {
+        this.isLoading = !this.isLoading;
       }
     },
     setEmail(value) {

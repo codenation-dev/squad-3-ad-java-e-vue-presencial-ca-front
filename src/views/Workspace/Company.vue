@@ -1,63 +1,76 @@
 <template>
-  <form @submit.prevent="submit(form)">
-    <div class="field">
-      <input class="input" v-model="form.name" placeholder="Nome" />
+  <section class="container" style="text-align: left;">
+    <div class="card">
+      <div class="card-header">{{companyDataTitle}}</div>
+      <div class="card-body">
+        <form @submit.prevent="submit(form, id)">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Nome</label>
+            <input
+              type="text"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Nome"
+              v-model="form.name"
+            />
+          </div>
+          <router-link
+            class="btn btn-secondary float-left"
+            :to="{ name: 'company-list' }"
+            tag="button"
+          >
+            <span>Cancelar</span>
+          </router-link>
+          <input class="btn btn-primary float-right" type="submit" value="Salvar" />
+        </form>
+      </div>
     </div>
-
-    <button class="button">Cadastrar</button>
-  </form>
+  </section>
 </template>
 
 <script>
-import axios from "axios";
-import { domain } from "env";
 import router from "@/router";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
     return {
       form: {
-        id: "idcompany01",
-        name: "nmcompany01"
+        name: ""
       }
     };
   },
   props: {
-    index: Number
+    id: {
+      type: String,
+      default: ""
+    }
   },
   computed: {
-    //...mapGetters(["contacts"]),
-    dataTestButton() {
-      return parseInt(this.index) > -1 ? "salvar" : "criar";
+    ...mapGetters("companies", ["company"]),
+    companyDataTitle() {
+      return this.id ? "Edição de empresa" : "Cadastro de empresa";
     }
   },
   methods: {
-    //...mapActions(["createContact", "updateContact"]),
-    submit(form, index) {
-      if (parseInt(this.index) > -1) {
-        this.updateContact({ form, index });
+    ...mapActions("companies", [
+      "createCompany",
+      "readCompany",
+      "updateCompany"
+    ]),
+    submit(form, id) {
+      if (id) {
+        this.updateCompany({ id, form });
       } else {
-        this.createContact(form);
+        this.createCompany({ id, form });
       }
-      router.push("/");
-    },
-    async load() {
-      const getCompaniesURL = `${domain}/companies`;
-
-      const { data } = await axios.get(getCompaniesURL);
-      this.companies = data;
+      router.push({ name: "company-list" });
     }
   },
   created() {
-    //this.load();
-    if (parseInt(this.index) > -1) {
-      let contact = this.contacts[this.index];
-
-      if (contact) {
-        this.form = contact;
-      } else {
-        router.push("/404");
-      }
+    if (this.id) {
+      this.readCompany(this.id);
     }
   }
 };

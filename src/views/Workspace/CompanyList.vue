@@ -6,10 +6,7 @@
     <p v-for="company in companies" :key="company.id">
       <span>Id: {{ company.id }}</span>
       <span>Name: {{ company.name }}</span>
-      <RouterLink
-        :to="{ name: 'company-edit', params: { id: company.id } }"
-        data-test="editar"
-      >
+      <RouterLink :to="{ name: 'company-edit', params: { id: company.id } }" data-test="editar">
         <span>Editar</span>
       </RouterLink>
       <button data-test="apagar" @click="deleteContact(company.id)">
@@ -20,29 +17,17 @@
 </template>
 
 <script>
-import axios from "axios";
-import { domain } from "env";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  data() {
-    return {
-      companies: [
-        { id: "idcompany01", name: "idcompany01" },
-        { id: "idcompany02", name: "idcompany02" },
-        { id: "idcompany03", name: "idcompany03" }
-      ]
-    };
+  computed: {
+    ...mapGetters("companies", ["companies"])
   },
   methods: {
-    async load() {
-      const getCompaniesURL = `${domain}/companies`;
-
-      const { data } = await axios.get(getCompaniesURL);
-      this.companies = data;
-    }
+    ...mapActions("companies", ["loadAllCompanies"])
   },
   created() {
-    //this.load();
+    this.loadAllCompanies();
   }
 };
 </script>

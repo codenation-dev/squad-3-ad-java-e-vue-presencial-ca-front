@@ -9,20 +9,21 @@
     <div class="field">
       <select>
         <option value="0">Fonte do log:</option>
-        <option value="1">Fonte do log 01</option>
-        <option value="2">Fonte do log 02</option>
-        <option value="3">Fonte do log 03</option>
+        <option
+          v-for="logSource in logSources"
+          :key="logSource.id"
+          :value="logSource.id"
+        >{{logSource.name}}</option>
       </select>
     </div>
     <div class="field">
       <select>
-        <option value="0">Log level:</option>
-        <option value="1">INFO</option>
-        <option value="2">TRACE</option>
-        <option value="3">DEBUG</option>
-        <option value="4">WARNING</option>
-        <option value="5">ERROR</option>
-        <option value="6">FATAL</option>
+        <option value="0">Level log:</option>
+        <option
+          v-for="levelLog in levelLogs"
+          :key="levelLog.id"
+          :value="levelLog.id"
+        >{{levelLog.name}}</option>
       </select>
     </div>
 
@@ -31,6 +32,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
 import { domain } from "env";
 import router from "@/router";
@@ -50,13 +52,15 @@ export default {
     index: Number
   },
   computed: {
-    //...mapGetters(["contacts"]),
+    ...mapGetters("logSources", ["logSources"]),
+    ...mapGetters("levelLogs", ["levelLogs"]),
     dataTestButton() {
       return parseInt(this.index) > -1 ? "salvar" : "criar";
     }
   },
   methods: {
-    //...mapActions(["createContact", "updateContact"]),
+    ...mapActions("logSources", ["loadAllLogSources"]),
+    ...mapActions("levelLogs", ["loadAllLevelLogs"]),
     submit(form, index) {
       if (parseInt(this.index) > -1) {
         this.updateContact({ form, index });
@@ -73,7 +77,8 @@ export default {
     }
   },
   created() {
-    //this.load();
+    this.loadAllLogSources();
+    this.loadAllLevelLogs();
     if (parseInt(this.index) > -1) {
       let contact = this.contacts[this.index];
 

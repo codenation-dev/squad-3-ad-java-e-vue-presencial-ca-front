@@ -34,6 +34,7 @@
         :disabled="$v.form.$invalid"
         @click="submit(form)"
         text="Login"
+        :isLoading="isLoading"
       />
       <p style="padding-top: 15px;">
         Não tem cadastro?
@@ -57,6 +58,7 @@ export default {
   data() {
     return {
       error: null,
+      isLoading: false,
       form: {
         username: "",
         password: "",
@@ -77,10 +79,15 @@ export default {
       }
     }
   },
+  updated() {
+    // if (this.isLoading) this.isLoading = !this.isLoading;
+  },
   methods: {
     ...mapActions("login", ["login"]),
     ...mapActions("workspace", ["showToolbar", "hideToolbar"]),
     async submit(form) {
+      this.isLoading = true;
+
       try {
         const res = await this.login(form);
 
@@ -95,6 +102,8 @@ export default {
       } catch ({ response }) {
         this.error = response.data.message || response.data.errors;
       }
+
+      // this.isLoading = false;
     },
     setUsername(value) {
       this.form.username = value;

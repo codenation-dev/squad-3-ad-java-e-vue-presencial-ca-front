@@ -1,94 +1,101 @@
 <template>
-  <form @submit.prevent="submit(form)">
-    <div class="field">
-      <input class="input" v-model="form.title" placeholder="title" />
+  <section class="container" style="text-align: left;">
+    <div class="card">
+      <div class="card-header">
+        <b>Log</b>
+      </div>
+      <div class="card-body">
+        <form @submit.prevent="submit(form, id)">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Nome</label>
+            <input
+              type="text"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Nome"
+              v-model="form.name"
+              disabled
+            />
+          </div>
+          <div class="form-group">
+            <label for="applicationsSelect">Aplicação</label>
+            <select class="form-control" id="applicationsSelect" disabled>
+              <option
+                v-for="application in applications"
+                :key="application.id"
+                :value="application.id"
+                >{{ application.name }}</option
+              >
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="serverOriginsSelect">Servidor de origem</label>
+            <select class="form-control" id="serverOriginsSelect" disabled>
+              <option
+                v-for="serverOrigin in serverOrigins"
+                :key="serverOrigin.id"
+                :value="serverOrigin.id"
+                >{{ serverOrigin.name }}</option
+              >
+            </select>
+          </div>
+          <router-link
+            class="btn btn-secondary float-left"
+            :to="{ name: 'log-list' }"
+            tag="button"
+          >
+            <span>Cancelar</span>
+          </router-link>
+        </form>
+      </div>
     </div>
-    <div class="field">
-      <input class="input" v-model="form.details" placeholder="details" />
-    </div>
-    <div class="field">
-      <select>
-        <option value="0">Fonte do log:</option>
-        <option
-          v-for="logSource in logSources"
-          :key="logSource.id"
-          :value="logSource.id"
-          >{{ logSource.name }}</option
-        >
-      </select>
-    </div>
-    <div class="field">
-      <select>
-        <option value="0">Level log:</option>
-        <option
-          v-for="levelLog in levelLogs"
-          :key="levelLog.id"
-          :value="levelLog.id"
-          >{{ levelLog.name }}</option
-        >
-      </select>
-    </div>
-
-    <button class="button">Cadastrar</button>
-  </form>
+  </section>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import axios from "axios";
-import { domain } from "env";
 import router from "@/router";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
     return {
       form: {
-        id: "idlog01",
-        title: "titlelog01",
-        details: "",
-        date: ""
+        name: ""
       }
     };
   },
   props: {
-    index: Number
-  },
-  computed: {
-    ...mapGetters("logSources", ["logSources"]),
-    ...mapGetters("levelLogs", ["levelLogs"]),
-    dataTestButton() {
-      return parseInt(this.index) > -1 ? "salvar" : "criar";
+    id: {
+      type: String,
+      default: ""
     }
   },
+  computed: {
+    ...mapGetters("logs", ["log"]),
+    ...mapGetters("logSources", ["logSource"]),
+    ...mapGetters("applications", ["applications"]),
+    ...mapGetters("serverOrigins", ["serverOrigins"])
+  },
   methods: {
-    ...mapActions("logSources", ["loadAllLogSources"]),
-    ...mapActions("levelLogs", ["loadAllLevelLogs"]),
-    submit(form, index) {
-      if (parseInt(this.index) > -1) {
-        this.updateContact({ form, index });
+    ...mapActions("applications", ["readAllApplications"]),
+    ...mapActions("serverOrigins", ["readAllServerOrigins"]),
+    ...mapActions("logs", ["readLog"]),
+    ...mapActions("companies", ["readAllCompanies"]),
+    submit(form, id) {
+      if (id) {
+        this.updateLogSource({ id, form });
       } else {
-        this.createContact(form);
+        this.createLogSource({ id, form });
       }
-      router.push("/");
-    },
-    async load() {
-      const getCompaniesURL = `${domain}/companies`;
-
-      const { data } = await axios.get(getCompaniesURL);
-      this.companies = data;
+      router.push({ name: "log-source-list" });
     }
   },
   created() {
-    this.loadAllLogSources();
-    this.loadAllLevelLogs();
-    if (parseInt(this.index) > -1) {
-      let contact = this.contacts[this.index];
-
-      if (contact) {
-        this.form = contact;
-      } else {
-        router.push("/404");
-      }
+    this.readAllApplications();
+    this.readAllServerOrigins();
+    if (this.id) {
+      this.readLog(this.id);
     }
   }
 };

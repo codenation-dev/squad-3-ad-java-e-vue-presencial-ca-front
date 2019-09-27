@@ -20,7 +20,11 @@
           <div class="form-group">
             <label for="companiesSelect">Empresa</label>
             <select class="form-control" id="companiesSelect">
-              <option v-for="company in companies" :key="company.id" :value="company.id">
+              <option
+                v-for="company in companies"
+                :key="company.id"
+                :value="company.id"
+              >
                 <span>{{ company.name }}</span>
               </option>
             </select>
@@ -29,9 +33,7 @@
             <label for="typeUserSelect">Tipo de usuário</label>
             <select class="form-control" id="typeUserSelect">
               <option v-for="type in userTypes" :key="type.id" :value="type.id">
-                {{
-                type.name
-                }}
+                {{ type.name }}
               </option>
             </select>
           </div>
@@ -42,7 +44,11 @@
           >
             <span>Cancelar</span>
           </router-link>
-          <input class="btn btn-primary float-right" type="submit" value="Salvar" />
+          <input
+            class="btn btn-primary float-right"
+            type="submit"
+            value="Salvar"
+          />
         </form>
       </div>
     </div>

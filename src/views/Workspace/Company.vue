@@ -24,7 +24,11 @@
           >
             <span>Cancelar</span>
           </router-link>
-          <input class="btn btn-primary float-right" type="submit" value="Salvar" />
+          <input
+            class="btn btn-primary float-right"
+            type="submit"
+            value="Salvar"
+          />
         </form>
       </div>
     </div>

@@ -19,7 +19,7 @@
     <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <router-link class="nav-link" :to="{ name: 'workspace' }">
+          <router-link class="nav-link" :to="{ name: 'log-list' }">
             <span>Home</span>
           </router-link>
         </li>

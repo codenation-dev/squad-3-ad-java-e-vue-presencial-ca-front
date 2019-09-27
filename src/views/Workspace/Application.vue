@@ -1,76 +1,87 @@
 <template>
-  <form @submit.prevent="submit(form)">
-    <div class="field">
-      <input class="input" v-model="form.name" placeholder="Nome" />
+  <section class="container" style="text-align: left;">
+    <div class="card">
+      <div class="card-header">
+        <b>{{ applicationDataTitle }}</b>
+      </div>
+      <div class="card-body">
+        <form @submit.prevent="submit(form, id)">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Nome</label>
+            <input
+              type="text"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Nome"
+              v-model="form.name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="applicationsSelect">Empresa</label>
+            <select class="form-control" id="applicationsSelect">
+              <option v-for="company in companies" :key="company.id" :value="company.id">
+                <span>{{ company.name }}</span>
+              </option>
+            </select>
+          </div>
+          <router-link
+            class="btn btn-secondary float-left"
+            :to="{ name: 'application-list' }"
+            tag="button"
+          >
+            <span>Cancelar</span>
+          </router-link>
+          <input class="btn btn-primary float-right" type="submit" value="Salvar" />
+        </form>
+      </div>
     </div>
-    <div class="field">
-      <select>
-        <option value="0">Empresa:</option>
-        <option
-          v-for="company in companies"
-          :key="company.id"
-          :value="company.id"
-        >
-          <span>{{ company.name }}</span>
-        </option>
-      </select>
-    </div>
-
-    <button class="button">Cadastrar</button>
-  </form>
+  </section>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import axios from "axios";
-import { domain } from "env";
 import router from "@/router";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
     return {
       form: {
-        id: "idapplication01",
-        name: "nmapplication01"
+        name: ""
       }
     };
   },
   props: {
-    index: Number
+    id: {
+      type: String,
+      default: ""
+    }
   },
   computed: {
+    ...mapGetters("applications", ["application"]),
     ...mapGetters("companies", ["companies"]),
-    dataTestButton() {
-      return parseInt(this.index) > -1 ? "salvar" : "criar";
+    applicationDataTitle() {
+      return this.id ? "Edição de aplicação" : "Cadastro de aplicação";
     }
   },
   methods: {
-    ...mapActions("companies", ["loadAllCompanies"]),
-    submit(form, index) {
-      if (parseInt(this.index) > -1) {
-        this.updateContact({ form, index });
+    ...mapActions("applications", [
+      "createApplication",
+      "readApplication",
+      "updateApplication"
+    ]),
+    submit(form, id) {
+      if (id) {
+        this.updateApplication({ id, form });
       } else {
-        this.createContact(form);
+        this.createApplication({ id, form });
       }
-      router.push("/");
-    },
-    async load() {
-      const getCompaniesURL = `${domain}/companies`;
-
-      const { data } = await axios.get(getCompaniesURL);
-      this.companies = data;
+      router.push({ name: "application-list" });
     }
   },
   created() {
-    this.loadAllCompanies();
-    if (parseInt(this.index) > -1) {
-      let contact = this.contacts[this.index];
-
-      if (contact) {
-        this.form = contact;
-      } else {
-        router.push("/404");
-      }
+    if (this.id) {
+      this.readApplication(this.id);
     }
   }
 };

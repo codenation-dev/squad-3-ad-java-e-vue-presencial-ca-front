@@ -49,7 +49,7 @@
         </div>
         <router-link
           class="btn btn-secondary float-left back-btn"
-          :to="{ name: 'workspace' }"
+          :to="{ name: 'log-list' }"
           tag="button"
         >
           <span>Voltar</span>

@@ -81,7 +81,7 @@ export default {
         if (res && res.isAxiosError) {
           this.error = "Usuário e/ou senha inválido(s)";
         } else {
-          this.$router.push({ name: "workspace" });
+          this.$router.push({ name: "log-list" });
           this.showToolbar();
         }
       } catch ({ response }) {

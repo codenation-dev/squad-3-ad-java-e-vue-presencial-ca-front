@@ -42,10 +42,16 @@
             <router-link class="dropdown-item" :to="{ name: 'user-list' }">
               <span>Usuário</span>
             </router-link>
-            <router-link class="dropdown-item" :to="{ name: 'application-list' }">
+            <router-link
+              class="dropdown-item"
+              :to="{ name: 'application-list' }"
+            >
               <span>Aplicação</span>
             </router-link>
-            <router-link class="dropdown-item" :to="{ name: 'log-source-list' }">
+            <router-link
+              class="dropdown-item"
+              :to="{ name: 'log-source-list' }"
+            >
               <span>Fonte de logs</span>
             </router-link>
           </div>
@@ -64,11 +70,21 @@
         >
           <span>**username</span>
         </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <router-link class="dropdown-item" :to="{ name: 'user-edit', params: { id: 'logged' } }">
+        <div
+          class="dropdown-menu dropdown-menu-right"
+          aria-labelledby="navbarDropdown"
+        >
+          <router-link
+            class="dropdown-item"
+            :to="{ name: 'user-edit', params: { id: 'logged' } }"
+          >
             <span>Perfil</span>
           </router-link>
-          <router-link @click="logout" class="dropdown-item" :to="{ name: 'login' }">
+          <router-link
+            @click="logout"
+            class="dropdown-item"
+            :to="{ name: 'login' }"
+          >
             <span>Sair</span>
           </router-link>
         </div>

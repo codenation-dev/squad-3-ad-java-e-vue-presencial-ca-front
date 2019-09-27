@@ -88,8 +88,8 @@ export default new Router({
       component: Log
     },
     {
-      name: "log-edit",
-      path: "/log-edit/:id",
+      name: "log-view",
+      path: "/log-view/:id",
       props: true,
       component: Log
     },

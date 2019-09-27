@@ -1,14 +1,24 @@
 <template>
   <card-vue title="Cadastro" subtitle="Preencha os campos abaixo">
     <form class="form-group" @submit.prevent="submit(form)">
-      <input-form-vue id="name" label="Nome" placeholder="João das Neves" :onInput="setName" />
+      <input-form-vue
+        id="name"
+        label="Nome"
+        placeholder="João das Neves"
+        :onInput="setName"
+      />
       <input-form-vue
         id="userCode"
         label="Código do usuário"
         placeholder="jonsnow"
         :onInput="setUserCode"
       />
-      <input-form-vue id="email" label="E-mail" placeholder="jon@stark.wf" :onInput="setEmail" />
+      <input-form-vue
+        id="email"
+        label="E-mail"
+        placeholder="jon@stark.wf"
+        :onInput="setEmail"
+      />
       <input-form-vue
         id="password"
         type="password"
@@ -22,7 +32,9 @@
         text="Cadastrar"
         :isLoading="isLoading"
       />
-      <router-link class="btn btn-link" :to="{ name: 'login' }">Já possui cadastro?</router-link>
+      <router-link class="btn btn-link" :to="{ name: 'login' }"
+        >Já possui cadastro?</router-link
+      >
     </form>
   </card-vue>
 </template>

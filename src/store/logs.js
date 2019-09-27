@@ -9,9 +9,14 @@ export default {
   actions: {
     async loadAllLogs({ commit }) {
       const getLogsURL = `${domain}/logs`;
+      const params = {
+        serverOrigin: "desenvolvimento"
+      };
 
       try {
-        const { data } = await axios.get(getLogsURL);
+        const { data } = await axios.get(getLogsURL, {
+          params
+        });
         commit("GET_ALL_LOGS", data);
       } catch (error) {
         return error;
@@ -19,12 +24,8 @@ export default {
     }
   },
   mutations: {
-    GET_ALL_LOGS(state) {
-      state.logs = [
-        { id: "idlog01", name: "nmlog01" },
-        { id: "idlog02", name: "nmlog02" },
-        { id: "idlog03", name: "nmlog03" }
-      ];
+    GET_ALL_LOGS(state, data) {
+      state.logs = data;
     }
   },
   getters: {

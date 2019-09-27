@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light nav-bg-color">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-light">
     <a class="navbar-brand" href="#">DjaVue</a>
     <button
       class="navbar-toggler"
@@ -39,16 +39,10 @@
             <router-link class="dropdown-item" :to="{ name: 'user-list' }">
               <span>Usuário</span>
             </router-link>
-            <router-link
-              class="dropdown-item"
-              :to="{ name: 'application-list' }"
-            >
+            <router-link class="dropdown-item" :to="{ name: 'application-list' }">
               <span>Aplicação</span>
             </router-link>
-            <router-link
-              class="dropdown-item"
-              :to="{ name: 'log-source-list' }"
-            >
+            <router-link class="dropdown-item" :to="{ name: 'log-source-list' }">
               <span>Fonte de logs</span>
             </router-link>
             <router-link class="dropdown-item" :to="{ name: 'log-list' }">
@@ -70,21 +64,11 @@
         >
           <span>**username</span>
         </a>
-        <div
-          class="dropdown-menu dropdown-menu-right"
-          aria-labelledby="navbarDropdown"
-        >
-          <router-link
-            class="dropdown-item"
-            :to="{ name: 'user-edit', params: { id: 'logged' } }"
-          >
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <router-link class="dropdown-item" :to="{ name: 'user-edit', params: { id: 'logged' } }">
             <span>Perfil</span>
           </router-link>
-          <router-link
-            @click="logout"
-            class="dropdown-item"
-            :to="{ name: 'login' }"
-          >
+          <router-link @click="logout" class="dropdown-item" :to="{ name: 'login' }">
             <span>Sair</span>
           </router-link>
         </div>
@@ -105,6 +89,6 @@ export default {
 
 <style scoped>
 .nav-bg-color {
-  background-color: #cda34f;
+  background-color: var(--secondary);
 }
 </style>

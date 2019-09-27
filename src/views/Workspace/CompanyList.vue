@@ -6,17 +6,25 @@
         <p class="card-text">
           <RouterLink :to="{ name: 'company-create', params: { id: '' } }">
             <font-awesome-icon icon="plus" />
-            <span style="padding-left: 8px;">Adicionar</span>
+            <span style="padding-left: 4px;">Adicionar</span>
           </RouterLink>
         </p>
         <div class="container">
           <div class="row">
-            <div class="col-sm"></div>
-            <div class="col-md">ID</div>
-            <div class="col-lg">Nome</div>
+            <div class="col-md">
+              <b>ID</b>
+            </div>
+            <div class="col-lg">
+              <b>Nome</b>
+            </div>
+            <div class="col-sm">
+              <b>Ações</b>
+            </div>
             <div class="col-sm"></div>
           </div>
           <div class="row" v-for="company in companies" :key="company.id">
+            <div class="col-md">{{ company.id }}</div>
+            <div class="col-lg" style="margin: 8px;">{{ company.name }}</div>
             <div class="col-sm">
               <RouterLink
                 class="icon-btn"
@@ -25,18 +33,18 @@
                 :title="`Editar ${company.id}`"
               >
                 <font-awesome-icon icon="edit" />
+                <span style="padding-left: 4px;">Editar</span>
               </RouterLink>
             </div>
-            <div class="col-md">{{ company.id }}</div>
-            <div class="col-lg">{{ company.name }}</div>
             <div class="col-sm">
-              <button
+              <a
                 class="icon-btn"
                 @click="deleteCompany(company.id)"
                 :title="`Excluir ${company.id}`"
               >
                 <font-awesome-icon icon="trash-alt" />
-              </button>
+                <span style="padding-left: 4px;">Excluir</span>
+              </a>
             </div>
           </div>
         </div>
@@ -53,6 +61,14 @@
 </template>
 
 <script>
+/*
+table
+juntar colunas ações
+
+fontes:
+color: black;
+opacity: 0.8;
+*/
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -80,10 +96,10 @@ export default {
 }
 
 .row {
-  border-bottom: 1px solid var(--secondary);
+  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
 }
 
 .row:hover {
-  background-color: var(--secondary);
+  background-color: #f2f2f2;
 }
 </style>

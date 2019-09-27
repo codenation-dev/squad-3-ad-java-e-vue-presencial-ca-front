@@ -1,18 +1,9 @@
 <template>
-  <card-vue
-    title="Login"
-    subtitle="Insira seu usuário e senha para acessar o sistema"
-  >
+  <card-vue title="Login" subtitle="Insira seu usuário e senha para acessar o sistema">
     <form class="form-group">
       <alert-vue v-if="error" :text="error" type="alert-danger" />
 
-      <input-form-vue
-        id="username"
-        :onInput="setUsername"
-        placeholder="João das Neves"
-        label="Usuário"
-        icon="user"
-      />
+      <input-form-vue id="username" :onInput="setUsername" placeholder label="Usuário" icon="user" />
       <input-form-vue
         id="password"
         :onInput="setPassword"
@@ -21,14 +12,8 @@
         icon="key"
       />
       <div class="d-flex justify-content-around">
-        <checkbox-vue
-          id="keepConnected"
-          @onChange="setKeepConnected"
-          label="Manter conectado"
-        ></checkbox-vue>
-        <router-link :to="{ name: 'forgotPassword' }"
-          >Esqueceu sua senha?</router-link
-        >
+        <checkbox-vue id="keepConnected" @onChange="setKeepConnected" label="Manter conectado"></checkbox-vue>
+        <router-link :to="{ name: 'forgotPassword' }">Esqueceu sua senha?</router-link>
       </div>
       <button-vue
         :disabled="$v.form.$invalid"
@@ -45,6 +30,9 @@
 </template>
 
 <script>
+/*
+colocar botão voltar para cadastro sem fundo com hover
+*/
 import { mapActions } from "vuex";
 import { required } from "vuelidate/lib/validators";
 

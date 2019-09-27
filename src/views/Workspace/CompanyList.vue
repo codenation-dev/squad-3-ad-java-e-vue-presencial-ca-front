@@ -13,32 +13,29 @@
         </p>
         <div class="container">
           <div class="row">
-            <div class="col-md">
+            <div class="col-2">
               <b>ID</b>
             </div>
-            <div class="col-lg">
+            <div class="col-6">
               <b>Nome</b>
             </div>
-            <div class="col-sm">
+            <div class="col-2">
               <b>Ações</b>
             </div>
-            <div class="col-sm"></div>
           </div>
           <div class="row" v-for="company in companies" :key="company.id">
-            <div class="col-md">{{ company.id }}</div>
-            <div class="col-lg">{{ company.name }}</div>
-            <div class="col-sm">
+            <div class="col-2">{{ company.id }}</div>
+            <div class="col-6">{{ company.name }}</div>
+            <div class="col-4">
               <RouterLink
                 class="icon-btn"
                 :to="{ name: 'company-edit', params: { id: company.id } }"
                 tag="button"
                 :title="`Editar ${company.id}`"
               >
-                <font-awesome-icon icon="edit" />
+                <font-awesome-icon icon="pencil-alt" />
                 <span style="padding-left: 4px;">Editar</span>
               </RouterLink>
-            </div>
-            <div class="col-sm">
               <button
                 class="icon-btn"
                 @click="deleteCompany(company.id)"
@@ -63,14 +60,6 @@
 </template>
 
 <script>
-/*
-table
-juntar colunas ações
-
-fontes:
-color: black;
-opacity: 0.8;
-*/
 import { mapActions, mapGetters } from "vuex";
 
 export default {

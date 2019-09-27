@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-light">
     <a class="navbar-brand" href="#">
       <img :src="require('@/logos/djavue.png')" width="50" height="50" alt />
-      <span>DjaVue</span>
+      <b>DjaVue</b>
     </a>
     <button
       class="navbar-toggler"

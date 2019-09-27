@@ -12,7 +12,7 @@ import {
   faUser,
   faKey,
   faPlus,
-  faEdit,
+  faPencilAlt,
   faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -24,7 +24,7 @@ import interceptor from "@/utils/interceptor";
 
 axios.interceptors.request.use(interceptor);
 
-library.add(faUser, faKey, faPlus, faEdit, faTrashAlt);
+library.add(faUser, faKey, faPlus, faPencilAlt, faTrashAlt);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.use(Vuelidate);

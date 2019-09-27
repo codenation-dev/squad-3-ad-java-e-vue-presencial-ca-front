@@ -43,7 +43,7 @@ const mutations = {
     alert("READ_USER");
   },
   READ_ALL_USER(state, data) {
-    state.Users = data;
+    state.users = data;
   },
   UPDATE_USER(/*state, data*/) {
     //chamar api

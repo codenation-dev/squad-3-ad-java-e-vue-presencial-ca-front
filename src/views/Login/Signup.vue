@@ -1,24 +1,14 @@
 <template>
   <card-vue title="Cadastro" subtitle="Preencha os campos abaixo">
     <form class="form-group" @submit.prevent="submit(form)">
-      <input-form-vue
-        id="name"
-        label="Nome"
-        placeholder="João das Neves"
-        :onInput="setName"
-      />
+      <input-form-vue id="name" label="Nome" placeholder="João das Neves" :onInput="setName" />
       <input-form-vue
         id="userCode"
         label="Código do usuário"
         placeholder="jonsnow"
         :onInput="setUserCode"
       />
-      <input-form-vue
-        id="email"
-        label="E-mail"
-        placeholder="jon@stark.wf"
-        :onInput="setEmail"
-      />
+      <input-form-vue id="email" label="E-mail" placeholder="jon@stark.wf" :onInput="setEmail" />
       <input-form-vue
         id="password"
         type="password"
@@ -32,9 +22,7 @@
         text="Cadastrar"
         :isLoading="isLoading"
       />
-      <router-link class="btn btn-link" :to="{ name: 'login' }"
-        >Já possui cadastro?</router-link
-      >
+      <router-link class="btn btn-link" :to="{ name: 'login' }">Já possui cadastro?</router-link>
     </form>
   </card-vue>
 </template>
@@ -56,7 +44,7 @@ export default {
         userCode: "",
         email: "",
         password: ""
-      }, 
+      },
       isLoading: false
     };
   },
@@ -114,3 +102,29 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+html,
+body,
+#app {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  padding-top: 15px;
+}
+
+.justify-content-around {
+  padding: 10px;
+}
+</style>

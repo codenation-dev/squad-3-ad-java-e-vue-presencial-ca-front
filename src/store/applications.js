@@ -23,6 +23,7 @@ const actions = {
       const { data } = await axios.get(getApplicationsURL);
       commit("READ_ALL_APPLICATION", data);
     } catch (error) {
+      commit("READ_ALL_APPLICATION");
       return error;
     }
   },

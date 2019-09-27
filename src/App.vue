@@ -34,20 +34,6 @@ export default {
 <style lang="scss">
 @import "@/theme/bootstrap.scss";
 
-html, body, #app {
-  margin: 0;
-  height: 100%;
-  width: 100%;
-  min-height: 100%;
-}
-
-.container {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .fade-enter-active {
   transition: opacity 0.3s ease;
 }

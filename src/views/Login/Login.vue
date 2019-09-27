@@ -113,7 +113,23 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped>
+html,
+body,
+#app {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 form {
   padding-top: 15px;
 }

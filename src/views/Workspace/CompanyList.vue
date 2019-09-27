@@ -1,7 +1,9 @@
 <template>
   <section class="container" style="text-align: left;">
     <div class="card">
-      <div class="card-header">Empresas</div>
+      <div class="card-header">
+        <b>Empresas</b>
+      </div>
       <div class="card-body">
         <p class="card-text">
           <RouterLink :to="{ name: 'company-create', params: { id: '' } }">
@@ -24,7 +26,7 @@
           </div>
           <div class="row" v-for="company in companies" :key="company.id">
             <div class="col-md">{{ company.id }}</div>
-            <div class="col-lg" style="margin: 8px;">{{ company.name }}</div>
+            <div class="col-lg">{{ company.name }}</div>
             <div class="col-sm">
               <RouterLink
                 class="icon-btn"
@@ -37,14 +39,14 @@
               </RouterLink>
             </div>
             <div class="col-sm">
-              <a
+              <button
                 class="icon-btn"
                 @click="deleteCompany(company.id)"
                 :title="`Excluir ${company.id}`"
               >
                 <font-awesome-icon icon="trash-alt" />
                 <span style="padding-left: 4px;">Excluir</span>
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -97,6 +99,8 @@ export default {
 
 .row {
   border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .row:hover {

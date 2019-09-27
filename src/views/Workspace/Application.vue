@@ -18,8 +18,8 @@
             />
           </div>
           <div class="form-group">
-            <label for="applicationsSelect">Empresa</label>
-            <select class="form-control" id="applicationsSelect">
+            <label for="companiesSelect">Empresa</label>
+            <select class="form-control" id="companiesSelect">
               <option v-for="company in companies" :key="company.id" :value="company.id">
                 <span>{{ company.name }}</span>
               </option>
@@ -70,6 +70,7 @@ export default {
       "readApplication",
       "updateApplication"
     ]),
+    ...mapActions("companies", ["readAllCompanies"]),
     submit(form, id) {
       if (id) {
         this.updateApplication({ id, form });
@@ -80,6 +81,7 @@ export default {
     }
   },
   created() {
+    this.readAllCompanies();
     if (this.id) {
       this.readApplication(this.id);
     }

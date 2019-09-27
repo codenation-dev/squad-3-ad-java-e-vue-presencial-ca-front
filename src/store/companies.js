@@ -42,7 +42,7 @@ const mutations = {
     //chamar api
     alert("READ_COMPANY");
   },
-  READ_ALL_COMPANIES(state) {
+  READ_ALL_COMPANY(state) {
     state.companies = [
       { id: "1", name: "Empresa 01" },
       { id: "2", name: "Empresa 02" },

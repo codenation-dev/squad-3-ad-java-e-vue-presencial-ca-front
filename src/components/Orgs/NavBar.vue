@@ -20,7 +20,7 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <router-link class="nav-link" :to="{ name: 'log-list' }">
-            <span>Home</span>
+            <span>Logs</span>
           </router-link>
         </li>
         <li class="nav-item dropdown">
@@ -47,9 +47,6 @@
             </router-link>
             <router-link class="dropdown-item" :to="{ name: 'log-source-list' }">
               <span>Fonte de logs</span>
-            </router-link>
-            <router-link class="dropdown-item" :to="{ name: 'log-list' }">
-              <span>Log</span>
             </router-link>
           </div>
         </li>

@@ -19,7 +19,7 @@
             <div class="col-6">
               <b>Nome</b>
             </div>
-            <div class="col-2">
+            <div class="col-4">
               <b>Ações</b>
             </div>
           </div>

@@ -1,7 +1,9 @@
 <template>
   <section class="container" style="text-align: left;">
     <div class="card">
-      <div class="card-header">Empresas</div>
+      <div class="card-header">
+        <b>Empresas</b>
+      </div>
       <div class="card-body">
         <p class="card-text">
           <RouterLink :to="{ name: 'company-create', params: { id: '' } }">
@@ -11,46 +13,43 @@
         </p>
         <div class="container">
           <div class="row">
-            <div class="col-md">
+            <div class="col-2">
               <b>ID</b>
             </div>
-            <div class="col-lg">
+            <div class="col-6">
               <b>Nome</b>
             </div>
-            <div class="col-sm">
+            <div class="col-2">
               <b>Ações</b>
             </div>
-            <div class="col-sm"></div>
           </div>
           <div class="row" v-for="company in companies" :key="company.id">
-            <div class="col-md">{{ company.id }}</div>
-            <div class="col-lg" style="margin: 8px;">{{ company.name }}</div>
-            <div class="col-sm">
+            <div class="col-2">{{ company.id }}</div>
+            <div class="col-6">{{ company.name }}</div>
+            <div class="col-4">
               <RouterLink
                 class="icon-btn"
                 :to="{ name: 'company-edit', params: { id: company.id } }"
                 tag="button"
                 :title="`Editar ${company.id}`"
               >
-                <font-awesome-icon icon="edit" />
+                <font-awesome-icon icon="pencil-alt" />
                 <span style="padding-left: 4px;">Editar</span>
               </RouterLink>
-            </div>
-            <div class="col-sm">
-              <a
+              <button
                 class="icon-btn"
                 @click="deleteCompany(company.id)"
                 :title="`Excluir ${company.id}`"
               >
                 <font-awesome-icon icon="trash-alt" />
                 <span style="padding-left: 4px;">Excluir</span>
-              </a>
+              </button>
             </div>
           </div>
         </div>
         <router-link
           class="btn btn-secondary float-left back-btn"
-          :to="{ name: 'workspace' }"
+          :to="{ name: 'log-list' }"
           tag="button"
         >
           <span>Voltar</span>
@@ -61,14 +60,6 @@
 </template>
 
 <script>
-/*
-table
-juntar colunas ações
-
-fontes:
-color: black;
-opacity: 0.8;
-*/
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -97,6 +88,8 @@ export default {
 
 .row {
   border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .row:hover {

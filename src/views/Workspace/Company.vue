@@ -1,7 +1,9 @@
 <template>
   <section class="container" style="text-align: left;">
     <div class="card">
-      <div class="card-header">{{ companyDataTitle }}</div>
+      <div class="card-header">
+        <b>{{ companyDataTitle }}</b>
+      </div>
       <div class="card-body">
         <form @submit.prevent="submit(form, id)">
           <div class="form-group">
@@ -22,11 +24,7 @@
           >
             <span>Cancelar</span>
           </router-link>
-          <input
-            class="btn btn-primary float-right"
-            type="submit"
-            value="Salvar"
-          />
+          <input class="btn btn-primary float-right" type="submit" value="Salvar" />
         </form>
       </div>
     </div>

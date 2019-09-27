@@ -1,147 +1,98 @@
 <template>
-  <form @submit.prevent="submit(form)">
-    <div class="field">
-      <input
-        class="input"
-        :class="{ 'is-danger': $v.form.name.$invalid }"
-        v-model="form.name"
-        placeholder="Nome"
-      />
-      <span class="help is-danger" v-show="$v.form.name.$invalid"
-        >Nome é obrigatório</span
-      >
+  <section class="container" style="text-align: left;">
+    <div class="card">
+      <div class="card-header">
+        <b>{{ userDataTitle }}</b>
+      </div>
+      <div class="card-body">
+        <form @submit.prevent="submit(form, id)">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Nome</label>
+            <input
+              type="text"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Nome"
+              v-model="form.name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="companiesSelect">Empresa</label>
+            <select class="form-control" id="companiesSelect">
+              <option v-for="company in companies" :key="company.id" :value="company.id">
+                <span>{{ company.name }}</span>
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="typeUserSelect">Tipo de usuário</label>
+            <select class="form-control" id="typeUserSelect">
+              <option v-for="type in userTypes" :key="type.id" :value="type.id">
+                {{
+                type.name
+                }}
+              </option>
+            </select>
+          </div>
+          <router-link
+            class="btn btn-secondary float-left"
+            :to="{ name: 'user-list' }"
+            tag="button"
+          >
+            <span>Cancelar</span>
+          </router-link>
+          <input class="btn btn-primary float-right" type="submit" value="Salvar" />
+        </form>
+      </div>
     </div>
-    <div class="field">
-      <input
-        class="input"
-        :class="{ 'is-danger': $v.form.email.$invalid }"
-        v-model="form.email"
-        placeholder="Email"
-      />
-      <span class="help is-danger" v-show="$v.form.email.$invalid"
-        >Email inválido</span
-      >
-    </div>
-    <div class="field">
-      <input
-        class="input"
-        :class="{ 'is-danger': $v.form.password.$invalid }"
-        v-model="form.password"
-        placeholder="Senha"
-        autocomplete="new-password"
-        type="password"
-      />
-      <span class="help is-danger" v-show="$v.form.password.$invalid"
-        >Senha é obrigatório</span
-      >
-    </div>
-    <div class="field">
-      <input
-        class="input"
-        v-model="form.qtdItensPerPage"
-        placeholder="itens por página"
-        type="number"
-      />
-    </div>
-    <div class="field">
-      <select>
-        <option value="0">Tipo de usuário:</option>
-        <option v-for="type in userTypes" :key="type.id" :value="type.id">{{
-          type.name
-        }}</option>
-      </select>
-    </div>
-    <div class="field">
-      <select>
-        <option value="0">Empresa:</option>
-        <option
-          v-for="company in companies"
-          :key="company.id"
-          :value="company.id"
-          >{{ company.name }}</option
-        >
-      </select>
-    </div>
-
-    <button class="button" :disabled="$v.form.$invalid">Cadastrar</button>
-  </form>
+  </section>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import axios from "axios";
-import { domain } from "env";
 import router from "@/router";
-import { required, minLength, email } from "vuelidate/lib/validators";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
     return {
       form: {
-        id: "iduser01",
-        name: "nmuser01",
-        email: "",
-        password: "",
-        qtdItensPerPage: 10,
-        fkCompany: 0,
-        fkUserType: 0
+        name: ""
       }
     };
   },
-  validations: {
-    form: {
-      name: {
-        required
-      },
-      email: {
-        required,
-        email
-      },
-      password: {
-        required,
-        minLength: minLength(8)
-      }
+  props: {
+    id: {
+      type: String,
+      default: ""
     }
   },
-  props: {
-    index: Number
-  },
   computed: {
+    ...mapGetters("users", ["user"]),
     ...mapGetters("userTypes", ["userTypes"]),
     ...mapGetters("companies", ["companies"]),
-    dataTestButton() {
-      return parseInt(this.index) > -1 ? "salvar" : "criar";
+    userDataTitle() {
+      return this.id ? "Edição de usuário" : "Cadastro de usuário";
     }
   },
   methods: {
-    ...mapActions("userTypes", ["loadAllUserTypes"]),
-    ...mapActions("companies", ["loadAllCompanies"]),
-    submit(form, index) {
-      if (parseInt(this.index) > -1) {
-        this.updateContact({ form, index });
+    ...mapActions("users", ["createUser", "readUser", "updateUser"]),
+    ...mapActions("userTypes", ["readAllUserTypes"]),
+    ...mapActions("companies", ["readAllCompanies"]),
+    submit(form, id) {
+      if (id) {
+        this.updateUser({ id, form });
       } else {
-        this.createContact(form);
+        this.createUser({ id, form });
       }
-      router.push("/");
-    },
-    async load() {
-      const getCompaniesURL = `${domain}/companies`;
-
-      const { data } = await axios.get(getCompaniesURL);
-      this.companies = data;
+      router.push({ name: "user-list" });
     }
   },
   created() {
-    this.loadAllUserTypes();
-    this.loadAllCompanies();
-    if (parseInt(this.index) > -1) {
-      let contact = this.contacts[this.index];
-
-      if (contact) {
-        this.form = contact;
-      } else {
-        router.push("/404");
-      }
+    this.readAllUserTypes();
+    this.readAllCompanies();
+    if (this.id) {
+      this.readUser(this.id);
     }
   }
 };

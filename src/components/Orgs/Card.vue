@@ -3,12 +3,8 @@
     <div class="row">
       <div class="card card-signin my-5">
         <div class="card-body">
-          <h5 class="card-title text-center">
-            {{ title }}
-          </h5>
-          <h6 class="card-subtitle mb-2 text-muted">
-            {{ subtitle }}
-          </h6>
+          <h5 class="card-title text-center">{{ title }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ subtitle }}</h6>
           <slot></slot>
         </div>
       </div>
@@ -30,8 +26,7 @@ export default {
   }
 };
 </script>
-
-<style>
+<style scoped>
 .card {
   width: 445px;
 }

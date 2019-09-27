@@ -4,12 +4,12 @@ export default {
     serverOrigins: []
   },
   actions: {
-    loadAllServerOrigins: context => {
-      context.commit("GET_ALL_SERVER_ORIGINS", true);
+    readAllServerOrigins: context => {
+      context.commit("READ_ALL_SERVER_ORIGIN", true);
     }
   },
   mutations: {
-    GET_ALL_SERVER_ORIGINS(state) {
+    READ_ALL_SERVER_ORIGIN(state) {
       state.serverOrigins = [
         { id: "1", name: "PRODUCTION" },
         { id: "2", name: "HOMOLOGATION" },

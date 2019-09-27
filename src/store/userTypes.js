@@ -4,12 +4,12 @@ export default {
     userTypes: []
   },
   actions: {
-    loadAllUserTypes: context => {
-      context.commit("GET_ALL_USER_TYPES", true);
+    readAllUserTypes: context => {
+      context.commit("READ_ALL_USER_TYPE", true);
     }
   },
   mutations: {
-    GET_ALL_USER_TYPES(state) {
+    READ_ALL_USER_TYPE(state) {
       state.userTypes = [
         { id: "1", name: "USER" },
         { id: "2", name: "ADMIN" },

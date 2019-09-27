@@ -1,6 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-light">
-    <a class="navbar-brand" href="#">DjaVue</a>
+    <a class="navbar-brand" href="#">
+      <img :src="require('@/logos/djavue.png')" width="50" height="50" alt />
+      <b>DjaVue</b>
+    </a>
     <button
       class="navbar-toggler"
       type="button"
@@ -16,8 +19,8 @@
     <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <router-link class="nav-link" :to="{ name: 'workspace' }">
-            <span>Home</span>
+          <router-link class="nav-link" :to="{ name: 'log-list' }">
+            <span>Logs</span>
           </router-link>
         </li>
         <li class="nav-item dropdown">
@@ -44,9 +47,6 @@
             </router-link>
             <router-link class="dropdown-item" :to="{ name: 'log-source-list' }">
               <span>Fonte de logs</span>
-            </router-link>
-            <router-link class="dropdown-item" :to="{ name: 'log-list' }">
-              <span>Log</span>
             </router-link>
           </div>
         </li>

@@ -1,6 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-light">
-    <a class="navbar-brand" href="#">DjaVue</a>
+    <a class="navbar-brand" href="#">
+      <img :src="require('@/logos/djavue.png')" width="50" height="50" alt />
+      <span>DjaVue</span>
+    </a>
     <button
       class="navbar-toggler"
       type="button"

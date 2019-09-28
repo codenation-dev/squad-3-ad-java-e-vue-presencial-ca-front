@@ -8,17 +8,18 @@
 
       <input-form-vue
         id="username"
-        :onInput="setUsername"
+        @onInput="setUsername"
         placeholder
         label="Usuário"
         icon="user"
       />
       <input-form-vue
         id="password"
-        :onInput="setPassword"
+        @onInput="setPassword"
         type="password"
         label="Senha"
         icon="key"
+        @onEnter="submit(form)"
       />
       <div class="d-flex justify-content-around">
         <checkbox-vue

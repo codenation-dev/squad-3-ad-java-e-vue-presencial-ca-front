@@ -1,7 +1,7 @@
 <template>
   <card-vue title="Esqueci minha senha" subtitle="Preencha os campos abaixo">
     <form @submit.prevent="submit(form)">
-      <input-form-vue id="email" :onInput="setEmail" label="E-mail" />
+      <input-form-vue id="email" @onInput="setEmail" label="E-mail" />
       <button-vue
         :disabled="$v.form.$invalid"
         text="Recuperar senha"

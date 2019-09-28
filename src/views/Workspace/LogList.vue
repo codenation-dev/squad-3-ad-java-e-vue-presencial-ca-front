@@ -13,7 +13,9 @@
             data-target="#collapseExample"
             aria-expanded="false"
             aria-controls="collapseExample"
-          >Filtros</button>
+          >
+            Filtros
+          </button>
         </p>
         <div class="collapse" id="collapseExample">
           <div class="card card-body">
@@ -27,7 +29,11 @@
                   @change="readAllLogs(form)"
                 >
                   <option></option>
-                  <option v-for="company in companies" :key="company.id" :value="company.name">
+                  <option
+                    v-for="company in companies"
+                    :key="company.id"
+                    :value="company.name"
+                  >
                     <span>{{ company.name }}</span>
                   </option>
                 </select>
@@ -45,7 +51,8 @@
                     v-for="application in applications"
                     :key="application.id"
                     :value="application.id"
-                  >{{ application.name }}</option>
+                    >{{ application.name }}</option
+                  >
                 </select>
               </div>
               <div class="col-3">
@@ -61,7 +68,8 @@
                     v-for="serverOrigin in serverOrigins"
                     :key="serverOrigin.id"
                     :value="serverOrigin.name"
-                  >{{ serverOrigin.name }}</option>
+                    >{{ serverOrigin.name }}</option
+                  >
                 </select>
               </div>
               <div class="col-3">
@@ -77,7 +85,8 @@
                     v-for="levelLog in levelLogs"
                     :key="levelLog.id"
                     :value="levelLog.name"
-                  >{{ levelLog.name }}</option>
+                    >{{ levelLog.name }}</option
+                  >
                 </select>
               </div>
             </div>
@@ -102,7 +111,9 @@
                   v-model="form.toFile"
                   @click="readAllLogs(form)"
                 />
-                <label class="form-check-label" for="exampleCheck1">Arquivado</label>
+                <label class="form-check-label" for="exampleCheck1"
+                  >Arquivado</label
+                >
               </div>
               <div class="col-7" style="padding-top: 32px;">
                 <div class="input-group mb-3">
@@ -156,11 +167,19 @@
                 <font-awesome-icon icon="eye" />
                 <span style="padding-left: 4px;">Visualizar</span>
               </RouterLink>
-              <button class="icon-btn" @click="updateLog(log.id)" :title="`Arquivar ${log.id}`">
+              <button
+                class="icon-btn"
+                @click="updateLog(log.id)"
+                :title="`Arquivar ${log.id}`"
+              >
                 <font-awesome-icon icon="save" />
                 <span style="padding-left: 4px;">Arquivar</span>
               </button>
-              <button class="icon-btn" @click="deleteLog(log.id)" :title="`Excluir ${log.id}`">
+              <button
+                class="icon-btn"
+                @click="deleteLog(log.id)"
+                :title="`Excluir ${log.id}`"
+              >
                 <font-awesome-icon icon="trash-alt" />
                 <span style="padding-left: 4px;">Excluir</span>
               </button>
@@ -194,7 +213,9 @@
             </li>
           </ul>
         </nav>
-        <button type="button" class="btn btn-danger" @click="updateLiveLog()">Live</button>
+        <button type="button" class="btn btn-danger" @click="updateLiveLog()">
+          Live
+        </button>
         <button type="button" class="btn btn-secondary">Refresh</button>
       </div>
     </div>

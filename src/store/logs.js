@@ -16,7 +16,6 @@ const actions = {
     let params = {};
 
     if (form) {
-      console.log(form);
       params = {
         origin: form.serverOrigin ? form.serverOrigin : "",
         levelLog: form.levelLog ? form.levelLog : "",
@@ -33,6 +32,7 @@ const actions = {
       return error;
     }
   },
+  // eslint-disable-next-line no-unused-vars
   async updateLog({ commit }, id) {
     const setFileURL = `${domain}/logs/file/${id}`;
 

@@ -13,14 +13,10 @@
                 class="form-control"
                 id="companiesSelect"
                 v-model="form.company"
-                @change="readLogSearch(form)"
+                @change="readAllLogs(form)"
               >
                 <option></option>
-                <option
-                  v-for="company in companies"
-                  :key="company.id"
-                  :value="company.name"
-                >
+                <option v-for="company in companies" :key="company.id" :value="company.name">
                   <span>{{ company.name }}</span>
                 </option>
               </select>
@@ -31,15 +27,14 @@
                 class="form-control"
                 id="applicationsSelect"
                 v-model="form.application"
-                @change="readLogSearch(form)"
+                @change="readAllLogs(form)"
               >
                 <option></option>
                 <option
                   v-for="application in applications"
                   :key="application.id"
                   :value="application.id"
-                  >{{ application.name }}</option
-                >
+                >{{ application.name }}</option>
               </select>
             </div>
             <div class="col-3">
@@ -48,15 +43,14 @@
                 class="form-control"
                 id="serverOriginsSelect"
                 v-model="form.serverOrigin"
-                @change="readLogSearch(form)"
+                @change="readAllLogs(form)"
               >
                 <option></option>
                 <option
                   v-for="serverOrigin in serverOrigins"
                   :key="serverOrigin.id"
                   :value="serverOrigin.name"
-                  >{{ serverOrigin.name }}</option
-                >
+                >{{ serverOrigin.name }}</option>
               </select>
             </div>
             <div class="col-3">
@@ -65,15 +59,14 @@
                 class="form-control"
                 id="levelLogsSelect"
                 v-model="form.levelLog"
-                @change="readLogSearch(form)"
+                @change="readAllLogs(form)"
               >
                 <option></option>
                 <option
                   v-for="levelLog in levelLogs"
                   :key="levelLog.id"
                   :value="levelLog.name"
-                  >{{ levelLog.name }}</option
-                >
+                >{{ levelLog.name }}</option>
               </select>
             </div>
           </div>
@@ -84,7 +77,7 @@
                 class="form-control"
                 id="OrderbySelect"
                 v-model="form.orderBy"
-                @change="readLogSearch(form)"
+                @change="readAllLogs(form)"
               >
                 <option></option>
                 <option>Level</option>
@@ -93,11 +86,7 @@
             </div>
             <div class="col-3">
               <label for="SearchForSelect">Buscar por</label>
-              <select
-                class="form-control"
-                id="SearchForSelect"
-                v-model="form.searchFor"
-              >
+              <select class="form-control" id="SearchForSelect" v-model="form.searchFor">
                 <option></option>
                 <option>Level</option>
                 <option>Descrição</option>
@@ -117,7 +106,7 @@
                   <button
                     class="btn btn-outline-secondary"
                     type="button"
-                    @click="readLogSearch(form)"
+                    @click="readAllLogs(form)"
                   >
                     <font-awesome-icon icon="search" />
                   </button>
@@ -127,18 +116,22 @@
           </div>
           <div class="row">
             <div class="col-2">
-              <b>ID</b>
+              <b>Level</b>
             </div>
-            <div class="col-8">
-              <b>Nome</b>
+            <div class="col-2">
+              <b>Origem</b>
+            </div>
+            <div class="col-6">
+              <b>Detalhes</b>
             </div>
             <div class="col-2">
               <b>Ações</b>
             </div>
           </div>
           <div class="row" v-for="log in logs" :key="log.id">
-            <div class="col-2">{{ log.id }}</div>
-            <div class="col-8">{{ log.name }}</div>
+            <div class="col-2">{{ log.levelLog }}</div>
+            <div class="col-2">{{ log.serverOrigin }}</div>
+            <div class="col-6">{{ log.details }}</div>
             <div class="col-2">
               <RouterLink
                 class="icon-btn"
@@ -149,25 +142,46 @@
                 <font-awesome-icon icon="eye" />
                 <span style="padding-left: 4px;">Visualizar</span>
               </RouterLink>
-              <button
-                class="icon-btn"
-                @click="updateLog(log.id)"
-                :title="`Arquivar ${log.id}`"
-              >
+              <button class="icon-btn" @click="updateLog(log.id)" :title="`Arquivar ${log.id}`">
                 <font-awesome-icon icon="save" />
                 <span style="padding-left: 4px;">Arquivar</span>
               </button>
-              <button
-                class="icon-btn"
-                @click="deleteLog(log.id)"
-                :title="`Excluir ${log.id}`"
-              >
+              <button class="icon-btn" @click="deleteLog(log.id)" :title="`Excluir ${log.id}`">
                 <font-awesome-icon icon="trash-alt" />
                 <span style="padding-left: 4px;">Excluir</span>
               </button>
             </div>
           </div>
         </div>
+      </div>
+      <div class="card-footer text-muted" style="display: flex;">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <button type="button" class="btn btn-danger" @click="updateLiveLog()">Live</button>
+        <button type="button" class="btn btn-secondary">Refresh</button>
       </div>
     </div>
   </section>
@@ -200,8 +214,8 @@ export default {
   methods: {
     ...mapActions("logs", [
       "readAllLogs",
-      "readLogSearch",
       "updateLog",
+      "updateLiveLog",
       "deleteLog"
     ]),
     ...mapActions("companies", ["readAllCompanies"]),

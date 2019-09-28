@@ -3,34 +3,57 @@ import { domain } from "env";
 
 const state = {
   logs: [],
-  log: {}
+  log: {},
+  live: false
 };
 
 const actions = {
-  readLogSearch({ commit }, form) {
-    commit("READ_LOG_SEARCH", form);
-  },
-  updateLog({ commit }, data) {
-    commit("UPDATE_LOG", data);
-  },
   readLog({ commit }, id) {
     commit("READ_LOG", id);
   },
-  async readAllLogs({ commit }) {
+  async readAllLogs({ commit }, form) {
     const getLogsURL = `${domain}/logs`;
-    const params = {
-      serverOrigin: "desenvolvimento"
-    };
+    let params = {};
+
+    if (form) {
+      params = {
+        origin: form.serverOrigin ? form.serverOrigin : "",
+        levelLog: form.levelLog ? form.levelLog : "",
+        toFile: !(form.toFile.length > 0),
+        details: form.details ? form.details : "",
+        orderBy: form.orderBy ? "levelLog" : ""
+      };
+    }
 
     try {
-      const { data } = await axios.get(getLogsURL, {
-        params
-      });
+      const { data } = await axios.get(getLogsURL, { params });
       commit("READ_ALL_LOG", data);
     } catch (error) {
       return error;
     }
   },
+  // eslint-disable-next-line no-unused-vars
+  async updateLog({ commit }, id) {
+    const setFileURL = `${domain}/logs/file/${id}`;
+
+    try {
+      await axios.put(setFileURL);
+    } catch (error) {
+      return error;
+    }
+  },
+  async updateLiveLog({ commit }, data) {
+    const getLiveLogURL = `${domain}/gerarLog`;
+
+    try {
+      const { data } = await axios.get(getLiveLogURL);
+      commit("UPDATE_LIVE_LOG", data);
+    } catch (error) {
+      commit("UPDATE_LIVE_LOG", data);
+      return error;
+    }
+  },
+
   deleteLog({ commit }, id) {
     if (confirm("Confirmar exclusão?")) {
       commit("DELETE_LOG", id);
@@ -40,40 +63,16 @@ const actions = {
 
 const mutations = {
   READ_LOG(/*state, id*/) {
-    //chamar api
     alert("READ_LOG");
   },
-  READ_ALL_LOG(state /*, data*/) {
-    state.logs = [
-      { id: "idlogsource01", name: "nmlogsource01" },
-      { id: "idlogsource02", name: "nmlogsource02" },
-      { id: "idlogsource03", name: "nmlogsource03" }
-    ];
+  READ_ALL_LOG(state, data) {
+    state.logs = data.content;
   },
-  READ_LOG_SEARCH(state, form) {
-    //chamar api
-    alert(
-      form.company +
-        ", " +
-        form.application +
-        ", " +
-        form.serverOrigin +
-        ", " +
-        form.levelLog +
-        ", " +
-        form.orderBy +
-        ", " +
-        form.searchFor +
-        ", " +
-        form.searchForText
-    );
-  },
-  UPDATE_LOG(/*state, data*/) {
-    //chamar api
-    alert("UPDATE_LOG");
+  UPDATE_LIVE_LOG(state) {
+    alert("UPDATE_LIVE_LOG");
+    state.live = !state.live;
   },
   DELETE_LOG(/*state, id*/) {
-    //chamar api
     alert("DELETE_LOG");
   }
 };

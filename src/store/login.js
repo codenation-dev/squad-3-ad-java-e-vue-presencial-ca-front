@@ -34,6 +34,17 @@ export default {
     },
     async confirm(context, token) {
       await axios.post(`${domain}/users/confirm`, { token });
+    },
+    async checkAvailability(context, user) {
+      try {
+        const { data, status } = await axios.get(
+          `${domain}/users/validate?userCode=${user}`
+        );
+
+        return { data, status };
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   mutations: {

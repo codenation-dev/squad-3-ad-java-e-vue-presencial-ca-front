@@ -1,24 +1,38 @@
 <template>
   <card-vue title="Cadastro" subtitle="Preencha os campos abaixo">
     <form class="form-group" @submit.prevent="submit(form)">
-      <input-form-vue
-        id="name"
-        label="Nome"
-        placeholder="João das Neves"
-        :onInput="setName"
-      />
-      <input-form-vue
-        id="userCode"
-        label="Código do usuário"
-        placeholder="jonsnow"
-        :onInput="setUserCode"
-      />
-      <input-form-vue
-        id="email"
-        label="E-mail"
-        placeholder="jon@stark.wf"
-        :onInput="setEmail"
-      />
+      <input-form-vue id="name" label="Nome" placeholder="João das Neves" :onInput="setName" />
+      <div
+        v-if="
+          !$v.form.name.$required &&
+            $v.form.name.$dirty &&
+            $v.form.name.$invalid
+        "
+      >
+        <small class="form-text text-danger">Nome é obrigatório</small>
+      </div>
+      <input-form-vue id="code" label="Código do usuário" placeholder="jonsnow" :onInput="setCode" />
+      <div v-if="$v.form.code.$dirty && $v.form.code.$invalid">
+        <small v-if="userError" class="form-text text-danger">
+          {{
+          userError
+          }}
+        </small>
+        <small
+          v-else-if="$v.form.code.$model === ''"
+          class="form-text text-danger"
+        >Código do usuário é obrigatório</small>
+      </div>
+      <input-form-vue id="email" label="E-mail" placeholder="jon@stark.wf" :onInput="setEmail" />
+      <div
+        v-if="
+          !$v.form.email.$required &&
+            $v.form.email.$dirty &&
+            $v.form.email.$invalid
+        "
+      >
+        <small class="form-text text-danger">E-mail é obrigatório</small>
+      </div>
       <input-form-vue
         id="password"
         type="password"
@@ -26,15 +40,23 @@
         autocomplete="new-password"
         :onInput="setPassword"
       />
+      <div v-if="$v.form.password.$dirty && $v.form.password.$invalid">
+        <small
+          v-if="!$v.form.password.minLength"
+          class="form-text text-danger"
+        >Senha precisa ter 8 caracteres no mínimo</small>
+        <small
+          v-if="!$v.form.password.$model === ''"
+          class="form-text text-danger"
+        >Senha é obrigatória</small>
+      </div>
       <button-vue
         :disabled="$v.form.$invalid"
         @click="submit(form)"
         text="Cadastrar"
         :isLoading="isLoading"
       />
-      <router-link class="btn btn-link" :to="{ name: 'login' }"
-        >Já possui cadastro?</router-link
-      >
+      <router-link class="btn btn-link" :to="{ name: 'login' }">Já possui cadastro?</router-link>
     </form>
   </card-vue>
 </template>
@@ -51,9 +73,11 @@ export default {
   data() {
     return {
       errors: [],
+      userError: null,
+      userOK: null,
       form: {
         name: "",
-        userCode: "",
+        code: "",
         email: "",
         password: ""
       },
@@ -65,10 +89,24 @@ export default {
       name: {
         required
       },
-      userCode: {
+      code: {
         required,
-        regex(user) {
-          return /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i.test(user);
+        regex(code) {
+          return /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i.test(code);
+        },
+        async checkCode(value) {
+          if (value !== "") {
+            const res = await this.checkAvailability(value);
+
+            if (res.status === 200) {
+              this.userOK = res.data;
+            } else {
+              this.userError = res.data;
+              return false;
+            }
+          }
+
+          return true;
         }
       },
       email: {
@@ -82,7 +120,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("login", ["signup"]),
+    ...mapActions("login", ["signup", "checkAvailability"]),
     async submit(form) {
       this.isLoading = !this.isLoading;
 
@@ -96,15 +134,19 @@ export default {
     },
     setName(value) {
       this.form.name = value;
+      this.$v.form.name.$touch();
     },
-    setUserCode(value) {
-      this.form.userCode = value;
+    setCode(value) {
+      this.form.code = value;
+      this.$v.form.code.$touch();
     },
     setEmail(value) {
       this.form.email = value;
+      this.$v.form.email.$touch();
     },
     setPassword(value) {
       this.form.password = value;
+      this.$v.form.password.$touch();
     }
   },
   components: {

@@ -25,7 +25,8 @@
                 v-for="application in applications"
                 :key="application.id"
                 :value="application.id"
-              >{{ application.name }}</option>
+                >{{ application.name }}</option
+              >
             </select>
           </div>
           <div class="form-group">
@@ -35,10 +36,15 @@
                 v-for="serverOrigin in serverOrigins"
                 :key="serverOrigin.id"
                 :value="serverOrigin.id"
-              >{{ serverOrigin.name }}</option>
+                >{{ serverOrigin.name }}</option
+              >
             </select>
           </div>
-          <router-link class="btn btn-secondary float-left" :to="{ name: 'log-list' }" tag="button">
+          <router-link
+            class="btn btn-secondary float-left"
+            :to="{ name: 'log-list' }"
+            tag="button"
+          >
             <span>Cancelar</span>
           </router-link>
         </form>

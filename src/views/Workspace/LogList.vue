@@ -5,126 +5,129 @@
         <b>Logs</b>
       </div>
       <div class="card-body">
-        <div class="container">
-          <div class="row">
-            <div class="col-3">
-              <label for="companiesSelect">Empresa</label>
-              <select
-                class="form-control"
-                id="companiesSelect"
-                v-model="form.company"
-                @change="readAllLogs(form)"
-              >
-                <option></option>
-                <option
-                  v-for="company in companies"
-                  :key="company.id"
-                  :value="company.name"
-                >
-                  <span>{{ company.name }}</span>
-                </option>
-              </select>
-            </div>
-            <div class="col-3">
-              <label for="applicationsSelect">Aplicação</label>
-              <select
-                class="form-control"
-                id="applicationsSelect"
-                v-model="form.application"
-                @change="readAllLogs(form)"
-              >
-                <option></option>
-                <option
-                  v-for="application in applications"
-                  :key="application.id"
-                  :value="application.id"
-                  >{{ application.name }}</option
-                >
-              </select>
-            </div>
-            <div class="col-3">
-              <label for="serverOriginsSelect">Servidor de origem</label>
-              <select
-                class="form-control"
-                id="serverOriginsSelect"
-                v-model="form.serverOrigin"
-                @change="readAllLogs(form)"
-              >
-                <option></option>
-                <option
-                  v-for="serverOrigin in serverOrigins"
-                  :key="serverOrigin.id"
-                  :value="serverOrigin.name"
-                  >{{ serverOrigin.name }}</option
-                >
-              </select>
-            </div>
-            <div class="col-3">
-              <label for="levelLogsSelect">Level</label>
-              <select
-                class="form-control"
-                id="levelLogsSelect"
-                v-model="form.levelLog"
-                @change="readAllLogs(form)"
-              >
-                <option></option>
-                <option
-                  v-for="levelLog in levelLogs"
-                  :key="levelLog.id"
-                  :value="levelLog.name"
-                  >{{ levelLog.name }}</option
-                >
-              </select>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-3">
-              <label for="OrderbySelect">Ordenar por</label>
-              <select
-                class="form-control"
-                id="OrderbySelect"
-                v-model="form.orderBy"
-                @change="readAllLogs(form)"
-              >
-                <option></option>
-                <option>Level</option>
-                <option>Frequência</option>
-              </select>
-            </div>
-            <div class="col-3">
-              <label for="SearchForSelect">Buscar por</label>
-              <select
-                class="form-control"
-                id="SearchForSelect"
-                v-model="form.searchFor"
-              >
-                <option></option>
-                <option>Level</option>
-                <option>Descrição</option>
-                <option>Origem</option>
-              </select>
-            </div>
-            <div class="col-6" style="padding-top: 32px;">
-              <div class="input-group mb-3">
-                <input
-                  type="text"
+        <p>
+          <button
+            class="btn btn-primary"
+            type="button"
+            data-toggle="collapse"
+            data-target="#collapseExample"
+            aria-expanded="false"
+            aria-controls="collapseExample"
+          >Filtros</button>
+        </p>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            <div class="row">
+              <div class="col-3">
+                <label for="companiesSelect">Empresa</label>
+                <select
                   class="form-control"
-                  aria-label="buscar por"
-                  aria-describedby="basic-addon2"
-                  v-model="form.searchForText"
+                  id="companiesSelect"
+                  v-model="form.company"
+                  @change="readAllLogs(form)"
+                >
+                  <option></option>
+                  <option v-for="company in companies" :key="company.id" :value="company.name">
+                    <span>{{ company.name }}</span>
+                  </option>
+                </select>
+              </div>
+              <div class="col-3">
+                <label for="applicationsSelect">Aplicação</label>
+                <select
+                  class="form-control"
+                  id="applicationsSelect"
+                  v-model="form.application"
+                  @change="readAllLogs(form)"
+                >
+                  <option></option>
+                  <option
+                    v-for="application in applications"
+                    :key="application.id"
+                    :value="application.id"
+                  >{{ application.name }}</option>
+                </select>
+              </div>
+              <div class="col-3">
+                <label for="serverOriginsSelect">Servidor de origem</label>
+                <select
+                  class="form-control"
+                  id="serverOriginsSelect"
+                  v-model="form.serverOrigin"
+                  @change="readAllLogs(form)"
+                >
+                  <option></option>
+                  <option
+                    v-for="serverOrigin in serverOrigins"
+                    :key="serverOrigin.id"
+                    :value="serverOrigin.name"
+                  >{{ serverOrigin.name }}</option>
+                </select>
+              </div>
+              <div class="col-3">
+                <label for="levelLogsSelect">Level</label>
+                <select
+                  class="form-control"
+                  id="levelLogsSelect"
+                  v-model="form.levelLog"
+                  @change="readAllLogs(form)"
+                >
+                  <option></option>
+                  <option
+                    v-for="levelLog in levelLogs"
+                    :key="levelLog.id"
+                    :value="levelLog.name"
+                  >{{ levelLog.name }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-3">
+                <label for="OrderbySelect">Ordenar por</label>
+                <select
+                  class="form-control"
+                  id="OrderbySelect"
+                  v-model="form.orderBy"
+                  @change="readAllLogs(form)"
+                >
+                  <option>createdAt</option>
+                  <option>level</option>
+                </select>
+              </div>
+              <div class="col-2">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="exampleCheck1"
+                  v-model="form.toFile"
+                  @click="readAllLogs(form)"
                 />
-                <div class="input-group-append">
-                  <button
-                    class="btn btn-outline-secondary"
-                    type="button"
-                    @click="readAllLogs(form)"
-                  >
-                    <font-awesome-icon icon="search" />
-                  </button>
+                <label class="form-check-label" for="exampleCheck1">Arquivado</label>
+              </div>
+              <div class="col-7" style="padding-top: 32px;">
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    aria-label="buscar por"
+                    aria-describedby="basic-addon2"
+                    v-model="form.details"
+                  />
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      @click="readAllLogs(form)"
+                    >
+                      <font-awesome-icon icon="search" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div class="container">
           <div class="row">
             <div class="col-2">
               <b>Level</b>
@@ -153,19 +156,11 @@
                 <font-awesome-icon icon="eye" />
                 <span style="padding-left: 4px;">Visualizar</span>
               </RouterLink>
-              <button
-                class="icon-btn"
-                @click="updateLog(log.id)"
-                :title="`Arquivar ${log.id}`"
-              >
+              <button class="icon-btn" @click="updateLog(log.id)" :title="`Arquivar ${log.id}`">
                 <font-awesome-icon icon="save" />
                 <span style="padding-left: 4px;">Arquivar</span>
               </button>
-              <button
-                class="icon-btn"
-                @click="deleteLog(log.id)"
-                :title="`Excluir ${log.id}`"
-              >
+              <button class="icon-btn" @click="deleteLog(log.id)" :title="`Excluir ${log.id}`">
                 <font-awesome-icon icon="trash-alt" />
                 <span style="padding-left: 4px;">Excluir</span>
               </button>
@@ -199,9 +194,7 @@
             </li>
           </ul>
         </nav>
-        <button type="button" class="btn btn-danger" @click="updateLiveLog()">
-          Live
-        </button>
+        <button type="button" class="btn btn-danger" @click="updateLiveLog()">Live</button>
         <button type="button" class="btn btn-secondary">Refresh</button>
       </div>
     </div>
@@ -219,9 +212,9 @@ export default {
         application: "",
         serverOrigin: "",
         levelLog: "",
-        orderBy: "",
-        searchFor: "",
-        searchForText: ""
+        orderBy: "createdAt",
+        toFile: [],
+        details: ""
       }
     };
   },

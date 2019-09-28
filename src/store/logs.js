@@ -16,24 +16,13 @@ const actions = {
     let params = {};
 
     if (form) {
-      alert(
-        form.company +
-          ", " +
-          form.application +
-          ", " +
-          form.serverOrigin +
-          ", " +
-          form.levelLog +
-          ", " +
-          form.orderBy +
-          ", " +
-          form.searchFor +
-          ", " +
-          form.searchForText
-      );
+      console.log(form);
       params = {
         origin: form.serverOrigin ? form.serverOrigin : "",
-        levelLog: form.levelLog ? form.levelLog : ""
+        levelLog: form.levelLog ? form.levelLog : "",
+        toFile: !(form.toFile.length > 0),
+        details: form.details ? form.details : "",
+        orderBy: form.orderBy ? "levelLog" : ""
       };
     }
 
@@ -44,8 +33,14 @@ const actions = {
       return error;
     }
   },
-  updateLog({ commit }, data) {
-    commit("UPDATE_LOG", data);
+  async updateLog({ commit }, id) {
+    const setFileURL = `${domain}/logs/file/${id}`;
+
+    try {
+      await axios.put(setFileURL);
+    } catch (error) {
+      return error;
+    }
   },
   async updateLiveLog({ commit }, data) {
     const getLiveLogURL = `${domain}/gerarLog`;
@@ -68,22 +63,16 @@ const actions = {
 
 const mutations = {
   READ_LOG(/*state, id*/) {
-    //chamar api
     alert("READ_LOG");
   },
   READ_ALL_LOG(state, data) {
     state.logs = data.content;
-  },
-  UPDATE_LOG(/*state, data*/) {
-    //chamar api
-    alert("UPDATE_LOG");
   },
   UPDATE_LIVE_LOG(state) {
     alert("UPDATE_LIVE_LOG");
     state.live = !state.live;
   },
   DELETE_LOG(/*state, id*/) {
-    //chamar api
     alert("DELETE_LOG");
   }
 };

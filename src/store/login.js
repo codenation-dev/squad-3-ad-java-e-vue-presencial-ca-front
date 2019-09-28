@@ -30,7 +30,9 @@ export default {
       }
     },
     async signup(context, form) {
-      await axios.post(`${domain}/users`, form);
+      const { status } = await axios.post(`${domain}/users`, form);
+
+      return status;
     },
     async confirm(context, token) {
       await axios.post(`${domain}/users/confirm`, { token });
@@ -43,7 +45,7 @@ export default {
 
         return { data, status };
       } catch (error) {
-        console.log(error);
+        alert(error);
       }
     }
   },

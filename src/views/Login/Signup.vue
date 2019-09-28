@@ -1,7 +1,14 @@
 <template>
   <card-vue title="Cadastro" subtitle="Preencha os campos abaixo">
     <form class="form-group" @submit.prevent="submit(form)">
-      <input-form-vue id="name" label="Nome" placeholder="João das Neves" :onInput="setName" />
+      <alert-vue v-if="signUpError" :text="signUpError" type="alert-danger" />
+
+      <input-form-vue
+        id="name"
+        label="Nome"
+        placeholder="João das Neves"
+        :onInput="setName"
+      />
       <div
         v-if="
           !$v.form.name.$required &&
@@ -11,19 +18,28 @@
       >
         <small class="form-text text-danger">Nome é obrigatório</small>
       </div>
-      <input-form-vue id="code" label="Código do usuário" placeholder="jonsnow" :onInput="setCode" />
+      <input-form-vue
+        id="code"
+        label="Código do usuário"
+        placeholder="jonsnow"
+        :onInput="setCode"
+      />
       <div v-if="$v.form.code.$dirty && $v.form.code.$invalid">
-        <small v-if="userError" class="form-text text-danger">
-          {{
+        <small v-if="userError" class="form-text text-danger">{{
           userError
-          }}
-        </small>
+        }}</small>
         <small
           v-else-if="$v.form.code.$model === ''"
           class="form-text text-danger"
-        >Código do usuário é obrigatório</small>
+          >Código do usuário é obrigatório</small
+        >
       </div>
-      <input-form-vue id="email" label="E-mail" placeholder="jon@stark.wf" :onInput="setEmail" />
+      <input-form-vue
+        id="email"
+        label="E-mail"
+        placeholder="jon@stark.wf"
+        :onInput="setEmail"
+      />
       <div
         v-if="
           !$v.form.email.$required &&
@@ -41,14 +57,14 @@
         :onInput="setPassword"
       />
       <div v-if="$v.form.password.$dirty && $v.form.password.$invalid">
-        <small
-          v-if="!$v.form.password.minLength"
-          class="form-text text-danger"
-        >Senha precisa ter 8 caracteres no mínimo</small>
+        <small v-if="!$v.form.password.minLength" class="form-text text-danger"
+          >Senha precisa ter 8 caracteres no mínimo</small
+        >
         <small
           v-if="!$v.form.password.$model === ''"
           class="form-text text-danger"
-        >Senha é obrigatória</small>
+          >Senha é obrigatória</small
+        >
       </div>
       <button-vue
         :disabled="$v.form.$invalid"
@@ -56,7 +72,9 @@
         text="Cadastrar"
         :isLoading="isLoading"
       />
-      <router-link class="btn btn-link" :to="{ name: 'login' }">Já possui cadastro?</router-link>
+      <router-link class="btn btn-link" :to="{ name: 'login' }"
+        >Já possui cadastro?</router-link
+      >
     </form>
   </card-vue>
 </template>
@@ -68,11 +86,12 @@ import { required, minLength, email } from "vuelidate/lib/validators";
 import CardVue from "@/components/Orgs/Card.vue";
 import InputFormVue from "../../components/Mols/InputForm.vue";
 import ButtonVue from "../../components/Atoms/Button.vue";
+import AlertVue from "@/components/Atoms/Alert.vue";
 
 export default {
   data() {
     return {
-      errors: [],
+      signUpError: null,
       userError: null,
       userOK: null,
       form: {
@@ -125,9 +144,11 @@ export default {
       this.isLoading = !this.isLoading;
 
       try {
-        await this.signup(form);
+        const status = await this.signup(form);
+
+        if (status === 200) this.$router.push("/login");
       } catch ({ response }) {
-        this.errors = response.data.errors;
+        this.signUpError = response.data.message;
       } finally {
         this.isLoading = !this.isLoading;
       }
@@ -152,7 +173,8 @@ export default {
   components: {
     CardVue,
     InputFormVue,
-    ButtonVue
+    ButtonVue,
+    AlertVue
   }
 };
 </script>

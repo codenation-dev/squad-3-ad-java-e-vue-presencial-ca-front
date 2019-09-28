@@ -7,6 +7,7 @@
       :placeholder="placeholder"
       :icon="icon"
       @onInput="onInput"
+      @onBlur="onBlur"
     />
   </div>
 </template>
@@ -26,7 +27,14 @@ export default {
     type: String,
     label: String,
     icon: String,
-    onInput: Function
+    onInput: {
+      type: Function,
+      default: function() {}
+    },
+    onBlur: {
+      type: Function,
+      default: function() {}
+    }
   }
 };
 </script>

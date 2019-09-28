@@ -10,6 +10,7 @@
       v-bind="$props"
       v-model="value"
       v-on:input="handleInput"
+      v-on:blur="handleBlur"
     />
   </div>
 </template>
@@ -43,6 +44,12 @@ export default {
         value = event.target.value;
 
       me.$emit("onInput", value);
+    },
+    handleBlur(event) {
+      const me = this,
+        value = event.target.value;
+
+      me.$emit("onBlur", value);
     }
   }
 };

@@ -1,174 +1,205 @@
 <template>
-  <section class="container" style="text-align: left;">
-    <div class="card">
-      <div class="card-header">
-        <b>Logs</b>
-      </div>
-      <div class="card-body">
-        <p>
-          <button
-            class="btn btn-primary"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapseExample"
-            aria-expanded="false"
-            aria-controls="collapseExample"
-          >Filtros</button>
-        </p>
-        <div class="collapse" id="collapseExample">
-          <div class="card card-body">
+  <div>
+    <section
+      class="container"
+      style="text-align: left; margin-top: 100px; margin-bottom: 100px;"
+    >
+      <div class="card">
+        <div class="card-header">
+          <b>Logs</b>
+        </div>
+        <div class="card-body">
+          <div class="container">
             <div class="row">
-              <div class="col-3">
-                <label for="companiesSelect">Empresa</label>
-                <select
-                  class="form-control"
-                  id="companiesSelect"
-                  v-model="form.company"
-                  @change="readAllLogs(form)"
-                >
-                  <option></option>
-                  <option v-for="company in companies" :key="company.id" :value="company.name">
-                    <span>{{ company.name }}</span>
-                  </option>
-                </select>
-              </div>
-              <div class="col-3">
-                <label for="applicationsSelect">Aplicação</label>
-                <select
-                  class="form-control"
-                  id="applicationsSelect"
-                  v-model="form.application"
-                  @change="readAllLogs(form)"
-                >
-                  <option></option>
-                  <option
-                    v-for="application in applications"
-                    :key="application.id"
-                    :value="application.id"
-                  >{{ application.name }}</option>
-                </select>
-              </div>
-              <div class="col-3">
-                <label for="serverOriginsSelect">Servidor de origem</label>
-                <select
-                  class="form-control"
-                  id="serverOriginsSelect"
-                  v-model="form.serverOrigin"
-                  @change="readAllLogs(form)"
-                >
-                  <option></option>
-                  <option
-                    v-for="serverOrigin in serverOrigins"
-                    :key="serverOrigin.id"
-                    :value="serverOrigin.name"
-                  >{{ serverOrigin.name }}</option>
-                </select>
-              </div>
-              <div class="col-3">
-                <label for="levelLogsSelect">Level</label>
-                <select
-                  class="form-control"
-                  id="levelLogsSelect"
-                  v-model="form.levelLog"
-                  @change="readAllLogs(form)"
-                >
-                  <option></option>
-                  <option
-                    v-for="levelLog in levelLogs"
-                    :key="levelLog.id"
-                    :value="levelLog.name"
-                  >{{ levelLog.name }}</option>
-                </select>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-3">
-                <label for="OrderbySelect">Ordenar por</label>
-                <select
-                  class="form-control"
-                  id="OrderbySelect"
-                  v-model="form.orderBy"
-                  @change="readAllLogs(form)"
-                >
-                  <option>createdAt</option>
-                  <option>levelLog</option>
-                </select>
+              <div class="col-2">
+                <b>Level</b>
               </div>
               <div class="col-2">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  id="exampleCheck1"
-                  v-model="form.toFile"
-                  @click="readAllLogs(form)"
-                />
-                <label class="form-check-label" for="exampleCheck1">Arquivado</label>
+                <b>Origem</b>
               </div>
-              <div class="col-7" style="padding-top: 32px;">
-                <div class="input-group mb-3">
-                  <input
-                    type="text"
-                    class="form-control"
-                    aria-label="buscar por"
-                    aria-describedby="basic-addon2"
-                    v-model="form.details"
-                  />
-                  <div class="input-group-append">
-                    <button
-                      class="btn btn-outline-secondary"
-                      type="button"
-                      @click="readAllLogs(form)"
-                    >
-                      <font-awesome-icon icon="search" />
-                    </button>
-                  </div>
-                </div>
+              <div class="col-6">
+                <b>Detalhes</b>
+              </div>
+              <div class="col-2">
+                <b>Ações</b>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-2">
-              <b>Level</b>
-            </div>
-            <div class="col-2">
-              <b>Origem</b>
-            </div>
-            <div class="col-6">
-              <b>Detalhes</b>
-            </div>
-            <div class="col-2">
-              <b>Ações</b>
-            </div>
-          </div>
-          <div class="row" v-for="log in logs" :key="log.id">
-            <div class="col-2">{{ log.levelLog }}</div>
-            <div class="col-2">{{ log.serverOrigin }}</div>
-            <div class="col-6">{{ log.details }}</div>
-            <div class="col-2">
-              <RouterLink
-                class="icon-btn"
-                :to="{ name: 'log-view', params: { id: log.id } }"
-                tag="button"
-                :title="`Visualizar ${log.id}`"
-              >
-                <font-awesome-icon icon="eye" />
-                <span style="padding-left: 4px;">Visualizar</span>
-              </RouterLink>
-              <button class="icon-btn" @click="updateLog(log.id)" :title="`Arquivar ${log.id}`">
-                <font-awesome-icon icon="save" />
-                <span style="padding-left: 4px;">Arquivar</span>
-              </button>
-              <button class="icon-btn" @click="deleteLog(log.id)" :title="`Excluir ${log.id}`">
-                <font-awesome-icon icon="trash-alt" />
-                <span style="padding-left: 4px;">Excluir</span>
-              </button>
+            <div class="row" v-for="log in logs" :key="log.id">
+              <div class="col-2">{{ log.levelLog }}</div>
+              <div class="col-2">{{ log.serverOrigin }}</div>
+              <div class="col-6">{{ log.details }}</div>
+              <div class="col-2">
+                <RouterLink
+                  class="icon-btn"
+                  :to="{ name: 'log-view', params: { id: log.id } }"
+                  tag="button"
+                  :title="`Visualizar ${log.id}`"
+                >
+                  <font-awesome-icon icon="eye" />
+                  <span style="padding-left: 4px;">Visualizar</span>
+                </RouterLink>
+                <button
+                  class="icon-btn"
+                  @click="updateLog(log.id)"
+                  :title="`Arquivar ${log.id}`"
+                >
+                  <font-awesome-icon icon="save" />
+                  <span style="padding-left: 4px;">Arquivar</span>
+                </button>
+                <button
+                  class="icon-btn"
+                  @click="deleteLog(log.id)"
+                  :title="`Excluir ${log.id}`"
+                >
+                  <font-awesome-icon icon="trash-alt" />
+                  <span style="padding-left: 4px;">Excluir</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="card-footer text-muted" style="display: flex;">
+    </section>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-light fixed-bottom">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropup">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            >Filtros</a
+          >
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div class="dropdown-item">
+              <label for="companiesSelect">Empresa</label>
+              <select
+                class="form-control"
+                id="companiesSelect"
+                v-model="form.company"
+                @change="readAllLogs(form)"
+              >
+                <option></option>
+                <option
+                  v-for="company in companies"
+                  :key="company.id"
+                  :value="company.name"
+                >
+                  <span>{{ company.name }}</span>
+                </option>
+              </select>
+            </div>
+            <div class="dropdown-item">
+              <label for="applicationsSelect">Aplicação</label>
+              <select
+                class="form-control"
+                id="applicationsSelect"
+                v-model="form.application"
+                @change="readAllLogs(form)"
+              >
+                <option></option>
+                <option
+                  v-for="application in applications"
+                  :key="application.id"
+                  :value="application.id"
+                  >{{ application.name }}</option
+                >
+              </select>
+            </div>
+            <div class="dropdown-item">
+              <label for="serverOriginsSelect">Servidor de origem</label>
+              <select
+                class="form-control"
+                id="serverOriginsSelect"
+                v-model="form.serverOrigin"
+                @change="readAllLogs(form)"
+              >
+                <option></option>
+                <option
+                  v-for="serverOrigin in serverOrigins"
+                  :key="serverOrigin.id"
+                  :value="serverOrigin.name"
+                  >{{ serverOrigin.name }}</option
+                >
+              </select>
+            </div>
+            <div class="dropdown-item">
+              <label for="levelLogsSelect">Level</label>
+              <select
+                class="form-control"
+                id="levelLogsSelect"
+                v-model="form.levelLog"
+                @change="readAllLogs(form)"
+              >
+                <option></option>
+                <option
+                  v-for="levelLog in levelLogs"
+                  :key="levelLog.id"
+                  :value="levelLog.name"
+                  >{{ levelLog.name }}</option
+                >
+              </select>
+            </div>
+            <div class="dropdown-item">
+              <label for="OrderbySelect">Ordenar por</label>
+              <select
+                class="form-control"
+                id="OrderbySelect"
+                v-model="form.orderBy"
+                @change="readAllLogs(form)"
+              >
+                <option>createdAt</option>
+                <option>levelLog</option>
+              </select>
+            </div>
+            <div class="dropdown-item">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="exampleCheck1"
+                v-model="form.toFile"
+                @click="readAllLogs(form)"
+              />
+              <label class="form-check-label" for="exampleCheck1"
+                >Arquivado</label
+              >
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="form-inline my-2 my-lg-0">
+          <input
+            class="form-control mr-sm-2 form-control-sm"
+            type="search"
+            placeholder="Buscar detalhes"
+            aria-label="Search"
+            v-model="form.details"
+            v-on:keyup.enter="readAllLogs(form)"
+          />
+          <button
+            class="btn btn-outline-success my-2 my-sm-0"
+            type="submit"
+            @click="readAllLogs(form)"
+          >
+            <font-awesome-icon icon="search" />
+          </button>
+        </div>
+      </div>
+      <div class="form-inline my-2 my-lg-0">
+        <button type="button" class="btn btn-danger" @click="updateLiveLog()">
+          Live
+        </button>
+        <button
+          type="button"
+          class="btn btn-success"
+          @click="readAllLogs(form)"
+        >
+          Refresh
+        </button>
         <nav aria-label="Page navigation example">
           <ul class="pagination">
             <li class="page-item">
@@ -194,11 +225,9 @@
             </li>
           </ul>
         </nav>
-        <button type="button" class="btn btn-danger" @click="updateLiveLog()">Live</button>
-        <button type="button" class="btn btn-secondary" @click="readAllLogs(form)">Refresh</button>
       </div>
-    </div>
-  </section>
+    </nav>
+  </div>
 </template>
 
 <script>
@@ -266,5 +295,9 @@ export default {
 
 .row:hover {
   background-color: #f2f2f2;
+}
+
+.nav-bg-color {
+  background-color: var(--secondary);
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav-bar v-show="toolbar" class="nav-bottom-space" />
+    <nav-bar v-show="toolbar" />
     <transition name="fade">
       <router-view v-if="show"></router-view>
     </transition>
@@ -48,9 +48,5 @@ body,
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active em versões anteriores a 2.1.8 */ {
   opacity: 0;
-}
-
-.nav-bottom-space {
-  margin-bottom: 20px;
 }
 </style>

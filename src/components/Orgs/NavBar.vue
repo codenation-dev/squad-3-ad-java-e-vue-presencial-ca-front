@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-light fixed-top">
     <a class="navbar-brand" href="#">
       <img :src="require('@/logos/djavue.png')" width="50" height="50" alt />
       <b>DjaVue</b>

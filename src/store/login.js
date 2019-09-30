@@ -40,7 +40,7 @@ export default {
     async checkAvailability(context, user) {
       try {
         const { data, status } = await axios.get(
-          `${domain}/users/validate?userCode=${user}`
+          `${domain}/users/validate/${user}`
         );
 
         return { data, status };

@@ -61,6 +61,10 @@ export default {
 }
 
 .container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

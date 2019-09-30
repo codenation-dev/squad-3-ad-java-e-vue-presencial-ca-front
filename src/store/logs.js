@@ -19,9 +19,9 @@ const actions = {
       params = {
         origin: form.serverOrigin ? form.serverOrigin : "",
         levelLog: form.levelLog ? form.levelLog : "",
-        toFile: !(form.toFile.length > 0),
+        //toFile: !(form.toFile.length > 0),
         details: form.details ? form.details : "",
-        orderBy: form.orderBy ? "levelLog" : ""
+        orderBy: form.orderBy ? form.orderBy : ""
       };
     }
 

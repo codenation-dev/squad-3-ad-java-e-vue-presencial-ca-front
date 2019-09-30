@@ -3,7 +3,12 @@
     <form class="form-group" @submit.prevent="submit(form)">
       <alert-vue v-if="signUpError" :text="signUpError" type="alert-danger" />
 
-      <input-form-vue id="name" label="Nome" placeholder="João das Neves" :onInput="setName" />
+      <input-form-vue
+        id="name"
+        label="Nome"
+        placeholder="João das Neves"
+        :onInput="setName"
+      />
       <div
         v-if="
           !$v.form.name.$required &&
@@ -13,19 +18,28 @@
       >
         <small class="form-text text-danger">Nome é obrigatório</small>
       </div>
-      <input-form-vue id="code" label="Código do usuário" placeholder="jonsnow" :onInput="setCode" />
+      <input-form-vue
+        id="code"
+        label="Código do usuário"
+        placeholder="jonsnow"
+        :onInput="setCode"
+      />
       <div v-if="$v.form.code.$dirty && $v.form.code.$invalid">
-        <small v-if="userError" class="form-text text-danger">
-          {{
+        <small v-if="userError" class="form-text text-danger">{{
           userError
-          }}
-        </small>
+        }}</small>
         <small
           v-else-if="$v.form.code.$model === ''"
           class="form-text text-danger"
-        >Código do usuário é obrigatório</small>
+          >Código do usuário é obrigatório</small
+        >
       </div>
-      <input-form-vue id="email" label="E-mail" placeholder="jon@stark.wf" :onInput="setEmail" />
+      <input-form-vue
+        id="email"
+        label="E-mail"
+        placeholder="jon@stark.wf"
+        :onInput="setEmail"
+      />
       <div
         v-if="
           !$v.form.email.$required &&
@@ -43,14 +57,14 @@
         :onInput="setPassword"
       />
       <div v-if="$v.form.password.$dirty && $v.form.password.$invalid">
-        <small
-          v-if="!$v.form.password.minLength"
-          class="form-text text-danger"
-        >Senha precisa ter 8 caracteres no mínimo</small>
+        <small v-if="!$v.form.password.minLength" class="form-text text-danger"
+          >Senha precisa ter 8 caracteres no mínimo</small
+        >
         <small
           v-if="!$v.form.password.$model === ''"
           class="form-text text-danger"
-        >Senha é obrigatória</small>
+          >Senha é obrigatória</small
+        >
       </div>
       <button-vue
         :disabled="$v.form.$invalid"
@@ -58,7 +72,9 @@
         text="Cadastrar"
         :isLoading="isLoading"
       />
-      <router-link class="btn btn-link" :to="{ name: 'login' }">Já possui cadastro?</router-link>
+      <router-link class="btn btn-link" :to="{ name: 'login' }"
+        >Já possui cadastro?</router-link
+      >
     </form>
   </card-vue>
 </template>
@@ -163,28 +179,8 @@ export default {
 };
 </script>
 
-<style scoped>
-html,
-body,
-#app {
-  margin: 0;
-  height: 100%;
-  width: 100%;
-  min-height: 100%;
-}
-
-.container {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
+<style lang="css" scoped>
 form {
   padding-top: 15px;
-}
-
-.justify-content-around {
-  padding: 10px;
 }
 </style>

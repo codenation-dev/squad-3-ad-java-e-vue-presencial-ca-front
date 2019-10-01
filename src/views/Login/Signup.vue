@@ -121,7 +121,6 @@ export default {
           if (value !== "") {
             const res = await this.checkAvailability(value);
 
-            console.log(res);
             if (res.error) {
               this.signUpError = res.error_description;
             } else if (res.status === 200) {

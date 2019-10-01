@@ -46,8 +46,8 @@ const mutations = {
     //chamar api
     alert("CREATE_USER");
   },
-  SET_CURRENT_USER(state, user) {
-    console.log("SET_USER");
+  SET_CURRENT_USER(/*state, user*/) {
+    // SET_CURRENT_USER
   },
   READ_USER(/*state, id*/) {
     //chamar api

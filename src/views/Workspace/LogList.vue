@@ -258,22 +258,43 @@
         >
           <ul class="pagination">
             <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
+              <a
+                class="page-link"
+                href="#"
+                aria-label="Previous"
+                @click="updateToPreviousPage(form)"
+              >
                 <span aria-hidden="true">&laquo;</span>
                 <span class="sr-only">Previous</span>
               </a>
             </li>
-            <li class="page-item">
-              <a class="page-link" href="#">1</a>
+            <li class="page-item" :class="{ active: pageNumber == 1 }">
+              <a class="page-link" href="#">
+                {{ pageNumber - 1 > 0 ? pageNumber - 1 : 1 }}
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li
+              class="page-item"
+              :class="{ active: pageNumber > 1 && pageNumber < 3 }"
+            >
+              <a class="page-link" href="#">
+                {{ pageNumber > 1 ? pageNumber : 2 }}
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="page-item" :class="{ active: pageNumber > 2 }">
+              <a class="page-link" href="#">{{
+                pageNumber > 2 ? pageNumber + 1 : 3
+              }}</a>
             </li>
             <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
+              <a
+                class="page-link"
+                href="#"
+                aria-label="Next"
+                @click="updateToNextPage(form)"
+              >
                 <span aria-hidden="true">&raquo;</span>
                 <span class="sr-only">Next</span>
               </a>
@@ -304,14 +325,20 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("logs", ["logs"]),
+    ...mapGetters("logs", ["logs", "pageNumber"]),
     ...mapGetters("companies", ["companies"]),
     ...mapGetters("applications", ["applications"]),
     ...mapGetters("serverOrigins", ["serverOrigins"]),
     ...mapGetters("levelLogs", ["levelLogs"])
   },
   methods: {
-    ...mapActions("logs", ["readAllLogs", "updateLog", "deleteLog"]),
+    ...mapActions("logs", [
+      "readAllLogs",
+      "updateLog",
+      "updateToNextPage",
+      "updateToPreviousPage",
+      "deleteLog"
+    ]),
     ...mapActions("companies", ["readAllCompanies"]),
     ...mapActions("applications", ["readAllApplications"]),
     ...mapActions("serverOrigins", ["readAllServerOrigins"]),

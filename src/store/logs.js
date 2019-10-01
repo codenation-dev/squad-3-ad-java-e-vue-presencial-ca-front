@@ -4,14 +4,15 @@ import { domain } from "env";
 const state = {
   logs: [],
   log: {},
-  live: false
+  pageNumber: 0,
+  totalPages: 0
 };
 
 const actions = {
   readLog({ commit }, id) {
     commit("READ_LOG", id);
   },
-  async readAllLogs({ commit }, form) {
+  async readAllLogs({ commit, state }, form) {
     const getLogsURL = `${domain}/logs`;
     let params = {};
 
@@ -21,7 +22,8 @@ const actions = {
         levelLog: form.levelLog ? form.levelLog : "",
         //toFile: !(form.toFile.length > 0),
         details: form.details ? form.details : "",
-        orderBy: form.orderBy ? form.orderBy : ""
+        orderBy: form.orderBy ? form.orderBy : "",
+        page: state.pageNumber
       };
     }
 
@@ -46,6 +48,14 @@ const actions = {
     if (confirm("Confirmar exclusão?")) {
       commit("DELETE_LOG", id);
     }
+  },
+  updateToNextPage({ commit, dispatch }, form) {
+    commit("UPDATE_NUMBER_PAGE", 1);
+    dispatch("readAllLogs", form);
+  },
+  updateToPreviousPage({ commit, dispatch }, form) {
+    commit("UPDATE_NUMBER_PAGE", -1);
+    dispatch("readAllLogs", form);
   }
 };
 
@@ -55,6 +65,16 @@ const mutations = {
   },
   READ_ALL_LOG(state, data) {
     state.logs = data.content;
+    state.pageNumber = data.number;
+    state.totalPages = data.totalPages;
+  },
+  UPDATE_NUMBER_PAGE(state, pages) {
+    if (
+      state.pageNumber + 1 < state.totalPages &&
+      (pages > 0 || state.pageNumber)
+    ) {
+      state.pageNumber = state.pageNumber + pages;
+    }
   },
   DELETE_LOG(/*state, id*/) {
     alert("DELETE_LOG");
@@ -67,6 +87,9 @@ const getters = {
   },
   log(state) {
     return state.logs;
+  },
+  pageNumber(state) {
+    return state.pageNumber + 1;
   }
 };
 

@@ -20,7 +20,8 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <router-link class="nav-link" :to="{ name: 'log-list' }">
-            <span>Logs</span>
+            <font-awesome-icon icon="bug" />
+            <span class="menu-text">Logs</span>
           </router-link>
         </li>
         <li class="nav-item dropdown">
@@ -33,26 +34,31 @@
             aria-haspopup="true"
             aria-expanded="false"
           >
-            <span>Cadastro</span>
+            <font-awesome-icon icon="plus" />
+            <span class="menu-text">Cadastro</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <router-link class="dropdown-item" :to="{ name: 'company-list' }">
-              <span>Empresa</span>
+              <font-awesome-icon icon="building" />
+              <span class="menu-text">Empresa</span>
             </router-link>
             <router-link class="dropdown-item" :to="{ name: 'user-list' }">
-              <span>Usuário</span>
+              <font-awesome-icon icon="user" />
+              <span class="menu-text">Usuário</span>
             </router-link>
             <router-link
               class="dropdown-item"
               :to="{ name: 'application-list' }"
             >
-              <span>Aplicação</span>
+              <font-awesome-icon icon="desktop" />
+              <span class="menu-text">Aplicação</span>
             </router-link>
             <router-link
               class="dropdown-item"
               :to="{ name: 'log-source-list' }"
             >
-              <span>Fonte de logs</span>
+              <font-awesome-icon icon="code" />
+              <span class="menu-text">Fonte de logs</span>
             </router-link>
           </div>
         </li>
@@ -78,14 +84,16 @@
             class="dropdown-item"
             :to="{ name: 'user-edit', params: { id: 'logged' } }"
           >
-            <span>Perfil</span>
+            <font-awesome-icon icon="user" />
+            <span class="menu-text">Perfil</span>
           </router-link>
           <router-link
             @click="logout"
             class="dropdown-item"
             :to="{ name: 'login' }"
           >
-            <span>Sair</span>
+            <font-awesome-icon icon="sign-out-alt" />
+            <span class="menu-text">Sair</span>
           </router-link>
         </div>
       </div>

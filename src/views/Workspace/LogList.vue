@@ -1,12 +1,10 @@
 <template>
   <div>
-    <section
-      class="container"
-      style="text-align: left; margin-top: 100px; margin-bottom: 100px;"
-    >
+    <section class="container main-section">
       <div class="card">
         <div class="card-header">
-          <b>Logs</b>
+          <font-awesome-icon icon="bug" />
+          <b class="menu-text">Logs</b>
         </div>
         <div class="card-body">
           <div class="container">
@@ -36,7 +34,7 @@
                   :title="`Visualizar ${log.id}`"
                 >
                   <font-awesome-icon icon="eye" />
-                  <span style="padding-left: 4px;">Visualizar</span>
+                  <span class="menu-text">Visualizar</span>
                 </RouterLink>
                 <button
                   class="icon-btn"
@@ -44,7 +42,7 @@
                   :title="`Arquivar ${log.id}`"
                 >
                   <font-awesome-icon icon="save" />
-                  <span style="padding-left: 4px;">Arquivar</span>
+                  <span class="menu-text">Arquivar</span>
                 </button>
                 <button
                   class="icon-btn"
@@ -52,7 +50,7 @@
                   :title="`Excluir ${log.id}`"
                 >
                   <font-awesome-icon icon="trash-alt" />
-                  <span style="padding-left: 4px;">Excluir</span>
+                  <span class="menu-text">Excluir</span>
                 </button>
               </div>
             </div>
@@ -71,8 +69,11 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
-            >Filtros</a
+            style="margin-right: 8px;"
           >
+            <font-awesome-icon icon="filter" />
+            <span class="menu-text">Filtros</span>
+          </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <div class="dropdown-item">
               <label for="companiesSelect">Empresa</label>
@@ -191,16 +192,26 @@
       </div>
       <div class="form-inline my-2 my-lg-0">
         <button type="button" class="btn btn-danger" @click="updateLiveLog()">
-          Live
+          <font-awesome-icon
+            icon="circle"
+            style="margin-bottom: 4px; margin-right: 4px;"
+          />Live
         </button>
         <button
           type="button"
           class="btn btn-success"
           @click="readAllLogs(form)"
+          style="margin-left: 8px;"
         >
-          Refresh
+          <font-awesome-icon
+            icon="sync-alt"
+            style="margin-bottom: 4px; margin-right: 4px;"
+          />Atualizar
         </button>
-        <nav aria-label="Page navigation example">
+        <nav
+          aria-label="Page navigation example"
+          style="max-height: 38px; margin-left: 8px;"
+        >
           <ul class="pagination">
             <li class="page-item">
               <a class="page-link" href="#" aria-label="Previous">

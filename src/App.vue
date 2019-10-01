@@ -49,4 +49,13 @@ body,
 .fade-enter, .fade-leave-to /* .fade-leave-active em versões anteriores a 2.1.8 */ {
   opacity: 0;
 }
+
+.main-section {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.menu-text {
+  margin-left: 4px;
+}
 </style>

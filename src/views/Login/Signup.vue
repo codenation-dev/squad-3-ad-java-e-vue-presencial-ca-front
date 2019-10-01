@@ -136,6 +136,7 @@ export default {
     ...mapActions("login", ["signup", "checkAvailability"]),
     async submit(form) {
       this.isLoading = !this.isLoading;
+      this.signUpError = null;
 
       try {
         const status = await this.signup(form);
@@ -148,6 +149,8 @@ export default {
       }
     },
     async checkCode(value) {
+      this.signUpError = this.userError = this.userOK = null;
+
       if (value !== "") {
         const res = await this.checkAvailability(value);
 
@@ -155,9 +158,13 @@ export default {
           this.signUpError = res.error_description;
         } else if (res.status === 200) {
           this.userOK = res.data;
+        } else if (res.code === 400) {
+          this.userError = res.message;
         } else {
           this.userError = res.data;
         }
+      } else {
+        this.userError = "Código do usuário é obrigatório";
       }
     },
     setName(value) {

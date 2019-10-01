@@ -42,18 +42,6 @@ const actions = {
       return error;
     }
   },
-  async updateLiveLog({ commit }, data) {
-    const getLiveLogURL = `${domain}/gerarLog`;
-
-    try {
-      const { data } = await axios.get(getLiveLogURL);
-      commit("UPDATE_LIVE_LOG", data);
-    } catch (error) {
-      commit("UPDATE_LIVE_LOG", data);
-      return error;
-    }
-  },
-
   deleteLog({ commit }, id) {
     if (confirm("Confirmar exclusão?")) {
       commit("DELETE_LOG", id);
@@ -67,10 +55,6 @@ const mutations = {
   },
   READ_ALL_LOG(state, data) {
     state.logs = data.content;
-  },
-  UPDATE_LIVE_LOG(state) {
-    alert("UPDATE_LIVE_LOG");
-    state.live = !state.live;
   },
   DELETE_LOG(/*state, id*/) {
     alert("DELETE_LOG");

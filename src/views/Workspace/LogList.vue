@@ -199,7 +199,12 @@
         </div>
       </div>
       <div class="form-inline my-2 my-lg-0">
-        <button type="button" class="btn btn-danger" @click="updateLiveLog()">
+        <button
+          type="button"
+          class="btn btn-danger"
+          :class="{ live: live }"
+          @click="updateLiveLog(live, form)"
+        >
           <font-awesome-icon
             icon="circle"
             style="margin-bottom: 4px; margin-right: 4px;"
@@ -263,7 +268,8 @@ export default {
         orderBy: "createdAt",
         toFile: [],
         details: ""
-      }
+      },
+      live: false
     };
   },
   computed: {
@@ -274,17 +280,23 @@ export default {
     ...mapGetters("levelLogs", ["levelLogs"])
   },
   methods: {
-    ...mapActions("logs", [
-      "readAllLogs",
-      "updateLog",
-      "updateLiveLog",
-      "deleteLog"
-    ]),
+    ...mapActions("logs", ["readAllLogs", "updateLog", "deleteLog"]),
     ...mapActions("companies", ["readAllCompanies"]),
     ...mapActions("applications", ["readAllApplications"]),
     ...mapActions("serverOrigins", ["readAllServerOrigins"]),
     ...mapActions("levelLogs", ["loadAllLevelLogs"]),
-    ...mapActions("users", ["readCurrentUser"])
+    ...mapActions("users", ["readCurrentUser"]),
+    updateLiveLog(live, form) {
+      if (!live) {
+        this.readAllLogs(form);
+        this.live = setInterval(() => {
+          this.readAllLogs(form);
+        }, 15000);
+      } else {
+        clearInterval(live);
+        this.live = false;
+      }
+    }
   },
   created() {
     this.readCurrentUser(this.$route.params.currentUser);
@@ -321,5 +333,44 @@ export default {
 
 .dropup-filter-menu {
   width: 300px !important;
+}
+
+@keyframes blink {
+  0% {
+    background-color: rgba(255, 0, 0, 1);
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0.25);
+  }
+  100% {
+    background-color: rgba(255, 0, 0, 1);
+  }
+}
+@-webkit-keyframes blink {
+  0% {
+    background-color: rgba(255, 0, 0, 1);
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0.25);
+  }
+  100% {
+    background-color: rgba(255, 0, 0, 1);
+  }
+}
+
+.live {
+  -moz-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -moz-animation: blink normal 1.5s infinite ease-in-out;
+  /* Firefox */
+  -webkit-animation: blink normal 1.5s infinite ease-in-out;
+  /* Webkit */
+  -ms-animation: blink normal 1.5s infinite ease-in-out;
+  /* IE */
+  animation: blink normal 1.5s infinite ease-in-out;
+  /* Opera */
 }
 </style>

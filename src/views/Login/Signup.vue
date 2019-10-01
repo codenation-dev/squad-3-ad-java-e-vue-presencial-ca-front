@@ -1,9 +1,15 @@
 <template>
-  <card-vue title="Cadastro" subtitle="Preencha os campos abaixo">
+  <card-vue subtitle="Preencha os dados abaixo">
+    <img class="logo" slot="logo" src="@/logos/djavue-login.png" alt srcset />
     <form class="form-group" @submit.prevent="submit(form)">
       <alert-vue v-if="signUpError" :text="signUpError" type="alert-danger" />
 
-      <input-form-vue id="name" label="Nome" placeholder="João das Neves" @onInput="setName" />
+      <input-form-vue
+        id="name"
+        label="Nome"
+        placeholder="João das Neves"
+        @onInput="setName"
+      />
       <div
         v-if="
           !$v.form.name.$required &&
@@ -13,15 +19,28 @@
       >
         <small class="form-text text-danger">Nome é obrigatório</small>
       </div>
-      <input-form-vue id="code" label="Código do usuário" placeholder="jonsnow" @onInput="setCode" />
+      <input-form-vue
+        id="code"
+        label="Código do usuário"
+        placeholder="jonsnow"
+        @onInput="setCode"
+      />
       <div v-if="$v.form.code.$dirty && $v.form.code.$invalid">
-        <small v-if="userError" class="form-text text-danger">{{ userError }}</small>
+        <small v-if="userError" class="form-text text-danger">{{
+          userError
+        }}</small>
         <small
           v-else-if="$v.form.code.$model === ''"
           class="form-text text-danger"
-        >Código do usuário é obrigatório</small>
+          >Código do usuário é obrigatório</small
+        >
       </div>
-      <input-form-vue id="email" label="E-mail" placeholder="jon@stark.wf" @onInput="setEmail" />
+      <input-form-vue
+        id="email"
+        label="E-mail"
+        placeholder="jon@stark.wf"
+        @onInput="setEmail"
+      />
       <div
         v-if="
           !$v.form.email.$required &&
@@ -39,14 +58,14 @@
         @onInput="setPassword"
       />
       <div v-if="$v.form.password.$dirty && $v.form.password.$invalid">
-        <small
-          v-if="!$v.form.password.minLength"
-          class="form-text text-danger"
-        >Senha precisa ter 8 caracteres no mínimo</small>
+        <small v-if="!$v.form.password.minLength" class="form-text text-danger"
+          >Senha precisa ter 8 caracteres no mínimo</small
+        >
         <small
           v-if="!$v.form.password.$model === ''"
           class="form-text text-danger"
-        >Senha é obrigatória</small>
+          >Senha é obrigatória</small
+        >
       </div>
       <button-vue
         :disabled="$v.form.$invalid"
@@ -54,7 +73,9 @@
         text="Cadastrar"
         :isLoading="isLoading"
       />
-      <router-link class="btn btn-link" :to="{ name: 'login' }">Já possui cadastro?</router-link>
+      <router-link class="btn btn-link" :to="{ name: 'login' }"
+        >Já possui cadastro?</router-link
+      >
     </form>
   </card-vue>
 </template>
@@ -162,5 +183,6 @@ export default {
 <style lang="css" scoped>
 form {
   padding-top: 15px;
+  margin-bottom: 0;
 }
 </style>

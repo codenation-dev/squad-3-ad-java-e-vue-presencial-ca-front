@@ -1,8 +1,6 @@
 <template>
-  <card-vue
-    title="Login"
-    subtitle="Insira seu usuário e senha para acessar o sistema"
-  >
+  <card-vue subtitle="Iniciar sessão">
+    <img class="logo" slot="logo" src="@/logos/djavue-login.png" alt srcset />
     <form class="form-group">
       <alert-vue v-if="error" :text="error" type="alert-danger" />
 
@@ -37,7 +35,7 @@
         text="Login"
         :isLoading="isLoading"
       />
-      <p style="padding-top: 15px;">
+      <p style="padding-top: 15px; margin-bottom: 0px">
         Não tem cadastro?
         <router-link :to="{ name: 'signup' }">Cadastre-se agora</router-link>
       </p>
@@ -132,6 +130,7 @@ export default {
 <style lang="css" scoped>
 form {
   padding-top: 15px;
+  margin-bottom: 0;
 }
 
 .justify-content-around {

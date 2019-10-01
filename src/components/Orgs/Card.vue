@@ -1,10 +1,15 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="card card-signin my-5">
+      <div class="card card-signin">
         <div class="card-body">
-          <h5 class="card-title text-center">{{ title }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ subtitle }}</h6>
+          <h5 class="card-title text-center">
+            <template v-if="title">{{ title }}</template>
+            <slot name="logo"></slot>
+          </h5>
+          <h6 v-if="subtitle" class="card-subtitle mb-2 text-muted">
+            {{ subtitle }}
+          </h6>
           <slot></slot>
         </div>
       </div>
@@ -17,11 +22,15 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Seu título"
+      default: null
+    },
+    image: {
+      type: String,
+      default: "@/logos/djavue.png"
     },
     subtitle: {
       type: String,
-      default: "Seu subtítulo"
+      default: null
     }
   }
 };
@@ -38,7 +47,7 @@ export default {
 }
 
 .card-signin .card-title {
-  margin-bottom: 2rem;
+  margin-bottom: 1.3rem;
   font-weight: 300;
   font-size: 1.5rem;
 }
@@ -70,5 +79,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.logo {
+  height: 100px;
+  margin-bottom: 0;
 }
 </style>

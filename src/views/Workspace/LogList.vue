@@ -9,36 +9,46 @@
                 <font-awesome-icon icon="bug" />
                 <b class="menu-text">{{ log.createdAt }}:</b>
                 <b class="menu-text">{{ log.title }}</b>
-                <span class="menu-text badge badge-secondary">
-                  {{ log.levelLog }}
-                </span>
+                <span
+                  class="menu-text badge badge-secondary"
+                  :class="{
+                    'bg-info': log.levelLog == 'INFO',
+                    'bg-warning': log.levelLog == 'WARNING',
+                    'bg-danger': log.levelLog == 'FATAL',
+                    'bg-success': log.levelLog == 'TRACE',
+                    'bg-dark': log.levelLog == 'ERROR'
+                  }"
+                  >{{ log.levelLog }}</span
+                >
               </div>
               <div class="col-3 text-right">
                 <RouterLink
                   class="icon-btn"
                   :to="{ name: 'log-view', params: { id: log.id } }"
-                  tag="button"
                   :title="`Visualizar ${log.id}`"
                 >
                   <font-awesome-icon icon="eye" />
                   <span class="menu-text">Visualizar</span>
                 </RouterLink>
-                <button
+                <a
                   class="icon-btn"
                   @click="updateLog(log.id)"
                   :title="`Arquivar ${log.id}`"
+                  v-show="!log.toFile"
+                  href="#"
                 >
                   <font-awesome-icon icon="save" />
                   <span class="menu-text">Arquivar</span>
-                </button>
-                <button
+                </a>
+                <a
                   class="icon-btn"
                   @click="deleteLog(log.id)"
                   :title="`Excluir ${log.id}`"
+                  href="#"
                 >
                   <font-awesome-icon icon="trash-alt" />
                   <span class="menu-text">Excluir</span>
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -46,14 +56,35 @@
         <div class="card-body">
           <div class="w-100 text-left">
             <div class="row justify-content-start">
-              <div class="col-sm">{{ `Aplicação: ${log.application}` }}</div>
-              <div class="col-sm">{{ `Empresa: ${log.company}` }}</div>
-              <div class="col-sm">{{ `Fonte de log: ${log.logSource}` }}</div>
-              <div class="col-sm">{{ `Origem: ${log.serverOrigin}` }}</div>
-              <div class="col-sm">{{ `Arquivado: ${log.toFile}` }}</div>
+              <div class="col-sm">
+                <b>Aplicação:</b>
+                {{ log.application }}
+              </div>
+              <div class="col-sm">
+                <b>Empresa:</b>
+                {{ log.company }}
+              </div>
+              <div class="col-sm">
+                <b>Fonte de log:</b>
+                {{ log.logSource }}
+              </div>
+              <div class="col-sm">
+                <b>Origem:</b>
+                <span
+                  class="menu-text badge badge-secondary"
+                  :class="{
+                    'bg-warning': log.serverOrigin == 'HOMOLOGATION',
+                    'bg-danger': log.serverOrigin == 'PRODUCTION'
+                  }"
+                  >{{ log.serverOrigin }}</span
+                >
+              </div>
             </div>
             <div class="row justify-content-start">
-              <div class="col-sm">{{ `Detalhes: ${log.details}` }}</div>
+              <div class="col-sm">
+                <b>Detalhes:</b>
+                {{ log.details }}
+              </div>
             </div>
           </div>
         </div>

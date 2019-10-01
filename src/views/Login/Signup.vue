@@ -24,6 +24,7 @@
         label="Código do usuário"
         placeholder="jonsnow"
         :onInput="setCode"
+        :onBlur="checkCode"
       />
       <div v-if="$v.form.code.$dirty && $v.form.code.$invalid">
         <small v-if="userError" class="form-text text-danger">
@@ -35,7 +36,7 @@
           >Código do usuário é obrigatório</small
         >
       </div>
-      <small v-else-if="userOK" class="form-text text-success">
+      <small v-else-if="userOK && !userError" class="form-text text-success">
         {{ userOK }}
       </small>
       <input-form-vue
@@ -117,21 +118,8 @@ export default {
         regex(code) {
           return /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i.test(code);
         },
-        async checkCode(value) {
-          if (value !== "") {
-            const res = await this.checkAvailability(value);
-
-            if (res.error) {
-              this.signUpError = res.error_description;
-            } else if (res.status === 200) {
-              this.userOK = res.data;
-            } else {
-              this.userError = res.data;
-              return false;
-            }
-          }
-
-          return true;
+        async checkCode() {
+          return this.userOK && !this.userError ? true : false;
         }
       },
       email: {
@@ -148,6 +136,7 @@ export default {
     ...mapActions("login", ["signup", "checkAvailability"]),
     async submit(form) {
       this.isLoading = !this.isLoading;
+      this.signUpError = null;
 
       try {
         const status = await this.signup(form);
@@ -157,6 +146,25 @@ export default {
         this.signUpError = response.data.message;
       } finally {
         this.isLoading = !this.isLoading;
+      }
+    },
+    async checkCode(value) {
+      this.signUpError = this.userError = this.userOK = null;
+
+      if (value !== "") {
+        const res = await this.checkAvailability(value);
+
+        if (res.error) {
+          this.signUpError = res.error_description;
+        } else if (res.status === 200) {
+          this.userOK = res.data;
+        } else if (res.code === 400) {
+          this.userError = res.message;
+        } else {
+          this.userError = res.data;
+        }
+      } else {
+        this.userError = "Código do usuário é obrigatório";
       }
     },
     setName(value) {

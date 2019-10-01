@@ -24,7 +24,11 @@
               <b>Ações</b>
             </div>
           </div>
-          <div class="row" v-for="application in applications" :key="application.id">
+          <div
+            class="row"
+            v-for="application in applications"
+            :key="application.id"
+          >
             <div class="col-2">{{ application.id }}</div>
             <div class="col-6">{{ application.name }}</div>
             <div class="col-4">

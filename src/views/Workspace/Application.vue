@@ -21,7 +21,11 @@
           <div class="form-group">
             <label for="companiesSelect">Empresa</label>
             <select class="form-control" id="companiesSelect">
-              <option v-for="company in companies" :key="company.id" :value="company.id">
+              <option
+                v-for="company in companies"
+                :key="company.id"
+                :value="company.id"
+              >
                 <span>{{ company.name }}</span>
               </option>
             </select>
@@ -33,7 +37,11 @@
           >
             <span>Cancelar</span>
           </router-link>
-          <input class="btn btn-primary float-right" type="submit" value="Salvar" />
+          <input
+            class="btn btn-primary float-right"
+            type="submit"
+            value="Salvar"
+          />
         </form>
       </div>
     </div>

@@ -45,7 +45,11 @@
                 <font-awesome-icon icon="pencil-alt" />
                 <span style="padding-left: 4px;">Editar</span>
               </RouterLink>
-              <button class="icon-btn" @click="deleteUser(user.id)" :title="`Excluir ${user.id}`">
+              <button
+                class="icon-btn"
+                @click="deleteUser(user.id)"
+                :title="`Excluir ${user.id}`"
+              >
                 <font-awesome-icon icon="trash-alt" />
                 <span style="padding-left: 4px;">Excluir</span>
               </button>

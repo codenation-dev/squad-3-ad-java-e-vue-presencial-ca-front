@@ -1,32 +1,19 @@
 <template>
   <div>
-    <section class="container main-section">
-      <div class="card">
+    <section class="jumbotron main-section">
+      <div class="card card-list" v-for="log in logs" :key="log.id">
         <div class="card-header">
-          <font-awesome-icon icon="bug" />
-          <b class="menu-text">Logs</b>
-        </div>
-        <div class="card-body">
-          <div class="container">
-            <div class="row">
-              <div class="col-2">
-                <b>Level</b>
+          <div class="w-100 text-left">
+            <div class="row justify-content-start">
+              <div class="col-9">
+                <font-awesome-icon icon="bug" />
+                <b class="menu-text">{{ log.createdAt }}:</b>
+                <b class="menu-text">{{ log.title }}</b>
+                <span class="menu-text badge badge-secondary">{{
+                  log.levelLog
+                }}</span>
               </div>
-              <div class="col-2">
-                <b>Origem</b>
-              </div>
-              <div class="col-6">
-                <b>Detalhes</b>
-              </div>
-              <div class="col-2">
-                <b>Ações</b>
-              </div>
-            </div>
-            <div class="row" v-for="log in logs" :key="log.id">
-              <div class="col-2">{{ log.levelLog }}</div>
-              <div class="col-2">{{ log.serverOrigin }}</div>
-              <div class="col-6">{{ log.details }}</div>
-              <div class="col-2">
+              <div class="col-3 text-right">
                 <RouterLink
                   class="icon-btn"
                   :to="{ name: 'log-view', params: { id: log.id } }"
@@ -36,15 +23,37 @@
                   <font-awesome-icon icon="eye" />
                   <span class="menu-text">Visualizar</span>
                 </RouterLink>
-                <button class="icon-btn" @click="updateLog(log.id)" :title="`Arquivar ${log.id}`">
+                <button
+                  class="icon-btn"
+                  @click="updateLog(log.id)"
+                  :title="`Arquivar ${log.id}`"
+                >
                   <font-awesome-icon icon="save" />
                   <span class="menu-text">Arquivar</span>
                 </button>
-                <button class="icon-btn" @click="deleteLog(log.id)" :title="`Excluir ${log.id}`">
+                <button
+                  class="icon-btn"
+                  @click="deleteLog(log.id)"
+                  :title="`Excluir ${log.id}`"
+                >
                   <font-awesome-icon icon="trash-alt" />
                   <span class="menu-text">Excluir</span>
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="w-100 text-left">
+            <div class="row justify-content-start">
+              <div class="col-sm">{{ `Aplicação: ${log.application}` }}</div>
+              <div class="col-sm">{{ `Empresa: ${log.company}` }}</div>
+              <div class="col-sm">{{ `Fonte de log: ${log.logSource}` }}</div>
+              <div class="col-sm">{{ `Origem: ${log.serverOrigin}` }}</div>
+              <div class="col-sm">{{ `Arquivado: ${log.toFile}` }}</div>
+            </div>
+            <div class="row justify-content-start">
+              <div class="col-sm">{{ `Detalhes: ${log.details}` }}</div>
             </div>
           </div>
         </div>
@@ -76,7 +85,11 @@
                 @change="readAllLogs(form)"
               >
                 <option></option>
-                <option v-for="company in companies" :key="company.id" :value="company.name">
+                <option
+                  v-for="company in companies"
+                  :key="company.id"
+                  :value="company.name"
+                >
                   <span>{{ company.name }}</span>
                 </option>
               </select>
@@ -94,7 +107,8 @@
                   v-for="application in applications"
                   :key="application.id"
                   :value="application.id"
-                >{{ application.name }}</option>
+                  >{{ application.name }}</option
+                >
               </select>
             </div>
             <div class="dropdown-item">
@@ -110,7 +124,8 @@
                   v-for="serverOrigin in serverOrigins"
                   :key="serverOrigin.id"
                   :value="serverOrigin.name"
-                >{{ serverOrigin.name }}</option>
+                  >{{ serverOrigin.name }}</option
+                >
               </select>
             </div>
             <div class="dropdown-item">
@@ -126,7 +141,8 @@
                   v-for="levelLog in levelLogs"
                   :key="levelLog.id"
                   :value="levelLog.name"
-                >{{ levelLog.name }}</option>
+                  >{{ levelLog.name }}</option
+                >
               </select>
             </div>
             <div class="dropdown-item">
@@ -149,7 +165,9 @@
                 v-model="form.toFile"
                 @click="readAllLogs(form)"
               />
-              <label class="form-check-label" for="exampleCheck1">Arquivado</label>
+              <label class="form-check-label" for="exampleCheck1"
+                >Arquivado</label
+              >
             </div>
           </div>
         </li>
@@ -175,7 +193,10 @@
       </div>
       <div class="form-inline my-2 my-lg-0">
         <button type="button" class="btn btn-danger" @click="updateLiveLog()">
-          <font-awesome-icon icon="circle" style="margin-bottom: 4px; margin-right: 4px;" />Live
+          <font-awesome-icon
+            icon="circle"
+            style="margin-bottom: 4px; margin-right: 4px;"
+          />Live
         </button>
         <button
           type="button"
@@ -183,7 +204,10 @@
           @click="readAllLogs(form)"
           style="margin-left: 8px;"
         >
-          <font-awesome-icon icon="sync-alt" style="margin-bottom: 4px; margin-right: 4px; " />Atualizar
+          <font-awesome-icon
+            icon="sync-alt"
+            style="margin-bottom: 4px; margin-right: 4px; "
+          />Atualizar
         </button>
         <nav
           aria-label="Page navigation example"
@@ -277,17 +301,14 @@ export default {
   margin-top: 20px;
 }
 
-.row {
-  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.row:hover {
-  background-color: #f2f2f2;
-}
-
 .nav-bg-color {
   background-color: var(--secondary);
+}
+
+.card-list {
+  margin-bottom: 8px;
+}
+.card-list:hover {
+  border-color: #00005181;
 }
 </style>

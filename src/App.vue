@@ -51,8 +51,8 @@ body,
 }
 
 .main-section {
-  margin-top: 100px;
-  margin-bottom: 100px;
+  padding-top: 100px;
+  padding-bottom: 50px;
 }
 
 .menu-text {

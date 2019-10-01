@@ -1,5 +1,5 @@
 <template>
-  <section class="container main-section" style="text-align: left;">
+  <section class="jumbotron main-section">
     <div class="card">
       <div class="card-header">
         <font-awesome-icon icon="user" />

@@ -9,8 +9,9 @@
       class="form-control"
       v-bind="$props"
       v-model="value"
-      v-on:input="handleInput"
-      v-on:blur="handleBlur"
+      v-on:input="onInput"
+      v-on:blur="onBlur"
+      v-on:keyup.enter="onEnter"
     />
   </div>
 </template>
@@ -31,26 +32,24 @@ export default {
       type: String
     },
     autocomplete: String,
-    icon: String
+    icon: String,
+    onInput: {
+      type: Function,
+      default: function() {}
+    },
+    onBlur: {
+      type: Function,
+      default: function() {}
+    },
+    onEnter: {
+      type: Function,
+      default: function() {}
+    }
   },
   data() {
     return {
       value: ""
     };
-  },
-  methods: {
-    handleInput(event) {
-      const me = this,
-        value = event.target.value;
-
-      me.$emit("onInput", value);
-    },
-    handleBlur(event) {
-      const me = this,
-        value = event.target.value;
-
-      me.$emit("onBlur", value);
-    }
   }
 };
 </script>

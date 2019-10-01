@@ -1,24 +1,23 @@
 <template>
-  <card-vue
-    title="Login"
-    subtitle="Insira seu usuário e senha para acessar o sistema"
-  >
+  <card-vue subtitle="Iniciar sessão">
+    <img class="logo" slot="logo" src="@/logos/djavue-login.png" alt srcset />
     <form class="form-group">
       <alert-vue v-if="error" :text="error" type="alert-danger" />
 
       <input-form-vue
         id="username"
-        :onInput="setUsername"
+        @onInput="setUsername"
         placeholder
         label="Usuário"
         icon="user"
       />
       <input-form-vue
         id="password"
-        :onInput="setPassword"
+        @onInput="setPassword"
         type="password"
         label="Senha"
         icon="key"
+        @onEnter="submit(form)"
       />
       <div class="d-flex justify-content-around">
         <checkbox-vue
@@ -36,7 +35,7 @@
         text="Login"
         :isLoading="isLoading"
       />
-      <p style="padding-top: 15px;">
+      <p style="padding-top: 15px; margin-bottom: 0px">
         Não tem cadastro?
         <router-link :to="{ name: 'signup' }">Cadastre-se agora</router-link>
       </p>
@@ -131,6 +130,7 @@ export default {
 <style lang="css" scoped>
 form {
   padding-top: 15px;
+  margin-bottom: 0;
 }
 
 .justify-content-around {

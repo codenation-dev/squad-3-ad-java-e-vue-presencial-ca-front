@@ -1,5 +1,6 @@
 <template>
-  <card-vue title="Cadastro" subtitle="Preencha os campos abaixo">
+  <card-vue subtitle="Preencha os dados abaixo">
+    <img class="logo" slot="logo" src="@/logos/djavue-login.png" alt srcset />
     <form class="form-group" @submit.prevent="submit(form)">
       <alert-vue v-if="signUpError" :text="signUpError" type="alert-danger" />
 
@@ -7,7 +8,7 @@
         id="name"
         label="Nome"
         placeholder="João das Neves"
-        :onInput="setName"
+        @onInput="setName"
       />
       <div
         v-if="
@@ -22,7 +23,7 @@
         id="code"
         label="Código do usuário"
         placeholder="jonsnow"
-        :onInput="setCode"
+        @onInput="setCode"
       />
       <div v-if="$v.form.code.$dirty && $v.form.code.$invalid">
         <small v-if="userError" class="form-text text-danger">{{
@@ -38,7 +39,7 @@
         id="email"
         label="E-mail"
         placeholder="jon@stark.wf"
-        :onInput="setEmail"
+        @onInput="setEmail"
       />
       <div
         v-if="
@@ -54,7 +55,7 @@
         type="password"
         label="Senha"
         autocomplete="new-password"
-        :onInput="setPassword"
+        @onInput="setPassword"
       />
       <div v-if="$v.form.password.$dirty && $v.form.password.$invalid">
         <small v-if="!$v.form.password.minLength" class="form-text text-danger"
@@ -182,5 +183,6 @@ export default {
 <style lang="css" scoped>
 form {
   padding-top: 15px;
+  margin-bottom: 0;
 }
 </style>

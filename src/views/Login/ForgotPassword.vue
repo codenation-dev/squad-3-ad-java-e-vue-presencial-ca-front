@@ -1,7 +1,8 @@
 <template>
-  <card-vue title="Esqueci minha senha" subtitle="Preencha os campos abaixo">
+  <card-vue subtitle="Insira o e-mail do usuário que deseja recuperar a senha">
+    <img class="logo" slot="logo" src="@/logos/djavue-login.png" alt srcset />
     <form @submit.prevent="submit(form)">
-      <input-form-vue id="email" :onInput="setEmail" label="E-mail" />
+      <input-form-vue id="email" @onInput="setEmail" label="E-mail" />
       <button-vue
         :disabled="$v.form.$invalid"
         text="Recuperar senha"
@@ -69,5 +70,6 @@ export default {
 <style lang="css" scoped>
 form {
   padding-top: 15px;
+  margin-bottom: 0;
 }
 </style>

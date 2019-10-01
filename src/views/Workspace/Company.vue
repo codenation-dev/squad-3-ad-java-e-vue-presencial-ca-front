@@ -1,5 +1,5 @@
 <template>
-  <section class="container main-section" style="text-align: left;">
+  <section class="jumbotron main-section">
     <div class="card">
       <div class="card-header">
         <font-awesome-icon icon="building" />
@@ -25,11 +25,7 @@
           >
             <span>Cancelar</span>
           </router-link>
-          <input
-            class="btn btn-primary float-right"
-            type="submit"
-            value="Salvar"
-          />
+          <input class="btn btn-primary float-right" type="submit" value="Salvar" />
         </form>
       </div>
     </div>

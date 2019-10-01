@@ -1,5 +1,5 @@
 <template>
-  <section class="container main-section" style="text-align: left;">
+  <section class="jumbotron main-section">
     <div class="card">
       <div class="card-header">
         <font-awesome-icon icon="user" />
@@ -21,11 +21,7 @@
           <div class="form-group">
             <label for="companiesSelect">Empresa</label>
             <select class="form-control" id="companiesSelect">
-              <option
-                v-for="company in companies"
-                :key="company.id"
-                :value="company.id"
-              >
+              <option v-for="company in companies" :key="company.id" :value="company.id">
                 <span>{{ company.name }}</span>
               </option>
             </select>
@@ -33,12 +29,7 @@
           <div class="form-group">
             <label for="typeUserSelect">Tipo de usuário</label>
             <select class="form-control" id="typeUserSelect">
-              <option
-                v-for="type in userTypes"
-                :key="type.id"
-                :value="type.id"
-                >{{ type.name }}</option
-              >
+              <option v-for="type in userTypes" :key="type.id" :value="type.id">{{ type.name }}</option>
             </select>
           </div>
           <router-link
@@ -48,11 +39,7 @@
           >
             <span>Cancelar</span>
           </router-link>
-          <input
-            class="btn btn-primary float-right"
-            type="submit"
-            value="Salvar"
-          />
+          <input class="btn btn-primary float-right" type="submit" value="Salvar" />
         </form>
       </div>
     </div>

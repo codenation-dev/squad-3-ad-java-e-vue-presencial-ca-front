@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="container main-section">
+    <section class="jumbotron main-section">
       <div class="card">
         <div class="card-header">
           <font-awesome-icon icon="bug" />

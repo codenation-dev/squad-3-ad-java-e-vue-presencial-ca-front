@@ -1,5 +1,5 @@
 <template>
-  <section class="container main-section" style="text-align: left;">
+  <section class="jumbotron main-section">
     <div class="card">
       <div class="card-header">
         <font-awesome-icon icon="desktop" />
@@ -24,11 +24,7 @@
               <b>Ações</b>
             </div>
           </div>
-          <div
-            class="row"
-            v-for="application in applications"
-            :key="application.id"
-          >
+          <div class="row" v-for="application in applications" :key="application.id">
             <div class="col-2">{{ application.id }}</div>
             <div class="col-6">{{ application.name }}</div>
             <div class="col-4">

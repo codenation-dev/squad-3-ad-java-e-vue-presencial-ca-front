@@ -26,15 +26,18 @@
         :onInput="setCode"
       />
       <div v-if="$v.form.code.$dirty && $v.form.code.$invalid">
-        <small v-if="userError" class="form-text text-danger">{{
-          userError
-        }}</small>
+        <small v-if="userError" class="form-text text-danger">
+          {{ userError }}
+        </small>
         <small
           v-else-if="$v.form.code.$model === ''"
           class="form-text text-danger"
           >Código do usuário é obrigatório</small
         >
       </div>
+      <small v-else-if="userOK" class="form-text text-success">
+        {{ userOK }}
+      </small>
       <input-form-vue
         id="email"
         label="E-mail"
@@ -118,7 +121,9 @@ export default {
           if (value !== "") {
             const res = await this.checkAvailability(value);
 
-            if (res.status === 200) {
+            if (res.error) {
+              this.signUpError = res.error_description;
+            } else if (res.status === 200) {
               this.userOK = res.data;
             } else {
               this.userError = res.data;
@@ -184,5 +189,10 @@ export default {
 form {
   padding-top: 15px;
   margin-bottom: 0;
+}
+
+.form-text {
+  text-align: left;
+  margin-bottom: 10px;
 }
 </style>

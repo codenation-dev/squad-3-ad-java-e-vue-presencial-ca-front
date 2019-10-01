@@ -44,8 +44,8 @@ export default {
         );
 
         return { data, status };
-      } catch (error) {
-        alert(error);
+      } catch ({ response }) {
+        return response.data;
       }
     }
   },

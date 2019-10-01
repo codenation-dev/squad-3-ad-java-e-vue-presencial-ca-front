@@ -6,8 +6,8 @@
       :type="type"
       :placeholder="placeholder"
       :icon="icon"
-      :onInput="handleInput"
-      :onBlur="handleBlur"
+      @onInput="onInput"
+      @onBlur="onBlur"
       :onEnter="handleEnter"
     />
   </div>
@@ -27,25 +27,21 @@ export default {
     placeholder: String,
     type: String,
     label: String,
-    icon: String
+    icon: String,
+    onInput: {
+      type: Function,
+      default: function() {}
+    },
+    onBlur: {
+      type: Function,
+      default: function() {}
+    }
   },
   methods: {
     handleEnter() {
       const me = this;
 
       me.$emit("onEnter");
-    },
-    handleInput(event) {
-      const me = this,
-        value = event.target.value;
-
-      me.$emit("onInput", value);
-    },
-    handleBlur(event) {
-      const me = this,
-        value = event.target.value;
-
-      me.$emit("onBlur", value);
     }
   }
 };

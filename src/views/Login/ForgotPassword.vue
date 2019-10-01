@@ -2,7 +2,7 @@
   <card-vue subtitle="Insira o e-mail do usuário que deseja recuperar a senha">
     <img class="logo" slot="logo" src="@/logos/djavue-login.png" alt srcset />
     <form @submit.prevent="submit(form)">
-      <input-form-vue id="email" @onInput="setEmail" label="E-mail" />
+      <input-form-vue id="email" :onInput="setEmail" label="E-mail" />
       <button-vue
         :disabled="$v.form.$invalid"
         text="Recuperar senha"

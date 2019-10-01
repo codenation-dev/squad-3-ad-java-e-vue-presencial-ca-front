@@ -6,14 +6,14 @@
 
       <input-form-vue
         id="username"
-        @onInput="setUsername"
+        :onInput="setUsername"
         placeholder
         label="Usuário"
         icon="user"
       />
       <input-form-vue
         id="password"
-        @onInput="setPassword"
+        :onInput="setPassword"
         type="password"
         label="Senha"
         icon="key"
@@ -95,7 +95,10 @@ export default {
         if (res && res.isAxiosError) {
           this.error = "Usuário e/ou senha inválido(s)";
         } else {
-          this.$router.push({ name: "log-list" });
+          this.$router.push({
+            name: "log-list",
+            params: { currentUser: form.username }
+          });
           this.showToolbar();
         }
       } catch ({ response }) {

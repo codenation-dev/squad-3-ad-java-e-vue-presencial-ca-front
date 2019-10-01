@@ -9,36 +9,46 @@
                 <font-awesome-icon icon="bug" />
                 <b class="menu-text">{{ log.createdAt }}:</b>
                 <b class="menu-text">{{ log.title }}</b>
-                <span class="menu-text badge badge-secondary">{{
-                  log.levelLog
-                }}</span>
+                <span
+                  class="menu-text badge badge-secondary"
+                  :class="{
+                    'bg-info': log.levelLog == 'INFO',
+                    'bg-warning': log.levelLog == 'WARNING',
+                    'bg-danger': log.levelLog == 'FATAL',
+                    'bg-success': log.levelLog == 'TRACE',
+                    'bg-dark': log.levelLog == 'ERROR'
+                  }"
+                  >{{ log.levelLog }}</span
+                >
               </div>
               <div class="col-3 text-right">
                 <RouterLink
                   class="icon-btn"
                   :to="{ name: 'log-view', params: { id: log.id } }"
-                  tag="button"
                   :title="`Visualizar ${log.id}`"
                 >
                   <font-awesome-icon icon="eye" />
                   <span class="menu-text">Visualizar</span>
                 </RouterLink>
-                <button
+                <a
                   class="icon-btn"
                   @click="updateLog(log.id)"
                   :title="`Arquivar ${log.id}`"
+                  v-show="!log.toFile"
+                  href="#"
                 >
                   <font-awesome-icon icon="save" />
                   <span class="menu-text">Arquivar</span>
-                </button>
-                <button
+                </a>
+                <a
                   class="icon-btn"
                   @click="deleteLog(log.id)"
                   :title="`Excluir ${log.id}`"
+                  href="#"
                 >
                   <font-awesome-icon icon="trash-alt" />
                   <span class="menu-text">Excluir</span>
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -46,14 +56,35 @@
         <div class="card-body">
           <div class="w-100 text-left">
             <div class="row justify-content-start">
-              <div class="col-sm">{{ `Aplicação: ${log.application}` }}</div>
-              <div class="col-sm">{{ `Empresa: ${log.company}` }}</div>
-              <div class="col-sm">{{ `Fonte de log: ${log.logSource}` }}</div>
-              <div class="col-sm">{{ `Origem: ${log.serverOrigin}` }}</div>
-              <div class="col-sm">{{ `Arquivado: ${log.toFile}` }}</div>
+              <div class="col-sm">
+                <b>Aplicação:</b>
+                {{ log.application }}
+              </div>
+              <div class="col-sm">
+                <b>Empresa:</b>
+                {{ log.company }}
+              </div>
+              <div class="col-sm">
+                <b>Fonte de log:</b>
+                {{ log.logSource }}
+              </div>
+              <div class="col-sm">
+                <b>Origem:</b>
+                <span
+                  class="menu-text badge badge-secondary"
+                  :class="{
+                    'bg-warning': log.serverOrigin == 'HOMOLOGATION',
+                    'bg-danger': log.serverOrigin == 'PRODUCTION'
+                  }"
+                  >{{ log.serverOrigin }}</span
+                >
+              </div>
             </div>
             <div class="row justify-content-start">
-              <div class="col-sm">{{ `Detalhes: ${log.details}` }}</div>
+              <div class="col-sm">
+                <b>Detalhes:</b>
+                {{ log.details }}
+              </div>
             </div>
           </div>
         </div>
@@ -75,100 +106,107 @@
             <font-awesome-icon icon="filter" />
             <span class="menu-text">Filtros</span>
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <div class="dropdown-item">
-              <label for="companiesSelect">Empresa</label>
-              <select
-                class="form-control"
-                id="companiesSelect"
-                v-model="form.company"
-                @change="readAllLogs(form)"
-              >
-                <option></option>
-                <option
-                  v-for="company in companies"
-                  :key="company.id"
-                  :value="company.name"
+          <div
+            class="dropup-filter-menu dropdown-menu"
+            onclick=" event.stopPropagation();"
+          >
+            <form class="px-4 py-3">
+              <div class="form-group">
+                <label for="companiesSelect">Empresa</label>
+                <select
+                  class="form-control"
+                  id="companiesSelect"
+                  v-model="form.company"
+                  @change="readAllLogs(form)"
                 >
-                  <span>{{ company.name }}</span>
-                </option>
-              </select>
-            </div>
-            <div class="dropdown-item">
-              <label for="applicationsSelect">Aplicação</label>
-              <select
-                class="form-control"
-                id="applicationsSelect"
-                v-model="form.application"
-                @change="readAllLogs(form)"
-              >
-                <option></option>
-                <option
-                  v-for="application in applications"
-                  :key="application.id"
-                  :value="application.id"
-                  >{{ application.name }}</option
+                  <option></option>
+                  <option
+                    v-for="company in companies"
+                    :key="company.id"
+                    :value="company.name"
+                  >
+                    <span>{{ company.name }}</span>
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="applicationsSelect">Aplicação</label>
+                <select
+                  class="form-control"
+                  id="applicationsSelect"
+                  v-model="form.application"
+                  @change="readAllLogs(form)"
                 >
-              </select>
-            </div>
-            <div class="dropdown-item">
-              <label for="serverOriginsSelect">Servidor de origem</label>
-              <select
-                class="form-control"
-                id="serverOriginsSelect"
-                v-model="form.serverOrigin"
-                @change="readAllLogs(form)"
-              >
-                <option></option>
-                <option
-                  v-for="serverOrigin in serverOrigins"
-                  :key="serverOrigin.id"
-                  :value="serverOrigin.name"
-                  >{{ serverOrigin.name }}</option
+                  <option></option>
+                  <option
+                    v-for="application in applications"
+                    :key="application.id"
+                    :value="application.id"
+                    >{{ application.name }}</option
+                  >
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="serverOriginsSelect">Servidor de origem</label>
+                <select
+                  class="form-control"
+                  id="serverOriginsSelect"
+                  v-model="form.serverOrigin"
+                  @change="readAllLogs(form)"
                 >
-              </select>
-            </div>
-            <div class="dropdown-item">
-              <label for="levelLogsSelect">Level</label>
-              <select
-                class="form-control"
-                id="levelLogsSelect"
-                v-model="form.levelLog"
-                @change="readAllLogs(form)"
-              >
-                <option></option>
-                <option
-                  v-for="levelLog in levelLogs"
-                  :key="levelLog.id"
-                  :value="levelLog.name"
-                  >{{ levelLog.name }}</option
+                  <option></option>
+                  <option
+                    v-for="serverOrigin in serverOrigins"
+                    :key="serverOrigin.id"
+                    :value="serverOrigin.name"
+                    >{{ serverOrigin.name }}</option
+                  >
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="levelLogsSelect">Level</label>
+                <select
+                  class="form-control"
+                  id="levelLogsSelect"
+                  v-model="form.levelLog"
+                  @change="readAllLogs(form)"
                 >
-              </select>
-            </div>
-            <div class="dropdown-item">
-              <label for="OrderbySelect">Ordenar por</label>
-              <select
-                class="form-control"
-                id="OrderbySelect"
-                v-model="form.orderBy"
-                @change="readAllLogs(form)"
-              >
-                <option>createdAt</option>
-                <option>levelLog</option>
-              </select>
-            </div>
-            <div class="dropdown-item">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                id="exampleCheck1"
-                v-model="form.toFile"
-                @click="readAllLogs(form)"
-              />
-              <label class="form-check-label" for="exampleCheck1"
-                >Arquivado</label
-              >
-            </div>
+                  <option></option>
+                  <option
+                    v-for="levelLog in levelLogs"
+                    :key="levelLog.id"
+                    :value="levelLog.name"
+                    >{{ levelLog.name }}</option
+                  >
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="OrderbySelect">Ordenar por</label>
+                <select
+                  class="form-control"
+                  id="OrderbySelect"
+                  v-model="form.orderBy"
+                  @change="readAllLogs(form)"
+                >
+                  <option>createdAt</option>
+                  <option>levelLog</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="exampleCheck1"
+                    v-model="form.toFile"
+                    @click="readAllLogs(form)"
+                  />
+                  <label class="form-check-label" for="exampleCheck1"
+                    >Arquivado</label
+                  >
+                </div>
+              </div>
+            </form>
           </div>
         </li>
       </ul>
@@ -192,7 +230,12 @@
         </div>
       </div>
       <div class="form-inline my-2 my-lg-0">
-        <button type="button" class="btn btn-danger" @click="updateLiveLog()">
+        <button
+          type="button"
+          class="btn btn-danger"
+          :class="{ live: live }"
+          @click="updateLiveLog(live, form)"
+        >
           <font-awesome-icon
             icon="circle"
             style="margin-bottom: 4px; margin-right: 4px;"
@@ -215,22 +258,43 @@
         >
           <ul class="pagination">
             <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
+              <a
+                class="page-link"
+                href="#"
+                aria-label="Previous"
+                @click="updateToPreviousPage(form)"
+              >
                 <span aria-hidden="true">&laquo;</span>
                 <span class="sr-only">Previous</span>
               </a>
             </li>
-            <li class="page-item">
-              <a class="page-link" href="#">1</a>
+            <li class="page-item" :class="{ active: pageNumber == 1 }">
+              <a class="page-link" href="#">
+                {{ pageNumber - 1 > 0 ? pageNumber - 1 : 1 }}
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li
+              class="page-item"
+              :class="{ active: pageNumber > 1 && pageNumber < 3 }"
+            >
+              <a class="page-link" href="#">
+                {{ pageNumber > 1 ? pageNumber : 2 }}
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="page-item" :class="{ active: pageNumber > 2 }">
+              <a class="page-link" href="#">{{
+                pageNumber > 2 ? pageNumber + 1 : 3
+              }}</a>
             </li>
             <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
+              <a
+                class="page-link"
+                href="#"
+                aria-label="Next"
+                @click="updateToNextPage(form)"
+              >
                 <span aria-hidden="true">&raquo;</span>
                 <span class="sr-only">Next</span>
               </a>
@@ -256,11 +320,12 @@ export default {
         orderBy: "createdAt",
         toFile: [],
         details: ""
-      }
+      },
+      live: false
     };
   },
   computed: {
-    ...mapGetters("logs", ["logs"]),
+    ...mapGetters("logs", ["logs", "pageNumber"]),
     ...mapGetters("companies", ["companies"]),
     ...mapGetters("applications", ["applications"]),
     ...mapGetters("serverOrigins", ["serverOrigins"]),
@@ -270,14 +335,26 @@ export default {
     ...mapActions("logs", [
       "readAllLogs",
       "updateLog",
-      "updateLiveLog",
+      "updateToNextPage",
+      "updateToPreviousPage",
       "deleteLog"
     ]),
     ...mapActions("companies", ["readAllCompanies"]),
     ...mapActions("applications", ["readAllApplications"]),
     ...mapActions("serverOrigins", ["readAllServerOrigins"]),
     ...mapActions("levelLogs", ["loadAllLevelLogs"]),
-    ...mapActions("users", ["readCurrentUser"])
+    ...mapActions("users", ["readCurrentUser"]),
+    updateLiveLog(live, form) {
+      if (!live) {
+        this.readAllLogs(form);
+        this.live = setInterval(() => {
+          this.readAllLogs(form);
+        }, 15000);
+      } else {
+        clearInterval(live);
+        this.live = false;
+      }
+    }
   },
   created() {
     this.readCurrentUser(this.$route.params.currentUser);
@@ -310,5 +387,48 @@ export default {
 }
 .card-list:hover {
   border-color: #00005181;
+}
+
+.dropup-filter-menu {
+  width: 300px !important;
+}
+
+@keyframes blink {
+  0% {
+    background-color: rgba(255, 0, 0, 1);
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0.25);
+  }
+  100% {
+    background-color: rgba(255, 0, 0, 1);
+  }
+}
+@-webkit-keyframes blink {
+  0% {
+    background-color: rgba(255, 0, 0, 1);
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0.25);
+  }
+  100% {
+    background-color: rgba(255, 0, 0, 1);
+  }
+}
+
+.live {
+  -moz-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -moz-animation: blink normal 1.5s infinite ease-in-out;
+  /* Firefox */
+  -webkit-animation: blink normal 1.5s infinite ease-in-out;
+  /* Webkit */
+  -ms-animation: blink normal 1.5s infinite ease-in-out;
+  /* IE */
+  animation: blink normal 1.5s infinite ease-in-out;
+  /* Opera */
 }
 </style>

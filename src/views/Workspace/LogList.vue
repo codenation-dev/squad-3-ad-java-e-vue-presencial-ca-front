@@ -264,9 +264,11 @@ export default {
     ...mapActions("companies", ["readAllCompanies"]),
     ...mapActions("applications", ["readAllApplications"]),
     ...mapActions("serverOrigins", ["readAllServerOrigins"]),
-    ...mapActions("levelLogs", ["loadAllLevelLogs"])
+    ...mapActions("levelLogs", ["loadAllLevelLogs"]),
+    ...mapActions("users", ["readCurrentUser"])
   },
   created() {
+    this.readCurrentUser(this.$route.params.currentUser);
     this.readAllLogs();
     this.readAllCompanies();
     this.readAllApplications();

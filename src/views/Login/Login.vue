@@ -35,7 +35,7 @@
         text="Login"
         :isLoading="isLoading"
       />
-      <p style="padding-top: 15px; margin-bottom: 0px">
+      <p style="padding-top: 15px; margin-bottom: 0;">
         Não tem cadastro?
         <router-link :to="{ name: 'signup' }">Cadastre-se agora</router-link>
       </p>

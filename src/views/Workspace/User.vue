@@ -1,8 +1,9 @@
 <template>
-  <section class="container" style="text-align: left;">
+  <section class="container main-section" style="text-align: left;">
     <div class="card">
       <div class="card-header">
-        <b>{{ userDataTitle }}</b>
+        <font-awesome-icon icon="user" />
+        <b class="menu-text">{{ userDataTitle }}</b>
       </div>
       <div class="card-body">
         <form @submit.prevent="submit(form, id)">
@@ -32,9 +33,12 @@
           <div class="form-group">
             <label for="typeUserSelect">Tipo de usuário</label>
             <select class="form-control" id="typeUserSelect">
-              <option v-for="type in userTypes" :key="type.id" :value="type.id">
-                {{ type.name }}
-              </option>
+              <option
+                v-for="type in userTypes"
+                :key="type.id"
+                :value="type.id"
+                >{{ type.name }}</option
+              >
             </select>
           </div>
           <router-link

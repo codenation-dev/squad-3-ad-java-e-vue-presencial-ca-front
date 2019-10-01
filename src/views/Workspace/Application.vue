@@ -1,8 +1,9 @@
 <template>
-  <section class="container" style="text-align: left;">
+  <section class="container main-section" style="text-align: left;">
     <div class="card">
       <div class="card-header">
-        <b>{{ applicationDataTitle }}</b>
+        <font-awesome-icon icon="desktop" />
+        <b class="menu-text">{{ applicationDataTitle }}</b>
       </div>
       <div class="card-body">
         <form @submit.prevent="submit(form, id)">

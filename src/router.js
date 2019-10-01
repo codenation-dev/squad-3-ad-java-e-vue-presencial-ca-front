@@ -3,7 +3,6 @@ import Router from "vue-router";
 import Login from "@/views/Login/Login.vue";
 import Signup from "@/views/Login/Signup.vue";
 import ForgotPassword from "@/views/Login/ForgotPassword.vue";
-import Workspace from "@/views/Workspace/Workspace.vue";
 import ApplicationList from "@/views/Workspace/ApplicationList.vue";
 import Application from "@/views/Workspace/Application.vue";
 import CompanyList from "@/views/Workspace/CompanyList.vue";
@@ -39,11 +38,6 @@ export default new Router({
       name: "forgotPassword",
       path: "/forgotPassword",
       component: ForgotPassword
-    },
-    {
-      name: "workspace",
-      path: "/workspace",
-      component: Workspace
     },
     {
       name: "application-list",

@@ -1,8 +1,9 @@
 <template>
-  <section class="container" style="text-align: left;">
+  <section class="container main-section" style="text-align: left;">
     <div class="card">
       <div class="card-header">
-        <b>Aplicações</b>
+        <font-awesome-icon icon="desktop" />
+        <b class="menu-text">Aplicações</b>
       </div>
       <div class="card-body">
         <p class="card-text">

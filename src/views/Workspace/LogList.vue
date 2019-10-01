@@ -36,19 +36,11 @@
                   <font-awesome-icon icon="eye" />
                   <span class="menu-text">Visualizar</span>
                 </RouterLink>
-                <button
-                  class="icon-btn"
-                  @click="updateLog(log.id)"
-                  :title="`Arquivar ${log.id}`"
-                >
+                <button class="icon-btn" @click="updateLog(log.id)" :title="`Arquivar ${log.id}`">
                   <font-awesome-icon icon="save" />
                   <span class="menu-text">Arquivar</span>
                 </button>
-                <button
-                  class="icon-btn"
-                  @click="deleteLog(log.id)"
-                  :title="`Excluir ${log.id}`"
-                >
+                <button class="icon-btn" @click="deleteLog(log.id)" :title="`Excluir ${log.id}`">
                   <font-awesome-icon icon="trash-alt" />
                   <span class="menu-text">Excluir</span>
                 </button>
@@ -84,11 +76,7 @@
                 @change="readAllLogs(form)"
               >
                 <option></option>
-                <option
-                  v-for="company in companies"
-                  :key="company.id"
-                  :value="company.name"
-                >
+                <option v-for="company in companies" :key="company.id" :value="company.name">
                   <span>{{ company.name }}</span>
                 </option>
               </select>
@@ -106,8 +94,7 @@
                   v-for="application in applications"
                   :key="application.id"
                   :value="application.id"
-                  >{{ application.name }}</option
-                >
+                >{{ application.name }}</option>
               </select>
             </div>
             <div class="dropdown-item">
@@ -123,8 +110,7 @@
                   v-for="serverOrigin in serverOrigins"
                   :key="serverOrigin.id"
                   :value="serverOrigin.name"
-                  >{{ serverOrigin.name }}</option
-                >
+                >{{ serverOrigin.name }}</option>
               </select>
             </div>
             <div class="dropdown-item">
@@ -140,8 +126,7 @@
                   v-for="levelLog in levelLogs"
                   :key="levelLog.id"
                   :value="levelLog.name"
-                  >{{ levelLog.name }}</option
-                >
+                >{{ levelLog.name }}</option>
               </select>
             </div>
             <div class="dropdown-item">
@@ -164,9 +149,7 @@
                 v-model="form.toFile"
                 @click="readAllLogs(form)"
               />
-              <label class="form-check-label" for="exampleCheck1"
-                >Arquivado</label
-              >
+              <label class="form-check-label" for="exampleCheck1">Arquivado</label>
             </div>
           </div>
         </li>
@@ -192,10 +175,7 @@
       </div>
       <div class="form-inline my-2 my-lg-0">
         <button type="button" class="btn btn-danger" @click="updateLiveLog()">
-          <font-awesome-icon
-            icon="circle"
-            style="margin-bottom: 4px; margin-right: 4px;"
-          />Live
+          <font-awesome-icon icon="circle" style="margin-bottom: 4px; margin-right: 4px;" />Live
         </button>
         <button
           type="button"
@@ -203,14 +183,11 @@
           @click="readAllLogs(form)"
           style="margin-left: 8px;"
         >
-          <font-awesome-icon
-            icon="sync-alt"
-            style="margin-bottom: 4px; margin-right: 4px;"
-          />Atualizar
+          <font-awesome-icon icon="sync-alt" style="margin-bottom: 4px; margin-right: 4px; " />Atualizar
         </button>
         <nav
           aria-label="Page navigation example"
-          style="max-height: 38px; margin-left: 8px;"
+          style="max-height: 38px; margin-left: 8px; margin-right: -8px;"
         >
           <ul class="pagination">
             <li class="page-item">

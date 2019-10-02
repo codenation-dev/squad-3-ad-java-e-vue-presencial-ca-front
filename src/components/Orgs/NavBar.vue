@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-light fixed-top">
-    <a class="navbar-brand" href="#">
+    <router-link class="navbar-brand" :to="{ name: 'log-list' }">
       <img :src="require('@/logos/djavue.png')" width="50" height="50" alt />
-      <b>DjaVue</b>
-    </a>
+      <b>Djavue</b>
+    </router-link>
     <button
       class="navbar-toggler"
       type="button"

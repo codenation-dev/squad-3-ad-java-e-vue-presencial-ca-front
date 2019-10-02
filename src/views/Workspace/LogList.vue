@@ -55,7 +55,7 @@
         </template>
         <template #footer>
           <div class="card-footer">
-            <b>Detalhes:</b>
+            <b>Descrição:</b>
             {{ log.details }}
           </div>
         </template>
@@ -94,7 +94,7 @@
                   <option
                     v-for="company in companies"
                     :key="company.id"
-                    :value="company.name"
+                    :value="company.id"
                   >
                     <span>{{ company.name }}</span>
                   </option>
@@ -186,7 +186,7 @@
           <input
             class="form-control mr-sm-2 form-control-sm"
             type="search"
-            placeholder="Buscar detalhes"
+            placeholder="Buscar descrição"
             aria-label="Search"
             v-model="form.details"
             v-on:keyup.enter="readAllLogs(form)"
@@ -328,7 +328,7 @@ export default {
         this.readAllLogs(form);
         this.live = setInterval(() => {
           this.readAllLogs(form);
-        }, 15000);
+        }, 7500);
       } else {
         clearInterval(live);
         this.live = false;

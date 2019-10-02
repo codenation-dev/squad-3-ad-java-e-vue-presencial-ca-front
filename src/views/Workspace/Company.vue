@@ -6,16 +6,25 @@
         <b class="menu-text">{{ companyDataTitle }}</b>
       </div>
       <div class="card-body">
-        <form @submit.prevent="submit(form, id)">
+        <form @submit.prevent="submit(company, id)">
           <div class="form-group">
-            <label for="exampleInputEmail1">Nome</label>
+            <label for="code">Code</label>
             <input
               type="text"
               class="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
+              id="code"
+              placeholder="Code"
+              v-model="company.code"
+            />
+          </div>
+          <div class="form-group">
+            <label for="nome">Nome</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nome"
               placeholder="Nome"
-              v-model="form.name"
+              v-model="company.name"
             />
           </div>
           <router-link
@@ -41,13 +50,6 @@ import router from "@/router";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-  data() {
-    return {
-      form: {
-        name: ""
-      }
-    };
-  },
   props: {
     id: {
       type: String,
@@ -64,13 +66,14 @@ export default {
     ...mapActions("companies", [
       "createCompany",
       "readCompany",
-      "updateCompany"
+      "updateCompany",
+      "updateNewCompany"
     ]),
     submit(form, id) {
       if (id) {
-        this.updateCompany({ id, form });
+        this.updateCompany(form);
       } else {
-        this.createCompany({ id, form });
+        this.createCompany(form);
       }
       router.push({ name: "company-list" });
     }
@@ -78,6 +81,8 @@ export default {
   created() {
     if (this.id) {
       this.readCompany(this.id);
+    } else {
+      this.updateNewCompany();
     }
   }
 };

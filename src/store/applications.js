@@ -45,9 +45,9 @@ const mutations = {
   },
   READ_ALL_APPLICATION(state) {
     state.applications = [
-      { id: "idapplications01", name: "nmapplications01" },
-      { id: "idapplications02", name: "nmapplications02" },
-      { id: "idapplications03", name: "nmapplications03" }
+      { id: "1", name: "nmapplications01" },
+      { id: "2", name: "nmapplications02" },
+      { id: "3", name: "nmapplications03" }
     ];
   },
   UPDATE_APPLICATION(/*state, data*/) {

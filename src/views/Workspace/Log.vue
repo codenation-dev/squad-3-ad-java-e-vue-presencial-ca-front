@@ -41,13 +41,7 @@
               >
             </select>
           </div>
-          <router-link
-            class="btn btn-secondary float-left"
-            :to="{ name: 'log-list' }"
-            tag="button"
-          >
-            <span>Cancelar</span>
-          </router-link>
+          <BackToLogsButton />
         </form>
       </div>
     </div>
@@ -57,6 +51,7 @@
 <script>
 import router from "@/router";
 import { mapActions, mapGetters } from "vuex";
+import BackToLogsButton from "@/components/Orgs/BackToLogsButton.vue";
 
 export default {
   data() {
@@ -65,6 +60,9 @@ export default {
         name: ""
       }
     };
+  },
+  components: {
+    BackToLogsButton
   },
   props: {
     id: {

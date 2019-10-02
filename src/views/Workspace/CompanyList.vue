@@ -1,16 +1,16 @@
 <template>
   <section class="main-section">
     <card-list v-for="company in companies" :key="company.id">
-      <template v-slot:title>
+      <template #title>
         <font-awesome-icon icon="building" />
         <b class="menu-text">{{ company.id }}</b>
       </template>
-      <template v-slot:actions>
+      <template #actions>
         <card-delete-button @click="deleteCompany(company.id)" />
         <card-edit-button name="company-edit" :params="{ id: company.id }" />
         <card-add-button name="company-create" />
       </template>
-      <template v-slot:body>
+      <template #body>
         <div class="row">
           <div class="col-sm">
             <b>Nome:</b>

@@ -1,12 +1,12 @@
 <template>
   <a
     class="icon-btn card-action-btn"
-    title="Excluir"
+    title="Arquivar"
     href="#"
     v-on:click="handleClick"
   >
-    <font-awesome-icon icon="trash-alt" />
-    <span class="card-action-btn-label">Excluir</span>
+    <font-awesome-icon icon="save" />
+    <span class="card-action-btn-label">Arquivar</span>
   </a>
 </template>
 <script>

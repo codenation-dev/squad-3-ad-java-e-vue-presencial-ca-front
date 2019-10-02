@@ -1,94 +1,65 @@
 <template>
   <div>
-    <section class="jumbotron main-section">
-      <div class="card card-list" v-for="log in logs" :key="log.id">
-        <div class="card-header">
-          <div class="w-100 text-left">
-            <div class="row">
-              <div class="col-8">
-                <font-awesome-icon icon="bug" />
-                <b class="menu-text">{{ log.createdAt }}:</b>
-                <b class="menu-text">{{ log.title }}</b>
-                <span
-                  class="menu-text badge badge-secondary"
-                  :class="{
-                    'bg-info': log.levelLog == 'INFO',
-                    'bg-warning': log.levelLog == 'WARNING',
-                    'bg-danger': log.levelLog == 'FATAL',
-                    'bg-success': log.levelLog == 'TRACE',
-                    'bg-dark': log.levelLog == 'ERROR'
-                  }"
-                  >{{ log.levelLog }}</span
-                >
-              </div>
-              <div class="col-4 card-action-btn-group">
-                <a
-                  class="icon-btn card-action-btn"
-                  @click="deleteLog(log.id)"
-                  :title="`Excluir ${log.id}`"
-                  href="#"
-                >
-                  <font-awesome-icon icon="trash-alt" />
-                  <span class="menu-text">Excluir</span>
-                </a>
-                <a
-                  class="icon-btn card-action-btn"
-                  @click="updateLog(log.id)"
-                  :title="`Arquivar ${log.id}`"
-                  v-show="!log.toFile"
-                  href="#"
-                >
-                  <font-awesome-icon icon="save" />
-                  <span class="menu-text">Arquivar</span>
-                </a>
-                <RouterLink
-                  class="icon-btn card-action-btn"
-                  :to="{ name: 'log-view', params: { id: log.id } }"
-                  :title="`Visualizar ${log.id}`"
-                >
-                  <font-awesome-icon icon="eye" />
-                  <span class="menu-text">Visualizar</span>
-                </RouterLink>
-              </div>
+    <section class="main-section">
+      <card-list v-for="log in logs" :key="log.id">
+        <template #title>
+          <font-awesome-icon icon="bug" />
+          <b class="menu-text">{{ log.createdAt }}:</b>
+          <b class="menu-text">{{ log.title }}</b>
+        </template>
+        <template #actions>
+          <card-delete-button @click="deleteLog(log.id)" />
+          <card-file-button @click="updateLog(log.id)" v-show="!log.toFile" />
+          <card-view-button name="log-view" :params="{ id: `${log.id}` }" />
+        </template>
+        <template #body>
+          <div class="row">
+            <div class="col-sm">
+              <b>Level:</b>
+              <span
+                class="menu-text badge badge-secondary"
+                :class="{
+                  'bg-info': log.levelLog == 'INFO',
+                  'bg-warning': log.levelLog == 'WARNING',
+                  'bg-danger': log.levelLog == 'FATAL',
+                  'bg-success': log.levelLog == 'TRACE',
+                  'bg-dark': log.levelLog == 'ERROR'
+                }"
+                >{{ log.levelLog }}</span
+              >
+            </div>
+            <div class="col-sm">
+              <b>Origem:</b>
+              <span
+                class="menu-text badge badge-secondary"
+                :class="{
+                  'bg-warning': log.serverOrigin == 'HOMOLOGATION',
+                  'bg-danger': log.serverOrigin == 'PRODUCTION'
+                }"
+                >{{ log.serverOrigin }}</span
+              >
+            </div>
+            <div class="col-sm">
+              <b>Aplicação:</b>
+              {{ log.application }}
+            </div>
+            <div class="col-sm">
+              <b>Empresa:</b>
+              {{ log.company }}
+            </div>
+            <div class="col-sm">
+              <b>Fonte de log:</b>
+              {{ log.logSource }}
             </div>
           </div>
-        </div>
-        <div class="card-body">
-          <div class="w-100 text-left">
-            <div class="row justify-content-start">
-              <div class="col-sm">
-                <b>Aplicação:</b>
-                {{ log.application }}
-              </div>
-              <div class="col-sm">
-                <b>Empresa:</b>
-                {{ log.company }}
-              </div>
-              <div class="col-sm">
-                <b>Fonte de log:</b>
-                {{ log.logSource }}
-              </div>
-              <div class="col-sm">
-                <b>Origem:</b>
-                <span
-                  class="menu-text badge badge-secondary"
-                  :class="{
-                    'bg-warning': log.serverOrigin == 'HOMOLOGATION',
-                    'bg-danger': log.serverOrigin == 'PRODUCTION'
-                  }"
-                  >{{ log.serverOrigin }}</span
-                >
-              </div>
-            </div>
-            <div class="row justify-content-start">
-              <div class="col-sm">
-                <b>Detalhes:</b>
-                {{ log.details }}
-              </div>
-            </div>
+        </template>
+        <template #footer>
+          <div class="card-footer">
+            <b>Detalhes:</b>
+            {{ log.details }}
           </div>
-        </div>
-      </div>
+        </template>
+      </card-list>
     </section>
     <nav class="navbar navbar-expand-lg navbar-dark bg-light fixed-bottom">
       <ul class="navbar-nav mr-auto">
@@ -269,24 +240,22 @@
               </a>
             </li>
             <li class="page-item" :class="{ active: pageNumber == 1 }">
-              <a class="page-link" href="#">
-                {{ pageNumber - 1 > 0 ? pageNumber - 1 : 1 }}
-                <span class="sr-only">(current)</span>
-              </a>
+              <a class="page-link" href="#">{{
+                pageNumber - 1 > 0 ? pageNumber - 1 : 1
+              }}</a>
             </li>
             <li
               class="page-item"
               :class="{ active: pageNumber > 1 && pageNumber < 3 }"
             >
-              <a class="page-link" href="#">
-                {{ pageNumber > 1 ? pageNumber : 2 }}
-                <span class="sr-only">(current)</span>
-              </a>
+              <a class="page-link" href="#">{{
+                pageNumber > 1 ? pageNumber : 2
+              }}</a>
             </li>
             <li class="page-item" :class="{ active: pageNumber > 2 }">
-              <a class="page-link" href="#">
-                {{ pageNumber > 2 ? pageNumber + 1 : 3 }}
-              </a>
+              <a class="page-link" href="#">{{
+                pageNumber > 2 ? pageNumber + 1 : 3
+              }}</a>
             </li>
             <li class="page-item">
               <a
@@ -308,6 +277,10 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import CardList from "@/components/Orgs/CardList.vue";
+import CardDeleteButton from "@/components/Orgs/CardDeleteButton.vue";
+import CardFileButton from "@/components/Orgs/CardFileButton.vue";
+import CardViewButton from "@/components/Orgs/CardViewButton.vue";
 
 export default {
   data() {
@@ -323,6 +296,12 @@ export default {
       },
       live: false
     };
+  },
+  components: {
+    CardList,
+    CardDeleteButton,
+    CardFileButton,
+    CardViewButton
   },
   computed: {
     ...mapGetters("logs", ["logs", "pageNumber"]),

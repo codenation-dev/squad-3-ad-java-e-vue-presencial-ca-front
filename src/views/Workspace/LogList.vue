@@ -94,7 +94,7 @@
                   <option
                     v-for="company in companies"
                     :key="company.id"
-                    :value="company.name"
+                    :value="company.id"
                   >
                     <span>{{ company.name }}</span>
                   </option>
@@ -240,22 +240,22 @@
               </a>
             </li>
             <li class="page-item" :class="{ active: pageNumber == 1 }">
-              <a class="page-link" href="#">
-                {{ pageNumber - 1 > 0 ? pageNumber - 1 : 1 }}
-              </a>
+              <a class="page-link" href="#">{{
+                pageNumber - 1 > 0 ? pageNumber - 1 : 1
+              }}</a>
             </li>
             <li
               class="page-item"
               :class="{ active: pageNumber > 1 && pageNumber < 3 }"
             >
-              <a class="page-link" href="#">
-                {{ pageNumber > 1 ? pageNumber : 2 }}
-              </a>
+              <a class="page-link" href="#">{{
+                pageNumber > 1 ? pageNumber : 2
+              }}</a>
             </li>
             <li class="page-item" :class="{ active: pageNumber > 2 }">
-              <a class="page-link" href="#">
-                {{ pageNumber > 2 ? pageNumber + 1 : 3 }}
-              </a>
+              <a class="page-link" href="#">{{
+                pageNumber > 2 ? pageNumber + 1 : 3
+              }}</a>
             </li>
             <li class="page-item">
               <a
@@ -328,7 +328,7 @@ export default {
         this.readAllLogs(form);
         this.live = setInterval(() => {
           this.readAllLogs(form);
-        }, 15000);
+        }, 7500);
       } else {
         clearInterval(live);
         this.live = false;

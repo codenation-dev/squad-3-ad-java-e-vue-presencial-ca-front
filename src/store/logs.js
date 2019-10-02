@@ -18,11 +18,13 @@ const actions = {
 
     if (form) {
       params = {
+        companyId: form.company ? form.company : "",
+        applicationId: form.application ? form.application : "",
         origin: form.serverOrigin ? form.serverOrigin : "",
         levelLog: form.levelLog ? form.levelLog : "",
+        orderBy: form.orderBy ? form.orderBy : "",
         //toFile: !(form.toFile.length > 0),
         details: form.details ? form.details : "",
-        orderBy: form.orderBy ? form.orderBy : "",
         page: state.pageNumber
       };
     }

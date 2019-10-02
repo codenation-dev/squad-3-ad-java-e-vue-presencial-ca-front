@@ -20,7 +20,12 @@
           </div>
           <div class="form-group">
             <label for="companiesSelect">Empresa</label>
-            <select class="form-control" id="companiesSelect">
+            <select
+              class="form-control"
+              id="companiesSelect"
+              @change="changeCompany"
+              v-model="form.company"
+            >
               <option
                 v-for="company in companies"
                 :key="company.id"
@@ -32,7 +37,12 @@
           </div>
           <div class="form-group">
             <label for="typeUserSelect">Tipo de usuário</label>
-            <select class="form-control" id="typeUserSelect">
+            <select
+              class="form-control"
+              id="typeUserSelect"
+              @change="changeUserType"
+              v-model="form.userType"
+            >
               <option
                 v-for="type in userTypes"
                 :key="type.id"
@@ -68,14 +78,14 @@ export default {
     return {
       form: {
         name: "",
-        id: 0,
-        type: ""
+        userType: 0,
+        company: 0
       }
     };
   },
   props: {
     id: {
-      type: String,
+      type: [Number, String],
       default: ""
     }
   },
@@ -91,6 +101,12 @@ export default {
     ...mapActions("users", ["createUser", "updateUser"]),
     ...mapActions("userTypes", ["readAllUserTypes"]),
     ...mapActions("companies", ["readAllCompanies"]),
+    changeUserType({ target }) {
+      this.form.userType = target.value;
+    },
+    changeCompany({ target }) {
+      this.form.company = target.value;
+    },
     submit(form, id) {
       if (id) {
         this.updateUser({ id, form });
@@ -102,13 +118,13 @@ export default {
   },
   created() {
     var getUserById = this.$store.getters["users/userById"];
+
     this.readAllUserTypes();
     this.readAllCompanies();
-    if (this.id) {
-      this.form = getUserById(this.id);
-    } else {
-      this.form.name = this.user.name;
-    }
+
+    if (this.id) this.form = getUserById(parseInt(this.id));
+    if (!this.form.userType) this.form.userType = this.userTypes[0].id;
+    if (!this.form.company) this.form.company = this.companies[0].id;
   }
 };
 </script>

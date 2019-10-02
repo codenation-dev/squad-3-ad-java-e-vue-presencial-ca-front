@@ -10,8 +10,16 @@ const actions = {
   createUser({ commit }, form) {
     commit("CREATE_USER", form);
   },
-  updateUser({ commit }, data) {
-    commit("UPDATE_USER", data);
+  async updateUser({ commit }, user, id) {
+    const updateUrl = `${domain}/users`;
+
+    try {
+      const { data } = await axios.put(updateUrl, user, { data: user });
+
+      commit("UPDATE_USER", data, id);
+    } catch (error) {
+      return error;
+    }
   },
   async readLoggedUser({ commit }, id) {
     const getUserURL = `${domain}/users/${id}`;
@@ -56,9 +64,12 @@ const mutations = {
   READ_ALL_USER(state, data) {
     state.users = data;
   },
-  UPDATE_USER(/*state, data*/) {
-    //chamar api
-    alert("UPDATE_USER");
+  UPDATE_USER(state, data, id) {
+    state.users.filter(user => {
+      if (user.id === id) {
+        user = data;
+      }
+    });
   },
   DELETE_USER(/*state, id*/) {
     //chamar api

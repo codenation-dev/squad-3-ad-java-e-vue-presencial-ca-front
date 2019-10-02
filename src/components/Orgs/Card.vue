@@ -26,7 +26,7 @@ export default {
     },
     image: {
       type: String,
-      default: "@/logos/djavue.png"
+      default: null
     },
     subtitle: {
       type: String,

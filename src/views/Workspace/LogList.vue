@@ -339,11 +339,11 @@ export default {
       "updateToPreviousPage",
       "deleteLog"
     ]),
+    ...mapActions("users", ["readLoggedUser"]),
     ...mapActions("companies", ["readAllCompanies"]),
     ...mapActions("applications", ["readAllApplications"]),
     ...mapActions("serverOrigins", ["readAllServerOrigins"]),
     ...mapActions("levelLogs", ["loadAllLevelLogs"]),
-    ...mapActions("users", ["readCurrentUser"]),
     updateLiveLog(live, form) {
       if (!live) {
         this.readAllLogs(form);
@@ -357,7 +357,7 @@ export default {
     }
   },
   created() {
-    this.readCurrentUser(this.$route.params.currentUser);
+    this.readLoggedUser(this.$route.params.currentUser);
     this.readAllLogs();
     this.readAllCompanies();
     this.readAllApplications();

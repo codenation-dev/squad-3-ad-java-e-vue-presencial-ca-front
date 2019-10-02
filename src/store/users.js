@@ -13,13 +13,13 @@ const actions = {
   updateUser({ commit }, data) {
     commit("UPDATE_USER", data);
   },
-  async readCurrentUser({ commit }, id) {
+  async readLoggedUser({ commit }, id) {
     const getUserURL = `${domain}/users/${id}`;
 
     try {
       const { data } = await axios.get(getUserURL);
 
-      commit("SET_CURRENT_USER", data);
+      commit("SET_LOGGED_USER_INFO", data);
     } catch (error) {
       return error;
     }
@@ -46,8 +46,8 @@ const mutations = {
     //chamar api
     alert("CREATE_USER");
   },
-  SET_CURRENT_USER(/*state, user*/) {
-    // SET_CURRENT_USER
+  SET_LOGGED_USER_INFO(state, user) {
+    state.user = user;
   },
   READ_USER(/*state, id*/) {
     //chamar api
@@ -72,6 +72,9 @@ const getters = {
   },
   user(state) {
     return state.user;
+  },
+  userById: state => id => {
+    return state.users.find(user => user.id === id);
   }
 };
 

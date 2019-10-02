@@ -67,7 +67,9 @@ export default {
   data() {
     return {
       form: {
-        name: ""
+        name: "",
+        id: 0,
+        type: ""
       }
     };
   },
@@ -86,7 +88,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("users", ["createUser", "readUser", "updateUser"]),
+    ...mapActions("users", ["createUser", "updateUser"]),
     ...mapActions("userTypes", ["readAllUserTypes"]),
     ...mapActions("companies", ["readAllCompanies"]),
     submit(form, id) {
@@ -99,10 +101,13 @@ export default {
     }
   },
   created() {
+    var getUserById = this.$store.getters["users/userById"];
     this.readAllUserTypes();
     this.readAllCompanies();
     if (this.id) {
-      this.readUser(this.id);
+      this.form = getUserById(this.id);
+    } else {
+      this.form.name = this.user.name;
     }
   }
 };

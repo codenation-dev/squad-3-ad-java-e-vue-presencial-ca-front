@@ -7,8 +7,8 @@
       <input-form-vue
         id="name"
         label="Nome"
-        placeholder="João das Neves"
         :onInput="setName"
+        @onEnter="submit(form)"
       />
       <div
         v-if="
@@ -22,9 +22,9 @@
       <input-form-vue
         id="code"
         label="Código do usuário"
-        placeholder="jonsnow"
         :onInput="setCode"
         :onBlur="checkCode"
+        @onEnter="submit(form)"
       />
       <div v-if="$v.form.code.$dirty && $v.form.code.$invalid">
         <small v-if="userError" class="form-text text-danger">
@@ -42,8 +42,8 @@
       <input-form-vue
         id="email"
         label="E-mail"
-        placeholder="jon@stark.wf"
         :onInput="setEmail"
+        @onEnter="submit(form)"
       />
       <div
         v-if="
@@ -60,6 +60,7 @@
         label="Senha"
         autocomplete="new-password"
         :onInput="setPassword"
+        @onEnter="submit(form)"
       />
       <div v-if="$v.form.password.$dirty && $v.form.password.$invalid">
         <small v-if="!$v.form.password.minLength" class="form-text text-danger"
@@ -135,17 +136,19 @@ export default {
   methods: {
     ...mapActions("login", ["signup", "checkAvailability"]),
     async submit(form) {
-      this.isLoading = !this.isLoading;
-      this.signUpError = null;
-
-      try {
-        const status = await this.signup(form);
-
-        if (status === 200) this.$router.push("/login");
-      } catch ({ response }) {
-        this.signUpError = response.data.message;
-      } finally {
+      if (!this.$v.form.$invalid) {
         this.isLoading = !this.isLoading;
+        this.signUpError = null;
+
+        try {
+          const status = await this.signup(form);
+
+          if (status === 200) this.$router.push("/login");
+        } catch ({ response }) {
+          this.signUpError = response.data.message;
+        } finally {
+          this.isLoading = !this.isLoading;
+        }
       }
     },
     async checkCode(value) {

@@ -7,11 +7,18 @@
       </template>
       <template #actions>
         <card-delete-button @click="deleteCompany(company.id)" />
-        <card-edit-button name="company-edit" :params="{ id: company.id }" />
+        <card-edit-button
+          name="company-edit"
+          :params="{ id: `${company.id}` }"
+        />
         <card-add-button name="company-create" />
       </template>
       <template #body>
         <div class="row">
+          <div class="col-sm">
+            <b>Code:</b>
+            {{ company.code }}
+          </div>
           <div class="col-sm">
             <b>Nome:</b>
             {{ company.name }}

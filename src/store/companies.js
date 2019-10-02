@@ -3,59 +3,91 @@ import { domain } from "env";
 
 const state = {
   companies: [],
-  company: {}
+  company: {
+    code: "",
+    name: ""
+  }
 };
 
 const actions = {
-  createCompany({ commit }, form) {
-    commit("CREATE_COMPANY", form);
+  // eslint-disable-next-line no-unused-vars
+  async createCompany({ commit }, form) {
+    const getCompaniesURL = `${domain}/companies`;
+    let params = {
+      code: form.code,
+      name: form.name
+    };
+
+    try {
+      await axios.post(getCompaniesURL, params);
+    } catch (error) {
+      return error;
+    }
   },
-  updateCompany({ commit }, data) {
-    commit("UPDATE_COMPANY", data);
+  async readCompany({ commit }, id) {
+    const getCompaniesURL = `${domain}/companies/${id}`;
+
+    try {
+      const data = await axios.get(getCompaniesURL);
+      commit("READ_COMPANY", data);
+    } catch (error) {
+      return error;
+    }
   },
-  readCompany({ commit }, id) {
-    commit("READ_COMPANY", id);
+  // eslint-disable-next-line no-unused-vars
+  async updateCompany({ commit }, form) {
+    const getCompaniesURL = `${domain}/companies`;
+    let params = {
+      code: form.code,
+      name: form.name,
+      id: form.id
+    };
+
+    try {
+      await axios.put(getCompaniesURL, params);
+    } catch (error) {
+      return error;
+    }
+  },
+  updateNewCompany({ commit }) {
+    commit("UPDATE_NEW_COMPANY");
   },
   async readAllCompanies({ commit }) {
     const getCompaniesURL = `${domain}/companies`;
 
     try {
-      const { data } = await axios.get(getCompaniesURL);
+      const data = await axios.get(getCompaniesURL);
       commit("READ_ALL_COMPANY", data);
     } catch (error) {
       return error;
     }
   },
-  deleteCompany({ commit }, id) {
+  async deleteCompany({ commit }, id) {
     if (confirm("Confirmar exclusão?")) {
-      commit("DELETE_COMPANY", id);
+      const getCompaniesURL = `${domain}/companies/${id}`;
+
+      try {
+        const data = await axios.delete(getCompaniesURL);
+        commit("READ_COMPANY", data);
+      } catch (error) {
+        return error;
+      }
     }
   }
 };
 
 const mutations = {
-  CREATE_COMPANY(/*state, form*/) {
-    //chamar api
-    alert("CREATE_COMPANY");
+  READ_COMPANY(state, { data }) {
+    state.company = data;
   },
-  READ_COMPANY(/*state, id*/) {
-    //chamar api
-    alert("READ_COMPANY");
+  READ_ALL_COMPANY(state, { data }) {
+    state.companies = data;
   },
-  READ_ALL_COMPANY(state) {
-    state.companies = [
-      { id: "1", name: "Empresa 01" },
-      { id: "2", name: "Empresa 02" },
-      { id: "3", name: "Empresa 03" }
-    ];
-  },
-  UPDATE_COMPANY(/*state, data*/) {
-    //chamar api
-    alert("UPDATE_COMPANY");
-  },
-  DELETE_COMPANY(/*state, id*/) {
-    //chamar api
-    alert("DELETE_COMPANY");
+  UPDATE_NEW_COMPANY(state) {
+    state.company = {
+      code: "",
+      name: ""
+    };
   }
 };
 

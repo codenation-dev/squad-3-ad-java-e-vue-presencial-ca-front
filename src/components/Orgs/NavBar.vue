@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-light fixed-top">
     <router-link class="navbar-brand" :to="{ name: 'log-list' }">
       <img :src="require('@/logos/djavue.png')" width="50" height="50" alt />
-      <b>Djavue</b>
+      <b>DJAVUE</b>
     </router-link>
     <button
       class="navbar-toggler"

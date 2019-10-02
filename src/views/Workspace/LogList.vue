@@ -55,7 +55,7 @@
         </template>
         <template #footer>
           <div class="card-footer">
-            <b>Detalhes:</b>
+            <b>Descrição:</b>
             {{ log.details }}
           </div>
         </template>
@@ -186,7 +186,7 @@
           <input
             class="form-control mr-sm-2 form-control-sm"
             type="search"
-            placeholder="Buscar detalhes"
+            placeholder="Buscar descrição"
             aria-label="Search"
             v-model="form.details"
             v-on:keyup.enter="readAllLogs(form)"
@@ -240,22 +240,22 @@
               </a>
             </li>
             <li class="page-item" :class="{ active: pageNumber == 1 }">
-              <a class="page-link" href="#">{{
-                pageNumber - 1 > 0 ? pageNumber - 1 : 1
-              }}</a>
+              <a class="page-link" href="#">
+                {{ pageNumber - 1 > 0 ? pageNumber - 1 : 1 }}
+              </a>
             </li>
             <li
               class="page-item"
               :class="{ active: pageNumber > 1 && pageNumber < 3 }"
             >
-              <a class="page-link" href="#">{{
-                pageNumber > 1 ? pageNumber : 2
-              }}</a>
+              <a class="page-link" href="#">
+                {{ pageNumber > 1 ? pageNumber : 2 }}
+              </a>
             </li>
             <li class="page-item" :class="{ active: pageNumber > 2 }">
-              <a class="page-link" href="#">{{
-                pageNumber > 2 ? pageNumber + 1 : 3
-              }}</a>
+              <a class="page-link" href="#">
+                {{ pageNumber > 2 ? pageNumber + 1 : 3 }}
+              </a>
             </li>
             <li class="page-item">
               <a

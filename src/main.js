@@ -24,7 +24,8 @@ import {
   faBuilding,
   faDesktop,
   faBug,
-  faCode
+  faCode,
+  faArrowLeft
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -51,7 +52,8 @@ library.add(
   faBuilding,
   faDesktop,
   faBug,
-  faCode
+  faCode,
+  faArrowLeft
 );
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);

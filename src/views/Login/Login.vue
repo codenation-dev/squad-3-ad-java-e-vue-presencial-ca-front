@@ -21,6 +21,7 @@
         @onEnter="submit(form)"
       />
       <button-vue
+        class="login"
         :disabled="$v.form.$invalid"
         @click="submit(form)"
         text="Login"
@@ -129,5 +130,9 @@ form {
 
 .justify-content-around {
   padding: 10px;
+}
+
+.login {
+  margin-top: 36px;
 }
 </style>

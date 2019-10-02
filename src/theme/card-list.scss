@@ -1,0 +1,17 @@
+.card-list {
+  margin-bottom: 8px;
+}
+.card-list:hover {
+  border-color: #00005181;
+}
+.card-action-btn {
+  margin-left: 8px;
+}
+.card-action-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+}
+.card-action-btn-label {
+  padding-left: 4px;
+}

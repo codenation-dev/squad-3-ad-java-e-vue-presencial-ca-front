@@ -1,76 +1,63 @@
 <template>
   <section class="jumbotron main-section">
-    <div class="card">
+    <div
+      class="card card-list"
+      v-for="application in applications"
+      :key="application.id"
+    >
       <div class="card-header">
-        <font-awesome-icon icon="desktop" />
-        <b class="menu-text">Aplicações</b>
-      </div>
-      <div class="card-body">
-        <p class="card-text">
-          <RouterLink :to="{ name: 'application-create', params: { id: '' } }">
-            <font-awesome-icon icon="plus" />
-            <span style="padding-left: 4px;">Adicionar</span>
-          </RouterLink>
-        </p>
-        <div class="container">
+        <div class="w-100">
           <div class="row">
-            <div class="col-2">
-              <b>ID</b>
+            <div class="col-9">
+              <font-awesome-icon icon="desktop" />
+              <b class="menu-text">{{ application.id }}</b>
             </div>
-            <div class="col-6">
-              <b>Nome</b>
-            </div>
-            <div class="col-4">
-              <b>Ações</b>
-            </div>
-          </div>
-          <div
-            class="row"
-            v-for="application in applications"
-            :key="application.id"
-          >
-            <div class="col-2">{{ application.id }}</div>
-            <div class="col-6">{{ application.name }}</div>
-            <div class="col-4">
+            <div class="col-3 card-action-btn-group">
+              <a
+                class="icon-btn card-action-btn"
+                @click="deleteApplication(application.id)"
+                :title="`Excluir ${application.id}`"
+                href="#"
+              >
+                <font-awesome-icon icon="trash-alt" />
+                <span class="card-action-btn-label">Excluir</span>
+              </a>
               <RouterLink
-                class="icon-btn"
+                class="icon-btn card-action-btn"
                 :to="{
                   name: 'application-edit',
                   params: { id: application.id }
                 }"
-                tag="button"
                 :title="`Editar ${application.id}`"
               >
                 <font-awesome-icon icon="pencil-alt" />
-                <span style="padding-left: 4px;">Editar</span>
+                <span class="card-action-btn-label">Editar</span>
               </RouterLink>
-              <button
-                class="icon-btn"
-                @click="deleteApplication(application.id)"
-                :title="`Excluir ${application.id}`"
-              >
-                <font-awesome-icon icon="trash-alt" />
-                <span style="padding-left: 4px;">Excluir</span>
-              </button>
             </div>
           </div>
         </div>
-        <router-link
-          class="btn btn-secondary float-left back-btn"
-          :to="{ name: 'log-list' }"
-          tag="button"
-        >
-          <span>Voltar</span>
-        </router-link>
+      </div>
+      <div class="card-body">
+        <div class="w-100">
+          <div class="row">
+            <div class="col-sm">
+              <b>Nome:</b>
+              {{ application.name }}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    <BackToLogsButton />
   </section>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import BackToLogsButton from "@/components/Orgs/BackToLogsButton.vue";
 
 export default {
+  components: { BackToLogsButton },
   computed: {
     ...mapGetters("applications", ["applications"])
   },
@@ -82,25 +69,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.icon-btn {
-  background: none;
-  border: none;
-  color: var(--primary);
-}
-
-.back-btn {
-  margin-top: 20px;
-}
-
-.row {
-  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.row:hover {
-  background-color: #f2f2f2;
-}
-</style>

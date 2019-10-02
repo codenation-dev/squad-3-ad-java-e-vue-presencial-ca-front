@@ -4,8 +4,8 @@
       <div class="card card-list" v-for="log in logs" :key="log.id">
         <div class="card-header">
           <div class="w-100 text-left">
-            <div class="row justify-content-start">
-              <div class="col-9">
+            <div class="row">
+              <div class="col-8">
                 <font-awesome-icon icon="bug" />
                 <b class="menu-text">{{ log.createdAt }}:</b>
                 <b class="menu-text">{{ log.title }}</b>
@@ -21,17 +21,18 @@
                   >{{ log.levelLog }}</span
                 >
               </div>
-              <div class="col-3 text-right">
-                <RouterLink
-                  class="icon-btn"
-                  :to="{ name: 'log-view', params: { id: log.id } }"
-                  :title="`Visualizar ${log.id}`"
-                >
-                  <font-awesome-icon icon="eye" />
-                  <span class="menu-text">Visualizar</span>
-                </RouterLink>
+              <div class="col-4 card-action-btn-group">
                 <a
-                  class="icon-btn"
+                  class="icon-btn card-action-btn"
+                  @click="deleteLog(log.id)"
+                  :title="`Excluir ${log.id}`"
+                  href="#"
+                >
+                  <font-awesome-icon icon="trash-alt" />
+                  <span class="menu-text">Excluir</span>
+                </a>
+                <a
+                  class="icon-btn card-action-btn"
                   @click="updateLog(log.id)"
                   :title="`Arquivar ${log.id}`"
                   v-show="!log.toFile"
@@ -40,15 +41,14 @@
                   <font-awesome-icon icon="save" />
                   <span class="menu-text">Arquivar</span>
                 </a>
-                <a
-                  class="icon-btn"
-                  @click="deleteLog(log.id)"
-                  :title="`Excluir ${log.id}`"
-                  href="#"
+                <RouterLink
+                  class="icon-btn card-action-btn"
+                  :to="{ name: 'log-view', params: { id: log.id } }"
+                  :title="`Visualizar ${log.id}`"
                 >
-                  <font-awesome-icon icon="trash-alt" />
-                  <span class="menu-text">Excluir</span>
-                </a>
+                  <font-awesome-icon icon="eye" />
+                  <span class="menu-text">Visualizar</span>
+                </RouterLink>
               </div>
             </div>
           </div>
@@ -284,9 +284,9 @@
               </a>
             </li>
             <li class="page-item" :class="{ active: pageNumber > 2 }">
-              <a class="page-link" href="#">{{
-                pageNumber > 2 ? pageNumber + 1 : 3
-              }}</a>
+              <a class="page-link" href="#">
+                {{ pageNumber > 2 ? pageNumber + 1 : 3 }}
+              </a>
             </li>
             <li class="page-item">
               <a
@@ -368,25 +368,8 @@ export default {
 </script>
 
 <style scoped>
-.icon-btn {
-  background: none;
-  border: none;
-  color: var(--primary);
-}
-
-.back-btn {
-  margin-top: 20px;
-}
-
 .nav-bg-color {
   background-color: var(--secondary);
-}
-
-.card-list {
-  margin-bottom: 8px;
-}
-.card-list:hover {
-  border-color: #00005181;
 }
 
 .dropup-filter-menu {

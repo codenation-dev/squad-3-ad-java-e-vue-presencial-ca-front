@@ -1,5 +1,5 @@
 <template>
-  <section class="jumbotron main-section">
+  <section class="main-section">
     <card-list v-for="application in applications" :key="application.id">
       <template v-slot:title>
         <font-awesome-icon icon="desktop" />
@@ -11,6 +11,7 @@
           name="application-edit"
           :params="{ id: application.id }"
         />
+        <card-add-button name="application-create" />
       </template>
       <template v-slot:body>
         <div class="row">
@@ -31,9 +32,16 @@ import BackToLogsButton from "@/components/Orgs/BackToLogsButton.vue";
 import CardList from "@/components/Orgs/CardList.vue";
 import CardDeleteButton from "@/components/Orgs/CardDeleteButton.vue";
 import CardEditButton from "@/components/Orgs/CardEditButton.vue";
+import CardAddButton from "@/components/Orgs/CardAddButton.vue";
 
 export default {
-  components: { CardList, CardEditButton, CardDeleteButton, BackToLogsButton },
+  components: {
+    CardList,
+    CardEditButton,
+    CardDeleteButton,
+    CardAddButton,
+    BackToLogsButton
+  },
   computed: {
     ...mapGetters("applications", ["applications"])
   },

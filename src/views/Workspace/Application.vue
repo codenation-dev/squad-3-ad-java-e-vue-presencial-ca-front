@@ -1,5 +1,5 @@
 <template>
-  <section class="jumbotron main-section">
+  <section class="main-section">
     <div class="card">
       <div class="card-header">
         <font-awesome-icon icon="desktop" />

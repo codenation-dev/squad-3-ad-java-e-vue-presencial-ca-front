@@ -52,6 +52,7 @@ body,
 }
 
 .main-section {
+  @extend .jumbotron;
   padding-top: 100px;
   padding-bottom: 50px;
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label-vue :for="id" :text="label" />
+    <label-vue v-if="label" :for="id" :text="label" />
     <input-vue
       :id="id"
       :type="type"

@@ -10,6 +10,7 @@
         placeholder
         label="Usuário"
         icon="user"
+        @onEnter="submit(form)"
       />
       <input-form-vue
         id="password"
@@ -19,16 +20,6 @@
         icon="key"
         @onEnter="submit(form)"
       />
-      <div class="d-flex justify-content-around">
-        <checkbox-vue
-          id="keepConnected"
-          @onChange="setKeepConnected"
-          label="Manter conectado"
-        ></checkbox-vue>
-        <router-link :to="{ name: 'forgotPassword' }"
-          >Esqueceu sua senha?</router-link
-        >
-      </div>
       <button-vue
         :disabled="$v.form.$invalid"
         @click="submit(form)"
@@ -50,7 +41,6 @@ colocar botão voltar para cadastro sem fundo com hover
 import { mapActions } from "vuex";
 import { required } from "vuelidate/lib/validators";
 
-import CheckboxVue from "@/components/Atoms/Checkbox.vue";
 import CardVue from "@/components/Orgs/Card.vue";
 import InputFormVue from "@/components/Mols/InputForm.vue";
 import ButtonVue from "@/components/Atoms/Button.vue";
@@ -85,26 +75,28 @@ export default {
     ...mapActions("login", ["login"]),
     ...mapActions("workspace", ["showToolbar", "hideToolbar"]),
     async submit(form) {
-      this.isLoading = !this.isLoading;
-
-      try {
-        const res = await this.login(form);
-
-        this.error = null;
-
-        if (res && res.isAxiosError) {
-          this.error = "Usuário e/ou senha inválido(s)";
-        } else {
-          this.$router.push({
-            name: "log-list",
-            params: { currentUser: form.username }
-          });
-          this.showToolbar();
-        }
-      } catch ({ response }) {
-        this.error = response.data.message || response.data.errors;
-      } finally {
+      if (!this.$v.form.$invalid) {
         this.isLoading = !this.isLoading;
+
+        try {
+          const res = await this.login(form);
+
+          this.error = null;
+
+          if (res && res.isAxiosError) {
+            this.error = "Usuário e/ou senha inválido(s)";
+          } else {
+            this.$router.push({
+              name: "log-list",
+              params: { currentUser: form.username }
+            });
+            this.showToolbar();
+          }
+        } catch ({ response }) {
+          this.error = response.data.message || response.data.errors;
+        } finally {
+          this.isLoading = !this.isLoading;
+        }
       }
     },
     setUsername(value) {
@@ -121,7 +113,6 @@ export default {
     this.hideToolbar();
   },
   components: {
-    CheckboxVue,
     CardVue,
     InputFormVue,
     ButtonVue,

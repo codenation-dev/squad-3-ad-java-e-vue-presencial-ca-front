@@ -82,7 +82,7 @@
         >
           <router-link
             class="dropdown-item"
-            :to="{ name: 'user-edit', params: { id: 'logged' } }"
+            :to="{ name: 'user-edit', params: { id: user.id } }"
           >
             <font-awesome-icon icon="user" />
             <span class="menu-text">Perfil</span>

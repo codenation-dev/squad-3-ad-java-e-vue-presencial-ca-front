@@ -6,26 +6,11 @@
         <b class="menu-text">{{ application.id }}</b>
       </template>
       <template v-slot:actions>
-        <a
-          class="icon-btn card-action-btn"
-          @click="deleteApplication(application.id)"
-          :title="`Excluir ${application.id}`"
-          href="#"
-        >
-          <font-awesome-icon icon="trash-alt" />
-          <span class="card-action-btn-label">Excluir</span>
-        </a>
-        <RouterLink
-          class="icon-btn card-action-btn"
-          :to="{
-            name: 'application-edit',
-            params: { id: application.id }
-          }"
-          :title="`Editar ${application.id}`"
-        >
-          <font-awesome-icon icon="pencil-alt" />
-          <span class="card-action-btn-label">Editar</span>
-        </RouterLink>
+        <card-delete-button @click="deleteApplication(application.id)" />
+        <card-edit-button
+          name="application-edit"
+          :params="{ id: application.id }"
+        />
       </template>
       <template v-slot:body>
         <div class="row">
@@ -44,9 +29,11 @@
 import { mapActions, mapGetters } from "vuex";
 import BackToLogsButton from "@/components/Orgs/BackToLogsButton.vue";
 import CardList from "@/components/Orgs/CardList.vue";
+import CardDeleteButton from "@/components/Orgs/CardDeleteButton.vue";
+import CardEditButton from "@/components/Orgs/CardEditButton.vue";
 
 export default {
-  components: { CardList, BackToLogsButton },
+  components: { CardList, CardEditButton, CardDeleteButton, BackToLogsButton },
   computed: {
     ...mapGetters("applications", ["applications"])
   },

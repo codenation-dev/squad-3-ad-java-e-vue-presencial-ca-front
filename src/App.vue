@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav-bar v-show="toolbar" />
+    <nav-bar v-show="toolbar" :user="user" />
     <transition name="fade">
       <router-view v-if="show"></router-view>
     </transition>
@@ -23,7 +23,8 @@ export default {
     this.show = true;
   },
   computed: {
-    ...mapGetters("workspace", ["toolbar"])
+    ...mapGetters("workspace", ["toolbar"]),
+    ...mapGetters("users", ["user"])
   },
   components: {
     NavBar

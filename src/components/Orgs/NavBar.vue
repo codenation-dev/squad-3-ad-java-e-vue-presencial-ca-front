@@ -74,7 +74,7 @@
           aria-haspopup="true"
           aria-expanded="false"
         >
-          <span>**username</span>
+          <span>{{ user.code }}</span>
         </a>
         <div
           class="dropdown-menu dropdown-menu-right"
@@ -105,6 +105,9 @@
 import { mapActions } from "vuex";
 
 export default {
+  props: {
+    user: {}
+  },
   methods: {
     ...mapActions("workspace", ["logout"])
   }

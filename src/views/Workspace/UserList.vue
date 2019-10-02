@@ -1,16 +1,16 @@
 <template>
   <section class="main-section">
     <card-list v-for="user in users" :key="user.id">
-      <template v-slot:title>
+      <template #title>
         <font-awesome-icon icon="user" />
         <b class="menu-text">{{ user.code }}</b>
       </template>
-      <template v-slot:actions>
+      <template #actions>
         <card-delete-button @click="deleteUser(user.id)" />
         <card-edit-button name="user-edit" :params="{ id: user.id }" />
         <card-add-button name="user-create" />
       </template>
-      <template v-slot:body>
+      <template #body>
         <div class="row">
           <div class="col-sm">
             <b>Nome:</b>

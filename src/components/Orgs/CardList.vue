@@ -17,5 +17,6 @@
         <slot name="body" />
       </div>
     </div>
+    <slot name="footer" />
   </div>
 </template>

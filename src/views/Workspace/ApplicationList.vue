@@ -1,11 +1,11 @@
 <template>
   <section class="main-section">
     <card-list v-for="application in applications" :key="application.id">
-      <template v-slot:title>
+      <template #title>
         <font-awesome-icon icon="desktop" />
         <b class="menu-text">{{ application.id }}</b>
       </template>
-      <template v-slot:actions>
+      <template #actions>
         <card-delete-button @click="deleteApplication(application.id)" />
         <card-edit-button
           name="application-edit"
@@ -13,7 +13,7 @@
         />
         <card-add-button name="application-create" />
       </template>
-      <template v-slot:body>
+      <template #body>
         <div class="row">
           <div class="col-sm">
             <b>Nome:</b>

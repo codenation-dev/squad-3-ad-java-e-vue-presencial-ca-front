@@ -1,11 +1,11 @@
 <template>
   <section class="main-section">
     <card-list v-for="logSource in logSources" :key="logSource.id">
-      <template v-slot:title>
+      <template #title>
         <font-awesome-icon icon="code" />
         <b class="menu-text">{{ logSource.id }}</b>
       </template>
-      <template v-slot:actions>
+      <template #actions>
         <card-delete-button @click="deleteLogSource(logSource.id)" />
         <card-edit-button
           name="log-source-edit"
@@ -13,7 +13,7 @@
         />
         <card-add-button name="log-source-create" />
       </template>
-      <template v-slot:body>
+      <template #body>
         <div class="row">
           <div class="col-sm">
             <b>Nome:</b>

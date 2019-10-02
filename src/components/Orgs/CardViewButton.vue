@@ -5,10 +5,10 @@
       name,
       params
     }"
-    title="Editar"
+    title="Visualizar"
   >
-    <font-awesome-icon icon="pencil-alt" />
-    <span class="card-action-btn-label">Editar</span>
+    <font-awesome-icon icon="eye" />
+    <span class="menu-text">Visualizar</span>
   </RouterLink>
 </template>
 <script>

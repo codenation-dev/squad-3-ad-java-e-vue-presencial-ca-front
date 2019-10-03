@@ -34,9 +34,9 @@ const mutations = {
   },
   READ_ALL_LOG_SOURCE(state) {
     state.logSources = state.logSources = [
-      { id: "idlogsource01", name: "nmlogsource01" },
-      { id: "idlogsource02", name: "nmlogsource02" },
-      { id: "idlogsource03", name: "nmlogsource03" }
+      { id: "DB", name: "banco de dados" },
+      { id: "BE", name: "back-end" },
+      { id: "FE", name: "front-end" }
     ];
   },
   UPDATE_LOG_SOURCE(/*state, data*/) {

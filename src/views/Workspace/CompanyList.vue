@@ -3,21 +3,14 @@
     <card-list v-for="company in companies" :key="company.id">
       <template #title>
         <font-awesome-icon icon="building" />
-        <b class="menu-text">{{ company.id }}</b>
+        <b class="menu-text">{{ company.code }}</b>
       </template>
       <template #actions>
         <card-delete-button @click="deleteCompany(company.id)" />
-        <card-edit-button
-          name="company-edit"
-          :params="{ id: `${company.id}` }"
-        />
+        <card-edit-button name="company-edit" :params="{ id: `${company.id}` }" />
       </template>
       <template #body>
         <div class="row">
-          <div class="col-sm">
-            <b>Code:</b>
-            {{ company.code }}
-          </div>
           <div class="col-sm">
             <b>Nome:</b>
             {{ company.name }}

@@ -11,7 +11,6 @@
           name="application-edit"
           :params="{ id: application.id }"
         />
-        <card-add-button name="application-create" />
       </template>
       <template #body>
         <div class="row">
@@ -19,10 +18,15 @@
             <b>Nome:</b>
             {{ application.name }}
           </div>
+          <div class="col-sm">
+            <b>Empresa:</b>
+            Empresa
+          </div>
         </div>
       </template>
     </card-list>
     <BackToLogsButton />
+    <card-add-button name="application-create" />
   </section>
 </template>
 

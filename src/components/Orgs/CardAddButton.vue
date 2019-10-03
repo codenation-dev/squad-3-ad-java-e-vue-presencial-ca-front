@@ -1,14 +1,14 @@
 <template>
   <RouterLink
-    class="icon-btn card-action-btn"
+    class="btn btn-success float-right"
     :to="{
       name,
       params: { id: '' }
     }"
     title="Adicionar"
+    tag="button"
   >
-    <font-awesome-icon icon="plus" />
-    <span class="card-action-btn-label">Adicionar</span>
+    <font-awesome-icon icon="plus" />Adicionar
   </RouterLink>
 </template>
 <script>
@@ -18,3 +18,9 @@ export default {
   }
 };
 </script>
+<style scoped>
+svg {
+  margin-bottom: 4px;
+  margin-right: 4px;
+}
+</style>

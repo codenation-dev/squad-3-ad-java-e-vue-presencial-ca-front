@@ -8,7 +8,6 @@
       <template #actions>
         <card-delete-button @click="deleteUser(user.id)" />
         <card-edit-button name="user-edit" :params="{ id: user.id }" />
-        <card-add-button name="user-create" />
       </template>
       <template #body>
         <div class="row">
@@ -28,6 +27,7 @@
       </template>
     </card-list>
     <BackToLogsButton />
+    <card-add-button name="user-create" />
   </section>
 </template>
 

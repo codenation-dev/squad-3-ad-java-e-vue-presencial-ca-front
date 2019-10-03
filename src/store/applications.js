@@ -35,29 +35,17 @@ const actions = {
 };
 
 const mutations = {
-  CREATE_APPLICATION(/*state, form*/) {
-    //chamar api
-    alert("CREATE_APPLICATION");
-  },
-  READ_APPLICATION(/*state, id*/) {
-    //chamar api
-    alert("READ_APPLICATION");
-  },
+  CREATE_APPLICATION(/*state, form*/) {},
+  READ_APPLICATION(/*state, id*/) {},
   READ_ALL_APPLICATION(state) {
     state.applications = [
-      { id: "1", name: "nmapplications01" },
-      { id: "2", name: "nmapplications02" },
-      { id: "3", name: "nmapplications03" }
+      { id: "site", name: "site da empresa" },
+      { id: "sistema", name: "gerenciador de logs" },
+      { id: "RH", name: "recursos humanos" }
     ];
   },
-  UPDATE_APPLICATION(/*state, data*/) {
-    //chamar api
-    alert("UPDATE_APPLICATION");
-  },
-  DELETE_APPLICATION(/*state, id*/) {
-    //chamar api
-    alert("DELETE_APPLICATION");
-  }
+  UPDATE_APPLICATION(/*state, data*/) {},
+  DELETE_APPLICATION(/*state, id*/) {}
 };
 
 const getters = {

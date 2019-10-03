@@ -11,7 +11,6 @@
           name="log-source-edit"
           :params="{ id: logSource.id }"
         />
-        <card-add-button name="log-source-create" />
       </template>
       <template #body>
         <div class="row">
@@ -19,10 +18,19 @@
             <b>Nome:</b>
             {{ logSource.name }}
           </div>
+          <div class="col-sm">
+            <b>Empresa:</b>
+            Empresa
+          </div>
+          <div class="col-sm">
+            <b>Aplicação:</b>
+            Aplicação
+          </div>
         </div>
       </template>
     </card-list>
     <BackToLogsButton />
+    <card-add-button name="log-source-create" />
   </section>
 </template>
 

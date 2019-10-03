@@ -11,7 +11,6 @@
           name="company-edit"
           :params="{ id: `${company.id}` }"
         />
-        <card-add-button name="company-create" />
       </template>
       <template #body>
         <div class="row">
@@ -27,6 +26,7 @@
       </template>
     </card-list>
     <BackToLogsButton />
+    <card-add-button name="company-create" />
   </section>
 </template>
 

@@ -12,23 +12,23 @@ const state = {
 const actions = {
   // eslint-disable-next-line no-unused-vars
   async createCompany({ commit }, form) {
-    const getCompaniesURL = `${domain}/companies`;
+    const apiURL = `${domain}/companies`;
     let params = {
       code: form.code,
       name: form.name
     };
 
     try {
-      await axios.post(getCompaniesURL, params);
+      await axios.post(apiURL, params);
     } catch (error) {
       return error;
     }
   },
   async readCompany({ commit }, id) {
-    const getCompaniesURL = `${domain}/companies/${id}`;
+    const apiURL = `${domain}/companies/${id}`;
 
     try {
-      const data = await axios.get(getCompaniesURL);
+      const data = await axios.get(apiURL);
       commit("READ_COMPANY", data);
     } catch (error) {
       return error;
@@ -36,7 +36,7 @@ const actions = {
   },
   // eslint-disable-next-line no-unused-vars
   async updateCompany({ commit }, form) {
-    const getCompaniesURL = `${domain}/companies`;
+    const apiURL = `${domain}/companies`;
     let params = {
       code: form.code,
       name: form.name,
@@ -44,7 +44,7 @@ const actions = {
     };
 
     try {
-      await axios.put(getCompaniesURL, params);
+      await axios.put(apiURL, params);
     } catch (error) {
       return error;
     }
@@ -53,22 +53,22 @@ const actions = {
     commit("UPDATE_NEW_COMPANY");
   },
   async readAllCompanies({ commit }) {
-    const getCompaniesURL = `${domain}/companies`;
+    const apiURL = `${domain}/companies`;
 
     try {
-      const data = await axios.get(getCompaniesURL);
+      const data = await axios.get(apiURL);
       commit("READ_ALL_COMPANY", data);
     } catch (error) {
       return error;
     }
   },
+  // eslint-disable-next-line no-unused-vars
   async deleteCompany({ commit }, id) {
     if (confirm("Confirmar exclusão?")) {
-      const getCompaniesURL = `${domain}/companies/${id}`;
+      const apiURL = `${domain}/companies/${id}`;
 
       try {
-        const data = await axios.delete(getCompaniesURL);
-        commit("READ_COMPANY", data);
+        await axios.delete(apiURL);
       } catch (error) {
         return error;
       }

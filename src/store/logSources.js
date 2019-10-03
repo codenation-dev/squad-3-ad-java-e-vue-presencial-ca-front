@@ -24,14 +24,8 @@ const actions = {
 };
 
 const mutations = {
-  CREATE_LOG_SOURCE(/*state, form*/) {
-    //chamar api
-    alert("CREATE_LOG_SOURCE");
-  },
-  READ_LOG_SOURCE(/*state, id*/) {
-    //chamar api
-    alert("READ_LOG_SOURCE");
-  },
+  CREATE_LOG_SOURCE(/*state, form*/) {},
+  READ_LOG_SOURCE(/*state, id*/) {},
   READ_ALL_LOG_SOURCE(state) {
     state.logSources = state.logSources = [
       { id: "DB", name: "banco de dados" },
@@ -39,14 +33,8 @@ const mutations = {
       { id: "FE", name: "front-end" }
     ];
   },
-  UPDATE_LOG_SOURCE(/*state, data*/) {
-    //chamar api
-    alert("UPDATE_LOG_SOURCE");
-  },
-  DELETE_LOG_SOURCE(/*state, id*/) {
-    //chamar api
-    alert("DELETE_LOG_SOURCE");
-  }
+  UPDATE_LOG_SOURCE(/*state, data*/) {},
+  DELETE_LOG_SOURCE(/*state, id*/) {}
 };
 
 const getters = {

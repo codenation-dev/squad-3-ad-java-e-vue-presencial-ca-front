@@ -42,10 +42,6 @@
               <font-awesome-icon icon="building" />
               <span class="menu-text">Empresa</span>
             </router-link>
-            <router-link class="dropdown-item" :to="{ name: 'user-list' }">
-              <font-awesome-icon icon="user" />
-              <span class="menu-text">Usuário</span>
-            </router-link>
             <router-link
               class="dropdown-item"
               :to="{ name: 'application-list' }"
@@ -59,6 +55,10 @@
             >
               <font-awesome-icon icon="code" />
               <span class="menu-text">Fonte de logs</span>
+            </router-link>
+            <router-link class="dropdown-item" :to="{ name: 'user-list' }">
+              <font-awesome-icon icon="user" />
+              <span class="menu-text">Usuário</span>
             </router-link>
           </div>
         </li>

@@ -18,6 +18,10 @@
             <b>Nome:</b>
             {{ application.name }}
           </div>
+          <div class="col-sm">
+            <b>Empresa:</b>
+            Empresa
+          </div>
         </div>
       </template>
     </card-list>

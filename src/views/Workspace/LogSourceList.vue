@@ -18,6 +18,14 @@
             <b>Nome:</b>
             {{ logSource.name }}
           </div>
+          <div class="col-sm">
+            <b>Empresa:</b>
+            Empresa
+          </div>
+          <div class="col-sm">
+            <b>Aplicação:</b>
+            Aplicação
+          </div>
         </div>
       </template>
     </card-list>

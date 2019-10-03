@@ -23,7 +23,6 @@ const actions = {
         origin: form.serverOrigin ? form.serverOrigin : "",
         levelLog: form.levelLog ? form.levelLog : "",
         orderBy: form.orderBy ? form.orderBy : "",
-        //toFile: !(form.toFile.length > 0),
         details: form.details ? form.details : "",
         page: state.pageNumber
       };
@@ -62,9 +61,7 @@ const actions = {
 };
 
 const mutations = {
-  READ_LOG(/*state, id*/) {
-    alert("READ_LOG");
-  },
+  READ_LOG(/*state, id*/) {},
   READ_ALL_LOG(state, data) {
     state.logs = data.content;
     state.pageNumber = data.number;
@@ -78,9 +75,7 @@ const mutations = {
       state.pageNumber = state.pageNumber + pages;
     }
   },
-  DELETE_LOG(/*state, id*/) {
-    alert("DELETE_LOG");
-  }
+  DELETE_LOG(/*state, id*/) {}
 };
 
 const getters = {

@@ -159,8 +159,8 @@
                   v-model="form.orderBy"
                   @change="readAllLogs(form)"
                 >
-                  <option>createdAt</option>
-                  <option>levelLog</option>
+                  <option value="createdAt">Data</option>
+                  <option value="levelLog">Level</option>
                 </select>
               </div>
               <div class="form-group">
@@ -240,22 +240,22 @@
               </a>
             </li>
             <li class="page-item" :class="{ active: pageNumber == 1 }">
-              <a class="page-link" href="#">{{
-                pageNumber - 1 > 0 ? pageNumber - 1 : 1
-              }}</a>
+              <a class="page-link" href="#">
+                {{ pageNumber - 1 > 0 ? pageNumber - 1 : 1 }}
+              </a>
             </li>
             <li
               class="page-item"
               :class="{ active: pageNumber > 1 && pageNumber < 3 }"
             >
-              <a class="page-link" href="#">{{
-                pageNumber > 1 ? pageNumber : 2
-              }}</a>
+              <a class="page-link" href="#">
+                {{ pageNumber > 1 ? pageNumber : 2 }}
+              </a>
             </li>
             <li class="page-item" :class="{ active: pageNumber > 2 }">
-              <a class="page-link" href="#">{{
-                pageNumber > 2 ? pageNumber + 1 : 3
-              }}</a>
+              <a class="page-link" href="#">
+                {{ pageNumber > 2 ? pageNumber + 1 : 3 }}
+              </a>
             </li>
             <li class="page-item">
               <a

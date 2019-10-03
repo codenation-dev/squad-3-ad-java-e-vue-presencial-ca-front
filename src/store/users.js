@@ -50,17 +50,11 @@ const actions = {
 };
 
 const mutations = {
-  CREATE_USER(/*state, form*/) {
-    //chamar api
-    alert("CREATE_USER");
-  },
+  CREATE_USER(/*state, form*/) {},
   SET_LOGGED_USER_INFO(state, user) {
     state.user = user;
   },
-  READ_USER(/*state, id*/) {
-    //chamar api
-    alert("READ_USER");
-  },
+  READ_USER(/*state, id*/) {},
   READ_ALL_USER(state, data) {
     state.users = data;
   },
@@ -71,10 +65,7 @@ const mutations = {
       }
     });
   },
-  DELETE_USER(/*state, id*/) {
-    //chamar api
-    alert("DELETE_USER");
-  }
+  DELETE_USER(/*state, id*/) {}
 };
 
 const getters = {

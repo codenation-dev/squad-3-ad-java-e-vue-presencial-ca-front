@@ -10,13 +10,13 @@ const actions = {
   createUser({ commit }, form) {
     commit("CREATE_USER", form);
   },
-  async updateUser({ commit }, user, id) {
+  async updateUser({ commit }, user) {
     const updateUrl = `${domain}/users`;
 
     try {
-      const { data } = await axios.put(updateUrl, user, { data: user });
+      const { data } = await axios.put(updateUrl, user);
 
-      commit("UPDATE_USER", data, id);
+      commit("UPDATE_USER", data);
     } catch (error) {
       return error;
     }
@@ -28,6 +28,16 @@ const actions = {
       const { data } = await axios.get(getUserURL);
 
       commit("SET_LOGGED_USER_INFO", data);
+    } catch (error) {
+      return error;
+    }
+  },
+  async readUser({ commit }, id) {
+    const getUsersURL = `${domain}/users/${id}`;
+
+    try {
+      const data = await axios.get(getUsersURL);
+      commit("READ_USER", data);
     } catch (error) {
       return error;
     }
@@ -64,9 +74,11 @@ const mutations = {
   READ_ALL_USER(state, data) {
     state.users = data;
   },
-  UPDATE_USER(state, data, id) {
+  UPDATE_USER(state, data) {
+    const userId = data.id;
+
     state.users.filter(user => {
-      if (user.id === id) {
+      if (user.id === userId) {
         user = data;
       }
     });

@@ -6,6 +6,9 @@
 }
 .card-action-btn {
   margin-left: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center !important;
 }
 .card-action-btn-group {
   display: flex;
@@ -14,4 +17,11 @@
 }
 .card-action-btn-label {
   padding-left: 4px;
+}
+.card-top-options {
+  justify-content: space-between;
+  margin: 0 0.1rem 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }

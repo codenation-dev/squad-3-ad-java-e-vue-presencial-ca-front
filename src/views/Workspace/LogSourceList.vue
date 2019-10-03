@@ -1,5 +1,9 @@
 <template>
   <section class="main-section">
+    <div class="card-top-options">
+      <BackToLogsButton />
+      <card-add-button name="log-source-create" />
+    </div>
     <card-list v-for="logSource in logSources" :key="logSource.id">
       <template #title>
         <font-awesome-icon icon="code" />
@@ -11,7 +15,6 @@
           name="log-source-edit"
           :params="{ id: logSource.id }"
         />
-        <card-add-button name="log-source-create" />
       </template>
       <template #body>
         <div class="row">
@@ -22,7 +25,6 @@
         </div>
       </template>
     </card-list>
-    <BackToLogsButton />
   </section>
 </template>
 

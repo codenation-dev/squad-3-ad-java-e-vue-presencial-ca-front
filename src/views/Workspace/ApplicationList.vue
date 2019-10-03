@@ -1,5 +1,9 @@
 <template>
   <section class="main-section">
+    <div class="card-top-options">
+      <BackToLogsButton />
+      <card-add-button name="application-create" />
+    </div>
     <card-list v-for="application in applications" :key="application.id">
       <template #title>
         <font-awesome-icon icon="desktop" />
@@ -11,7 +15,6 @@
           name="application-edit"
           :params="{ id: application.id }"
         />
-        <card-add-button name="application-create" />
       </template>
       <template #body>
         <div class="row">
@@ -22,7 +25,6 @@
         </div>
       </template>
     </card-list>
-    <BackToLogsButton />
   </section>
 </template>
 

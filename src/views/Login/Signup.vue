@@ -35,6 +35,9 @@
           class="form-text text-danger"
           >Código do usuário é obrigatório</small
         >
+        <small v-else-if="!$v.form.code.regex" class="form-text text-danger"
+          >Código do usuário contém caracter inválido</small
+        >
       </div>
       <small v-else-if="userOK && !userError" class="form-text text-success">
         {{ userOK }}

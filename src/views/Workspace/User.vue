@@ -29,7 +29,7 @@
               <option
                 v-for="company in companies"
                 :key="company.id"
-                :value="company.id"
+                :value="company.name"
               >
                 <span>{{ company.name }}</span>
               </option>
@@ -46,7 +46,7 @@
               <option
                 v-for="type in userTypes"
                 :key="type.id"
-                :value="type.id"
+                :value="type.name"
                 >{{ type.name }}</option
               >
             </select>
@@ -109,20 +109,31 @@ export default {
     },
     submit(form, id) {
       if (id) {
-        this.updateUser({ id, form });
+        this.updateUser({ ...form, id });
       } else {
-        this.createUser({ id, form });
+        this.createUser({ ...form });
       }
       router.push({ name: "user-list" });
     }
   },
   created() {
-    var getUserById = this.$store.getters["users/userById"];
+    var getUserById = this.$store.getters["users/userById"],
+      user = getUserById(parseInt(this.id)),
+      currentUser = this.user;
 
     this.readAllUserTypes();
     this.readAllCompanies();
 
-    if (this.id) this.form = getUserById(parseInt(this.id));
+    if (user) {
+      this.form.company = user.company;
+      this.form.name = user.name;
+      this.form.userType = user.userType;
+    } else if (currentUser) {
+      this.form.company = currentUser.company;
+      this.form.name = currentUser.name;
+      this.form.userType = currentUser.userType;
+    }
+
     if (!this.form.userType) this.form.userType = this.userTypes[0].id;
     if (!this.form.company) this.form.company = this.companies[0].id;
   }

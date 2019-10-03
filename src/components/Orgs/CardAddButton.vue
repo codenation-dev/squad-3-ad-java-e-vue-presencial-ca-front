@@ -1,6 +1,7 @@
 <template>
   <RouterLink
-    class="icon-btn card-action-btn"
+    tag="button"
+    class="btn btn-outline-secondary icon-btn card-action-btn"
     :to="{
       name,
       params: { id: '' }

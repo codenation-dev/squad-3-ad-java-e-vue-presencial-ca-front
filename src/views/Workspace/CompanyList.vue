@@ -1,5 +1,9 @@
 <template>
   <section class="main-section">
+    <div class="card-top-options">
+      <BackToLogsButton />
+      <card-add-button name="company-create" />
+    </div>
     <card-list v-for="company in companies" :key="company.id">
       <template #title>
         <font-awesome-icon icon="building" />
@@ -11,7 +15,6 @@
           name="company-edit"
           :params="{ id: `${company.id}` }"
         />
-        <card-add-button name="company-create" />
       </template>
       <template #body>
         <div class="row">
@@ -26,7 +29,6 @@
         </div>
       </template>
     </card-list>
-    <BackToLogsButton />
   </section>
 </template>
 
